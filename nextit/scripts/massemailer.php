@@ -1,6 +1,4 @@
 <?php
-// By: NeXt I.T. - Mbitson
-// Updated: 4/11/2014
 // =================== CONFIGURATION ===================
 // Set the template ID equal to the ID of the
 // transaction email template within Magento.
