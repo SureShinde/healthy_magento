@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+
+    <sales>
+        <shipping>
+            <carriers>
+                <parcelforce>
+                    <class>Nick_Shipping_Model_Carrier_Title</class>
+                </parcelforce>
+            </carriers>
+        </shipping>
+    </sales>
+
+    <default>
+        <carriers>
+            <!-- Use group alias -->
+            <parcelforce>
+                <model>Nick_Shipping_Model_Carrier_Custom</model>
+                <gateway_url>http://www.parcelforce.com/portal/pw/track?trackNumber=</gateway_url>
+                <title>Parcelforce</title>
+            </parcelforce>
+        </carriers>
+    </default>
+
+    <modules>
+        <!-- declare module's version information -->
+        <!-- Use module name_Shipping -->
+        <Nick_Shipping>
+            <!-- this version number will be used for database upgrades -->
+            <version>0.1.0</version>
+        <!-- Use module name_Shipping -->
+        </Nick_Shipping>
+    </modules>
+
+    <global>
+        <!-- declare model group for new module -->
+        <models>
+            <parcelforce>
+                <class>Nick_Shipping_Model</class>
+            </parcelforce>
+        </models>
+        <!-- declare resource setup for new module -->
+    </global>
+</config>

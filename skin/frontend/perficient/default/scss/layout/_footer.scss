@@ -1,0 +1,584 @@
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/* ============================================ *
+ * Footer
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Footer
+ */
+
+.footer,
+.footer button {
+    font-family: $f-stack-sans;
+}
+
+.footer {
+    clear: both;
+    width: 100%;
+    background: $c-light-gray;
+
+    .footer-wrapper {
+      max-width: $max-content-width + $trim + $trim;
+      margin: 0 auto;
+      padding: 40px 25px 50px 25px;
+      overflow: hidden;
+    }
+
+    .gri-icon{
+      display: none;
+    }
+
+    .block-title {
+        border-bottom: 0;
+        padding: 3px 0;
+    }
+
+    .block-title strong {
+        font-weight: normal;
+    }
+
+    .block-title,
+    address {
+        color: $c-text-primary;
+    }
+
+    .links {
+        float: left;
+        width: 17%;
+        padding: 0 $trim 0 0;
+        margin-bottom: $trim;
+
+        li {
+            word-break: break-all;
+            line-height: 1.4;
+            padding: 4px 0;
+        }
+
+        a {
+            color: $c-text;
+            &:hover {
+                color: $c-action;
+            }
+        }
+    }
+
+    .block-subscribe {
+        width: $one;
+        margin-bottom: 0;
+        background: $c-yellow;
+        color: $c-text-white;
+
+        .subscribe-container {
+          max-width: $max-content-width + $trim + $trim;
+          margin: 0 auto;
+          padding: 13px $trim;
+          float: none;
+          width: auto;
+        }
+
+        .form-subscribe-header {
+          float: left;
+          width: auto;
+        }
+
+        .block-title {
+          float: left;
+          width: auto;
+          margin: 0;
+          padding: 0;
+
+          strong {
+            color: $c-text-white;
+            font-size: 32px;
+            font-weight: $f-light;
+            font-family: $f-stack-sans;
+            text-transform: uppercase;
+            border-right: 1px solid $c-light-yellow;
+            padding: 0 20px 0 0;
+            margin: 0 20px 0 0;
+          }
+        }
+
+        label {
+          font-size: $f-size;
+          padding: 10px 0 0 0;
+        }
+    }
+
+    a{
+      color:$c-text;
+
+      &:focus,
+      &:hover {
+        color: #4ab8d8;
+      }
+    }
+
+    h4 {
+      font-size: 13px;
+    }
+
+    .footer-col {
+      float: left;
+      width: $one-quarter;
+      font-size: 16px;
+
+      li {
+        margin: 0 0 10px 0;
+      }
+    }
+
+    .footer-contact {
+      float: left;
+      width: $one-half;
+      clear: left;
+      margin: 20px 0 0 0;
+      font-size: 16px;
+
+      li {
+        float: left;
+        border-right: 1px solid $c-border-dark;
+        padding: 0 20px 0 0;
+        margin: 0 20px 0 0;
+
+        &:last-child {
+          border: none;
+          margin: 0;
+          padding: 0;
+
+          @include bp(min-width,$bp-medium + 1){
+
+            a{
+              pointer-events: none;
+            }
+          }
+        }
+
+        span {
+          color: $c-red;
+        }
+      }
+    }
+
+    .footer-social {
+      float: right;
+      width: $one-half;
+      text-align: right;
+      margin: 20px 0 0 0;
+
+      li {
+        display: inline-block;
+        margin: 0 30px 0 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+
+    .trust-wrapper {
+      background: $c-text-white;
+    }
+
+    .footer-trust {
+      max-width: $max-content-width + $trim + $trim;
+      margin: 0 auto;
+      padding: 30px 25px 80px 25px;
+      overflow: hidden;
+
+      ul {
+        width: $one;
+      }
+
+      li {
+        display: inline-block;
+        margin: 0 30px 0 0;
+      }
+
+      li.trade-member {
+        float: right;
+        width: auto;
+        margin: -15px 0 0 0;
+      }
+    }
+
+    .block-subscribe .input-box {
+        float: left;
+        width: 296px;
+        padding-top: 0;
+        margin: 3px 0 0 20px;
+    }
+
+    .block-subscribe .input-text {
+        width: 100%;
+        height: 36px;
+        @include border-radius(5px);
+        background: $c-lighter-yellow;
+        border: none;
+    }
+
+    .block-subscribe .block-content {
+        margin: 0;
+
+        &:after {
+            @include clearfix;
+        }
+    }
+
+    .block-subscribe .actions {
+        float: left;
+        width: auto;
+        margin: 3px 0 0 10px;
+    }
+
+    .block-subscribe .actions .button {
+        height: 36px;
+        text-transform: uppercase;
+        font-weight: $f-bold;
+        font-family: $f-stack-special;
+        font-size: 14px;
+        @include border-radius(5px);
+    }
+
+    .bugs,
+    address {
+        clear: both;
+    }
+
+    .bugs {
+        display: none;
+    }
+
+    .form-language,
+    .currency-switcher,
+    .store-switcher {
+        clear: both;
+        margin-bottom: $gap;
+    }
+
+    .form-language,
+    .currency-switcher {
+        display: none;
+    }
+
+    address {
+        border-top: 1px solid $c-module-border;
+        text-align: center;
+        width: 100%;
+        font-size: $f-size-xxs;
+        margin-top: $trim;
+        padding: $trim 0;
+    }
+
+    @include bp(max-width, $bp-xlarge + 64) {
+        .block-subscribe .input-box {
+          width: auto;
+        }
+    }
+
+    @include bp(max-width, $bp-xlarge - 35) {
+      .block-subscribe label {
+        display: none;
+      }
+      .block-subscribe .input-box {
+        margin: 3px 0 0 0;
+        width: 48%;
+        max-width: 607px;
+      }
+      .block-subscribe .block-title strong {
+        font-size: 28px;
+      }
+    }
+
+    @include bp(max-width, $bp-xlarge) {
+        $links-trim: percentage(30px / 960px);
+        $links-width: (100 - ($links-trim * 3)) / 4;
+
+        .links {
+            width: $links-width;
+            padding-right: 0;
+            margin-right: $links-trim;
+        }
+
+        .links:nth-child(4) {
+            margin-right: 0;
+        }
+
+    }
+
+    @include bp(max-width, $bp-large) {
+      .footer-wrapper {
+        padding: 0 0 25px 0;
+      }
+      .footer-col {
+        width: $one;
+        text-align: center;
+
+        h4 {
+          border-bottom: 1px solid $c-border-light;
+          font-family: $f-stack-sans;
+          font-size: 24px;
+          font-weight: $f-light;
+          margin: 0;
+          line-height: 60px;
+          height: 60px;
+        }
+
+        ul {
+          display: none;
+
+          li {
+            border-bottom: 1px solid $c-border-med;
+            background: $c-text-white;
+            margin: 0;
+            height: 50px;
+            line-height: 50px;
+          }
+        }
+
+        .accordion-content li a {
+          width: 100%;
+          display: block;
+        }
+      }
+      .footer-contact {
+        float: none;
+        text-align: center;
+        width: $one;
+        margin: 0;
+        padding: 20px 0;
+
+        ul {
+          display: inline-block;
+        }
+      }
+      .footer-social {
+        float: none;
+        width: $one;
+        text-align: center;
+        margin: 0;
+
+        li {
+          display: inline-block;
+        }
+      }
+      .footer-trust {
+        text-align: center;
+        padding: 30px 25px 60px 25px;
+
+        ul {
+          float: none;
+          display: inline-block;
+          margin: -15px 0 0 0;
+        }
+
+        li {
+          margin: 0 15px 0 0;
+          width: 15%;
+        }
+
+        li.trade-member {
+          float: none;
+          display: inline-block;
+          margin: 0;
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+
+    @include bp(max-width, $bp-medium + 1) {
+      .footer-trust {
+
+        li img {
+          width: $one;
+        }
+      }
+    }
+
+    @include bp(max-width, $bp-medium) {
+        .form-language,
+        .currency-switcher {
+            display: block;
+        }
+
+      div.block-subscribe {
+        clear: both;
+        float: none;
+        width: 100%;
+
+        div.subscribe-container {
+          padding: 13px 15px;
+          border: none;
+          margin: 0;
+        }
+
+        label {
+          display: block;
+          margin: 0 0 15px 0;
+        }
+
+        .input-box {
+          display: block;
+          width: $one;
+
+          input {
+            background: $c-text-white;
+          }
+        }
+
+        .actions {
+          margin: 15px 0 0 0;
+          clear:left;
+          width: 100%;
+
+          button.button {
+            background: $c-text;
+            color: $c-text-white;
+            width: 100%;
+          }
+        }
+      }
+
+      .block-subscribe .block-title {
+        float: none;
+        width: $one;
+        text-align: center;
+        position: relative;
+
+        &.open .gri-icon {
+          position: absolute;
+          top: 5px;
+          right: 0;
+          display: block;
+          width:20px;
+          height:20px;
+
+          img{
+            width:100%;
+          }
+
+        }
+
+        strong {
+          margin: 0;
+          padding: 0;
+          border: none;
+          font-size: 24px;
+        }
+      }
+
+      .footer-contact {
+        font-size: 12px;
+
+        li {
+          padding: 0 10px 0 0;
+          margin: 0 10px 0 0;
+
+          &:last-child {
+            padding: 0;
+            margin: 0;
+          }
+        }
+      }
+
+      .footer-social {
+
+        li {
+          margin: 0 25px 0 0;
+
+          &:last-child {
+            margin: 0;
+          }
+        }
+      }
+
+      .footer-trust {
+        padding: 25px 15px;
+
+        h4 {
+          font-family: $f-stack-sans;
+          font-size: 24px;
+          font-weight: $f-light;
+          margin: 0;
+          position: relative;
+
+          &.open .gri-icon {
+            position: absolute;
+            top: 1px;
+            right: 0;
+            display: block;
+
+            /*&:after {
+              content: "X";
+              color: $c-text;
+              font-weight: $f-light;
+              font-size: 20px;
+              font-family: $f-stack-sans;
+            }*/
+          }
+        }
+
+        ul {
+          margin: 15px 0 0 0;
+
+          li {
+            width: 50%;
+            margin: 0 0 25px 0;
+            text-align: center;
+            float: left;
+
+            img{
+              width: auto;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    @include bp(max-width, $bp-small) {
+        $links-trim: percentage(15px / 480px);
+        $links-width: (100 - $links-trim) / 2;
+
+        .links {
+            width: $links-width;
+            margin-right: 0;
+        }
+
+        .links:nth-child(odd) {
+            margin-right: $links-trim;
+            clear: both;
+        }
+
+        .block-subscribe {
+            clear: both;
+            float: left;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,141 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+function getProfileInformation($referenceID){
+     /**
+     * Get the resource model
+     */
+    $resource = Mage::getSingleton('core/resource');
+
+    /**
+     * Get the table name
+     */
+    $sales_recurring_profile = $resource->getTableName('sales_recurring_profile');
+     
+    /**
+     * Retrieve the read connection
+     */
+    $readConnection = $resource->getConnection('core_read');
+     
+    $query = "SELECT * FROM " . $sales_recurring_profile . " WHERE reference_id = '" . $referenceID . "'";
+     
+    /**
+     * Execute the query and store the results in $results
+     */
+    $results = $readConnection->fetchAll($query);
+     
+    /**
+     * Return the results
+     */
+     return $results;
+}
+?>
+<?php /* @var $this Mage_Core_Block_Template */?>
+<div <?php echo $this->getGridHtmlClass() ? ' class="' . $this->getGridHtmlClass() . '"' : ''?><?php echo $this->getGridHtmlCss() ? ' style="' . $this->getGridHtmlCss() . '"' : ''?>>
+
+<?php if ($caption = $this->getGridCaption()): ?>
+<h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
+<?php endif; ?>
+
+<?php $gridElements = $this->getGridElements(); ?>
+<?php if ($gridElements): ?>
+    <?php echo $this->getChildHtml('pager'); ?>
+    <table id="" class="data-table" style="display: none;">
+<?php foreach ($this->getGridColumns() as $column):?>
+        <col <?php $width = $this->getObjectData($column, 'width'); echo $width ? ' width="' . $width . '"' : '' ?>/>
+<?php endforeach; ?>
+        <thead>
+            <tr>
+<?php foreach ($this->getGridColumns() as $column):
+$nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';
+$title = $this->getObjectData($column, 'title');
+?>
+                <th><?php echo $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
+<?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $kitcount = 0;
+            foreach($gridElements as $row): ?>
+            <tr>
+                <?php $cellcount = 0; ?>
+                <?php 
+                    foreach ($this->getGridColumns() as $column):
+                    $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';
+                    $index = $this->getObjectData($column, 'index');
+                    //$order_item_info = $this->getObjectData($column, 'order_item_info');
+                    $value = $this->getObjectData($row, $index);
+                    $linkUrl = $this->getObjectData($row, "{$index}_link_url");
+                    $linkAnchorText = $this->getObjectData($row, "{$index}_link_text");
+                    $linkText = $linkUrl ? ($linkAnchorText ? $linkAnchorText : $value) : '';
+                    $linkFormat = $linkUrl ? '<a href="%s">%s</a>' : '';
+                    //print_r($order_item_info);
+                    if($cellcount == 0){
+                        $kitInfo[$kitcount] = getProfileInformation($value);
+                    }
+                    ?>
+                    <td<?php $this->getObjectData($row, 'is_amount') ? ' class="a-right"' : '' ?>>
+                        <?php
+                            if ($linkFormat) {
+                                echo sprintf($nobr, sprintf($linkFormat, $this->escapeHtml($linkUrl), $this->escapeHtml($linkText)));
+                            } else {
+                                echo sprintf($nobr, $this->escapeHtml($value));
+                            }
+                        ?>
+                    </td>
+                <?php $cellcount++; 
+                endforeach; ?>
+            </tr>
+            <?php $kitcount++;
+            endforeach; 
+            //var_dump($kitInfo); ?>
+        </tbody>
+    </table>
+    <table id="<?php echo $this->getGridHtmlId() ?>" class="data-table">
+        <thead>
+            <tr>
+                <th>Kit Reference ID</th>
+                <th>Kit Name</th>
+                <th>Modify Your Entrees</th>
+            </tr> 
+        </thead>
+        <tbody>
+            <?php foreach($kitInfo as $kit): 
+                $order_item_info = unserialize($kit[0]['order_item_info']);?>
+            <tr>
+                <td><a href="/sales/recurring_profile/view/profile/<?php echo $kit[0]['profile_id']; ?>"><?php echo $kit[0]['referencde_id']; ?></a></td>
+                <td><?php echo $kit[0]['schedule_description']; ?></td>
+                <td><?php if($kit[0]['state'] == 'active'): ?><a href="/hacklehealthmanagement/index/editorder/item_id/<?php echo $order_item_info['item_id']; ?>">Modify Next Shipment</a><?php else : ?>Inactive Kit<?php endif; ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php echo $this->getChildHtml('pager'); ?>
+    <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
+<?php else: ?>
+    <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
+<?php endif; ?>
+</div>

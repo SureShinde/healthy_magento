@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <hhmreports_adminhtml_hhmreports_index>
+        <reference name="content">
+            <block type="hhmreports/adminhtml_hhmreports" name="hhmreports" />
+        </reference>
+    </hhmreports_adminhtml_hhmreports_index>
+</layout>

@@ -1,0 +1,32 @@
+<?php
+$optarr=Mage::getModel('magikfees/magikfees')->getOptionaOrderFee();
+$detailsFees=unserialize(Mage::getSingleton('checkout/session')->getDetailMagikfee());
+if(Mage::getStoreConfig('magikfees_section/magikfees_group1/imagefield')!='')
+    $ipath=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."magikuploaddir/".Mage::getStoreConfig('magikfees_section/magikfees_group1/imagefield');
+else
+    $ipath=$this->getSkinUrl('images/add_total_btn.png');
+if(count($optarr) > 0) {	
+?>
+<form action="<?php echo $this->getUrl('magikfees/index/optOrder') ?>" method="post" name="frmorder" id="frmorder">
+<div class="discount">
+
+	  <h2><?php echo Mage::getStoreConfig('magikfees_section/magikfees_group1/order_title');?></h2>
+	  <div class="discount-form">
+	      <label for="coupon_code"><?php echo Mage::getStoreConfig('magikfees_section/magikfees_group1/order_text');?></label> <br/>
+	      <?php foreach($optarr as $key=>$val) { 
+		    if($val['feetype']=='Fixed') {  ?>	
+		    <input type="checkbox" name="opt[]" value="<?php echo $val['magikfees_id'];?>" id="opt[]" <?php if(array_key_exists('O_'.$val['magikfees_id'],$detailsFees)){ ?>checked<?php } ?>>&nbsp;<?php echo $val['title'].": ".Mage::helper('core')->currency($val['feeamount'],true,false);?><br/>
+		    <?php } else { ?>
+	            <input type="checkbox" name="opt[]" value="<?php echo $val['magikfees_id'];?>" id="opt[]" <?php if(array_key_exists('O_'.$val['magikfees_id'],$detailsFees)){ ?>checked<?php } ?>>&nbsp;<?php echo $val['title'].": ".$val['feeamount']."%";?><br/>		    
+	      <?php } 
+	      }
+	      ?><br/>
+	      <input type="image" src="<?php echo $ipath;?>"/>	     
+	      
+	  </div>
+</div>
+</form>
+<?php 
+	
+} 
+?>

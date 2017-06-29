@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <NeXtIT_Admin>
+            <active>true</active>
+            <codePool>local</codePool>
+                    </NeXtIT_Admin>
+    </modules>
+</config>

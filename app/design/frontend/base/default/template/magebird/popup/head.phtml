@@ -1,0 +1,12 @@
+<?php $async = Mage::getStoreConfig('popup/settings/asynchronous') ? 'async' : ''; ?>
+<?php if(Mage::app()->getStore()->isCurrentlySecure()): ?>
+  <?php if(Mage::getStoreConfig('popup/settings/load_jquery')): ?>
+  <script <?php echo $async; ?> type="text/javascript" src="<?php echo $this->getSkinUrl('js/popup/jquery.js', array('_secure' => true,'_nosid' => true)); ?>"></script>
+  <?php endif;?>
+  <script <?php echo $async; ?> type="text/javascript" src="<?php echo $this->getSkinUrl('js/popup/main.js', array('_secure' => true,'_nosid' => true)); ?>?v=1.4.2&amp;previewId=<?php echo $this->getPreviewId() ? $this->getPreviewId() : 0; ?>&amp;templateId=<?php echo $this->getTemplateId() ? $this->getTemplateId() : 0;?>&amp;popup_page_id=<?php echo $this->getTargetPageId() ? $this->getTargetPageId() : 0; ?>&amp;filterId=<?php echo $this->getFilterId() ? $this->getFilterId() : 0; ?>&amp;ref=<?php echo isset($_SERVER['HTTP_REFERER']) ? urlencode($_SERVER['HTTP_REFERER']) : '';?>&amp;baseUrl=<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true); ?>&amp;isAjax=<?php echo $this->isAjax()?>&amp;requestType=<?php echo $this->requestType()?>"></script>        
+<?php else:?>
+  <?php if(Mage::getStoreConfig('popup/settings/load_jquery')): ?>
+  <script <?php echo $async; ?> type="text/javascript" src="<?php echo $this->getSkinUrl('js/popup/jquery.js') ?>"></script>
+  <?php endif;?>
+  <script <?php echo $async; ?> type="text/javascript" src="<?php echo $this->getSkinUrl('js/popup/main.js') ?>?v=1.4.2&amp;previewId=<?php echo $this->getPreviewId() ? $this->getPreviewId() : 0;?>&amp;templateId=<?php echo $this->getTemplateId() ? $this->getTemplateId() : 0; ?>&amp;popup_page_id=<?php echo $this->getTargetPageId() ? $this->getTargetPageId() : 0; ?>&amp;filterId=<?php echo $this->getFilterId() ? $this->getFilterId() : 0; ?>&amp;ref=<?php echo isset($_SERVER['HTTP_REFERER']) ? urlencode($_SERVER['HTTP_REFERER']) : '';?>&amp;baseUrl=<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>&amp;isAjax=<?php echo $this->isAjax()?>&amp;requestType=<?php echo $this->requestType()?>"></script>
+<?php endif; ?> 

@@ -1,0 +1,43 @@
+<?php
+$sym=Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+$extra=Mage::getModel("magikfees/magikfees")->getShipList();
+$totals = Mage::getSingleton('checkout/cart')->getQuote()->getTotals();
+$subtotal = $totals["subtotal"]->getValue();
+?>
+<?php if(count($extra) > 0) { 
+	if(Mage::getStoreConfig('magikfees_section/magikfees_group1/title')!=''){ ?>
+		<br/><span><b><?php echo Mage::getStoreConfig('magikfees_section/magikfees_group1/title');?></b></span><br/>
+<?php
+	}
+}
+foreach ($extra as $fee)
+{	
+	if($fee['feetype']=='Percentage'){
+	$efee=number_format($subtotal*($fee['feeamount']/100),2);
+	} else { 
+	$efee=''; 
+	}   
+	?>
+	<input type='hidden' name="percent_<?php echo $fee['magikfees_id'];?>" value="<?php echo $efee;?>"/>	
+			
+	<?php if($fee['mandatory']=='Yes') { 
+			if($fee['feetype']=='Percentage') { ?>
+				<input type='hidden' name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1"/><input type='checkbox' name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1" checked disabled/>&nbsp;&nbsp;<label><?php echo $fee['title']."(".$fee['feeamount']."%)"; ?></label><br/>
+			<?php } else { ?>
+				<input type='hidden' name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1"/><input type='checkbox' name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1" checked disabled/>&nbsp;&nbsp;<label><?php echo $fee['title']."(".$sym.$fee['feeamount'].")"; ?></label><br/>
+			<?php }  ?>
+
+	<?php 
+	} else { 
+		if($fee['feetype']=='Percentage') { ?>	
+		<input type="checkbox" name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1">&nbsp;&nbsp;<label><?php echo $fee['title']."(".$fee['feeamount']."%)"; ?></label><br/>	
+		<?php } else { ?>		
+		<input type="checkbox" name="magikfee[<?php echo $fee['magikfees_id'];?>]" value="1">&nbsp;&nbsp;<label><?php echo $fee['title']."(".$sym.$fee['feeamount'].")"; ?></label><br/>	
+	      <?php 
+	      }	
+	
+	}	
+
+}//end of foreach			
+		
+?>

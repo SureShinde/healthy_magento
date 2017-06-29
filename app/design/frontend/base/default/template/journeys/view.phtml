@@ -1,0 +1,68 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+		 
+        var data = google.visualization.arrayToDataTable([
+          ['Week', 'Weight (lbs.)', 'Target (130 lbs.)'],
+          ['Week 1',  148.6, 130 ],
+          ['Week 2',  147.8, 130 ],
+          ['Week 3',  145.6, 130 ],
+          ['Week 4',  142.8, 130 ],
+		  ['Week 5',  143.6, 130 ],
+		  ['Week 6',  139.2, 130 ],
+		  ['Week 7',  140.6, 130 ],
+		  ['Week 8',  138.2, 130 ],
+		  ['Week 9',  135.6, 130 ]
+		  
+        ]);
+
+        var options = {
+		  colors: ['#4576A2', '#860038'],
+		  title: 'Progress of Deborah\'s Journey',  titleTextStyle: {color: '#860038'}
+        };
+
+        //var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        //chart.draw(data, options);
+		
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div')). draw(data,{ series: { 0:{color: '#4576A2', visibleInLegend: true, lineWidth: 1, pointSize: 6}, 1:{color: '#860038'} } }); 
+		chart.draw(data, options);
+		
+		
+      }
+</script>
+
+<div class="container" id="journeys">
+  <div class="jrne-main">
+    <div class="jrne-image"> <img src="/media/journeys/deborah/deborah-journeys-view.png" alt="Deborah's Journey" /> </div>
+    <div class="jrne-content">
+      <div class="jrne-content-header">
+        <h1>Deborah's Journey</h1>
+      </div>
+      <div class="jrne-content-summary">
+        <p>I will soon be a first-time Grandmother and want to be active in my Granddaughter's life. I want to be the kind of Grandma who sleds and bikes with her. I want to get down on the floor to play and chase her as she toddles around. I don't want to sit on the sidelines and watch because something hurts too much or it's just too much effort to get up. I don't want to miss out on anything because I didn't make healthy choices. My own parents are still very active and they have always been involved in my children's lives. I want to have the same relationship with my Granddaughter and be a positive role model for her.<br />
+          <br />
+          Life is always busy and there will always be an excuse to use as to why I don't have the time to put my health first.  But, my Granddaughter will be here soon and I don't have time to wait. I need to be ready for her and for me!</p>
+      </div>
+      <div class="jrne-content-button"> <a class="jrne-button" href="/shop/">Shop HMR Foods</a> </div>
+      <div class="jrne-content-social-icons"> <span class='st_twitter_vcount' displayText='Tweet'></span> <span class='st_pinterest_vcount' displayText='Pinterest'></span> <span class='st_facebook_vcount' displayText='Facebook'></span> </div>
+    </div>
+    <div class="jrne-data">
+      <div class="jrne-data-stats">
+        <h5>Deborah's Stats</h5>
+        <p><span class="jrne-stats-label">Starting Weight: </span><span class="jrne-stats-weight">148.6 lbs.</span><br />
+      </div>
+      <div class="jrne-data-goals">
+        <h5>Deborah's Goal</h5>
+        <p><span class="jrne-stats-label">Weight: </span><span class="jrne-stats-weight">130 lbs.</span><br />
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="jrne-data-progress">
+      <h1>Progress Chart - Weight Loss</h1>
+      <div id="chart_div" style="width: 100%;"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>

@@ -1,0 +1,28 @@
+.tooltip {
+  display:none;
+  position:absolute;
+  border-radius:5px;
+  box-shadow:2px 2px 3px rgba(0,0,0,.2);
+  background-color:#F9F9F9;
+  border:1px solid #e0e0e1;
+  text-shadow:-1px -1px 0 #F4F4F4;
+  color:#666;
+  padding:10px;
+  width:300px;
+}
+
+.popupTooltip{
+  text-decoration:underline;
+  padding:4px;
+  display:inline-block;             
+}
+
+.templatePreview{
+  border:1px solid silver;                
+}
+
+.popupAction:hover{color:black;}
+
+#popupGrid .grid tr.headings th span.sort-title{
+  padding-right:0;                                               
+}

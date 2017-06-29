@@ -1,0 +1,471 @@
+<script type="text/javascript">
+
+  function hidevariety(){
+  var test=document.getElementById('chk_choose_variety');
+  if (test.checked == 0){
+     document.getElementById('tbl_choose_variety').style.display = 'none';
+      document.getElementById("hmr_tot_entrees_qty").readOnly = true;  
+    }
+  else {
+    document.getElementById('tbl_choose_variety').style.display = ''; 
+     document.getElementById("hmr_tot_entrees_qty").readOnly = false;  
+    }
+  }
+
+  function getCount120(){
+    //alert("chocho: "+document.getElementById("hmr_120_cho_qty").value);
+    //alert("vanilla: "+document.getElementById("hmr_120_van_qty").value);
+    needed_total_120_qty = document.getElementById("hmr_120_qty").value;
+    cho_120_qty = document.getElementById("hmr_120_cho_qty").value;
+    van_120_qty = document.getElementById("hmr_120_van_qty").value;
+
+    total_120 = parseInt(cho_120_qty) + parseInt(van_120_qty);
+    document.getElementById("updateDiv120_qty").innerHTML = "Total : " + total_120;
+    document.getElementById("hmr_120_qty").value = total_120;
+    document.getElementById("hmr_120_qty").readOnly = true;
+    //alert(document.getElementById("updateDiv120_qty").innerHTML);
+
+  }
+
+  function getCount70(){
+    //alert("chocho: "+document.getElementById("hmr_70_cho_qty").value);
+    //alert("vanilla: "+document.getElementById("hmr_70_van_qty").value);
+
+    needed_total_70_qty = document.getElementById("hmr_70_qty").value;
+    cho_70_qty = document.getElementById("hmr_70_cho_qty").value;
+    van_70_qty = document.getElementById("hmr_70_van_qty").value;
+
+    //if(/^\d+$/.test(cho_70_qty) && /^\d+$/.test(van_70_qty)) {
+    
+        total_70 = parseInt(cho_70_qty) + parseInt(van_70_qty);
+        document.getElementById("updateDiv70_qty").innerHTML = "Total : " + total_70;
+        document.getElementById("hmr_70_qty").value = total_70;
+        document.getElementById("hmr_70_qty").readOnly = true;
+    
+    /*}else {
+      alert('Please provide only numerical values');
+
+    }*/
+  }
+
+
+
+  function getCountEntrees(){
+
+    //needed_total_entrees_qty = document.getElementById("hmr_tot_entrees_qty").value;
+    if(document.getElementById("entree_1").value!=0){
+      entrees1_qty = document.getElementById("entree_1").value;
+      document.getElementById("chk_entree_1").checked=true;
+    }else if(document.getElementById("entree_1").value == 0){
+      entrees1_qty =0;
+      document.getElementById("chk_entree_1").checked = false;
+    }
+
+    if(document.getElementById("entree_2").value!=0){
+      entrees2_qty = document.getElementById("entree_2").value;
+      document.getElementById("chk_entree_2").checked=true;
+    }else if(document.getElementById("entree_2").value==0){
+      entrees2_qty =0;
+      document.getElementById("chk_entree_2").checked = false;
+    }
+
+    if(document.getElementById("entree_3").value!=0){
+      entrees3_qty = document.getElementById("entree_3").value;
+      document.getElementById("chk_entree_3").checked=true;
+    }else if(document.getElementById("entree_3").value==0){
+      entrees3_qty =0;
+       document.getElementById("chk_entree_3").checked=false;
+    }
+
+    if(document.getElementById("entree_4").value!=0){
+      entrees4_qty = document.getElementById("entree_4").value;
+      document.getElementById("chk_entree_4").checked=true;
+    }else if(document.getElementById("entree_4").value==0) {
+      entrees4_qty =0;
+      document.getElementById("chk_entree_4").checked=false;
+    }
+
+    if(document.getElementById("entree_5").value!=0){
+      entrees5_qty = document.getElementById("entree_5").value;
+      document.getElementById("chk_entree_5").checked=true;
+    }else if(document.getElementById("entree_5").value==0) {
+      entrees5_qty =0;
+      document.getElementById("chk_entree_5").checked=false;
+    }
+
+    if(document.getElementById("entree_6").value!=0){
+      entrees6_qty = document.getElementById("entree_6").value;
+      document.getElementById("chk_entree_6").checked=true;
+    }else if(document.getElementById("entree_6").value==0) {
+      entrees6_qty =0;
+      document.getElementById("chk_entree_6").checked=false;
+    }
+
+    if(document.getElementById("entree_7").value!=0){
+      entrees7_qty = document.getElementById("entree_7").value;
+      document.getElementById("chk_entree_7").checked=true;
+    }else if(document.getElementById("entree_7").value==0) {
+      entrees7_qty =0;
+      document.getElementById("chk_entree_7").checked=false;
+    }
+
+    if(document.getElementById("entree_8").value!=0){
+     entrees8_qty = document.getElementById("entree_8").value;
+     document.getElementById("chk_entree_8").checked=true;
+    }else if(document.getElementById("entree_8").value==0){
+      entrees8_qty =0;
+      document.getElementById("chk_entree_8").checked=false;
+    }
+
+    if(document.getElementById("entree_9").value!=0){
+       entrees9_qty = document.getElementById("entree_9").value;
+       document.getElementById("chk_entree_9").checked=true;
+    }else if(document.getElementById("entree_9").value==0) {
+      entrees9_qty =0;
+      document.getElementById("chk_entree_9").checked=false;
+    }
+
+    if(document.getElementById("entree_10").value!=0){
+       entrees10_qty = document.getElementById("entree_10").value;
+       document.getElementById("chk_entree_10").checked=true;
+    }else if(document.getElementById("entree_10").value==0) {
+      entrees10_qty =0;
+      document.getElementById("chk_entree_10").checked=false;
+    }
+
+    if(document.getElementById("entree_11").value!=0){
+        entrees11_qty = document.getElementById("entree_11").value;
+        document.getElementById("chk_entree_11").checked=true;
+    }else if(document.getElementById("entree_11").value==0) {
+      entrees11_qty =0;
+      document.getElementById("chk_entree_11").checked=false;
+    }
+
+    if(document.getElementById("entree_12").value!=0){
+        entrees12_qty = document.getElementById("entree_12").value;
+        document.getElementById("chk_entree_12").checked=true;
+    }else if(document.getElementById("entree_12").value==0) {
+      entrees12_qty =0;
+      document.getElementById("chk_entree_12").checked=false;
+    }
+
+    if(document.getElementById("entree_13").value!=0){
+      entrees13_qty = document.getElementById("entree_13").value;
+      document.getElementById("chk_entree_13").checked=true;
+    }else if(document.getElementById("entree_13").value==0) {
+      entrees13_qty =0;
+      document.getElementById("chk_entree_13").checked=false;
+    }
+
+    if(document.getElementById("entree_14").value!=0){
+      entrees14_qty = document.getElementById("entree_14").value;
+      document.getElementById("chk_entree_14").checked=true;
+    }else if(document.getElementById("entree_14").value==0) {
+      entrees14_qty =0;
+      document.getElementById("chk_entree_14").checked=false;
+    }
+
+	if(document.getElementById("entree_15").value!=0){
+		entrees15_qty = document.getElementById("entree_15").value;
+		document.getElementById("chk_entree_15").checked=true;
+	}else if(document.getElementById("entree_15").value==0) {
+		entrees15_qty =0;
+		document.getElementById("chk_entree_15").checked=false;
+	}
+    
+      total_variety = parseInt(entrees1_qty) + parseInt(entrees2_qty) + parseInt(entrees3_qty) + parseInt(entrees4_qty) + parseInt(entrees5_qty) + parseInt(entrees6_qty) + parseInt(entrees7_qty) + parseInt(entrees8_qty) + parseInt(entrees9_qty) + parseInt(entrees10_qty) + parseInt(entrees11_qty) + parseInt(entrees12_qty) + parseInt(entrees13_qty) + parseInt(entrees14_qty) + parseInt(entrees15_qty);
+     /* if(total_variety>44){
+        alert('Variety total should not exceed 44');
+        return false;
+      }*/
+      document.getElementById("hmr_tot_entrees_qty").value = total_variety;
+    
+
+  }
+
+</script>
+
+<?php
+//Get the current product
+
+    $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read');    
+    $writeConnection = $resource->getConnection('core_write'); 
+
+    $this_product = Mage::registry('current_product');
+    if($this_product->getId()){
+          $product_id = $this_product->getId();  ;
+    }
+
+  $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+      
+    $subscription_occurance_values = explode(",",$this_product->getSubscriptionOccurance());
+    //print_r($subscription_occurance_values);
+    if(count($subscription_occurance_values)>0 && $subscription_occurance_values[0] != ""){
+
+      //echo $product_id."-------------". 4;
+
+      $allShakes_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_shakes');
+      $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+		//echo "here ".$product_id;
+      $hmr_product_kit_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_product_kit WHERE product_id = ' . $product_id);
+      if(count($hmr_product_kit_result) > 0 ){
+        foreach( $hmr_product_kit_result as $hmr_product_kit) {          
+          $no_of_shakes     = $hmr_product_kit['no_of_shakes'];
+          $shakes_id_array  = explode(",",$hmr_product_kit['shakes_id']);
+          $no_of_entrees    = $hmr_product_kit['no_of_entrees'];
+          $entrees_id_array  = explode(",",$hmr_product_kit['entrees_id']);
+        }
+      }else{
+        $writeConnection->query("INSERT INTO `custom_hmr_product_kit` (`product_id`, `no_of_shakes`, `shakes_id`, `no_of_entrees`, `entrees_id`) VALUES ('".$product_id."', '2', '1,2', '44', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')");
+        $hmr_product_kit_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_product_kit WHERE product_id = ' . $product_id);
+        if(count($hmr_product_kit_result) > 0 )
+        foreach( $hmr_product_kit_result as $hmr_product_kit) {          
+          $no_of_shakes     = $hmr_product_kit['no_of_shakes'];
+          $shakes_id_array  = explode(",",$hmr_product_kit['shakes_id']);
+          $no_of_entrees    = $hmr_product_kit['no_of_entrees'];
+          $entrees_id_array  = explode(",",$hmr_product_kit['entrees_id']);
+        }
+      }
+      //print_r($entrees_id_array);
+
+
+      if($no_of_shakes > 0){
+        $hmr_product_shakes_qty_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_product_shakes WHERE product_id = ' . $product_id);
+        if(count($hmr_product_shakes_qty_result) > 0 )
+        foreach( $hmr_product_shakes_qty_result as $hmr_product_shake_qty) {          
+          $product_shake_qty[shake_id] = $hmr_product_shake_qty['total_quantity'];
+        }
+
+
+      }
+      $product_variety_result_entree = array();
+      $product_variety_result_qty = array();
+
+   
+
+    $hmr_product_choose_variety_result = $readConnection->fetchAll('SELECT * FROM `custom_hmr_product_entrees_values` WHERE product_id = ' . $product_id .' ORDER BY `entree_id` ASC');
+      if(count($hmr_product_choose_variety_result) > 0 ) {
+        foreach( $hmr_product_choose_variety_result as $hmr_product_variety_result) {          
+          $product_variety_result_entree[] = $hmr_product_variety_result['entree_id'];
+          $product_variety_result_qty[] = $hmr_product_variety_result['default_qty'];
+
+        }
+      }
+
+    $hmr_product_shake_1_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=1 AND `flavour_id`=1');
+    $hmr_product_shake_1_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=1 AND `flavour_id`=2');
+    $hmr_product_shake_2_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=2 AND `flavour_id`=1');
+    $hmr_product_shake_2_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=2 AND `flavour_id`=2');
+
+     /*echo '<pre>';
+      print_r($product_variety_result_qty);*/
+     //echo $product_variety_result_qty[0];
+      //print_r($product_variety_result_qty);
+    //if($product->getSubscription() == 1){
+      //echo "subcription product";
+    //}else{
+      //echo "not subcription product";
+   //}
+    //echo $product->getId()."<br>";
+    
+ $hmr_product_next_result = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $product_id);
+
+?>
+    <input type="hidden" name="pID" id="pID" value="<?php echo $product_id; ?>">
+    <?php if(count($subscription_occurance_values)>0 && $subscription_occurance_values[0] != ""){ ?>
+    <input type="hidden" name="subscription_occurance_value" id="subscription_occurance_value" value="1">
+    <?php }else{ ?>
+    <input type="hidden" name="subscription_occurance_value" id="subscription_occurance_value" value="0">
+    <?php } ?>
+    <table cellspacing="10" cellpadding="50" width="100%">
+      <tr>
+        <td style="padding-left:3px;" class="cloudLGRed" colspan="4">
+          <strong>STEP A: </strong>
+          <?php if($subscription_occurance_values[0] == 9 ){ ?>
+            <strong>Configuration of 3-Week Enrollment kit</strong>
+          <?php }elseif($subscription_occurance_values[0] == 10 ){?>
+            <strong>Configuration of 2-Week Enrollment kit</strong>
+          <?php } ?>
+        </td>
+      </tr> 
+      <tr>
+        <td bgcolor="#FFFFCC" style="padding-left:3px;" class="cloudLGRed" colspan="4">
+          <strong>Step 1: Choose Your Shakes</strong>
+        </td>
+      </tr>
+      <tr>
+        <td class="shopHeader" colspan="4">
+          <div id="shakes_configuaration">
+            <table cellspacing="0" cellpadding="0" width="100%">
+              <tbody>
+                <tr>
+                <td class="infoBox">
+                  <table cellspacing="1" cellpadding="4" width="100%">
+                    <tbody>
+                      
+                      <tr><td>
+                      <table cellspacing="1" cellpadding="4" width="100%" border="1">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <input type="checkbox" name="chk_shake_1" value="1" <?php echo (in_array(1, $shakes_id_array)) ? "CHECKED" : "" ?> /> 
+                          </td>
+                          <td> 
+                            <div id="shake_1">
+                            <table cellspacing="1" cellpadding="4" width="100%">
+                            <tbody>
+                            <tr>
+                              <td class="faqLine1">
+                                <span class="at-home-green">
+                                  Choose 
+                    <input type="text" maxlength="1" size="5" value="<?php echo $hmr_product_shake_1_choco_qty+$hmr_product_shake_1_valina_qty;?>" id="hmr_120_qty" name="hmr_120_qty"  onblur="getCount120();" readonly="readonly"> HMR<sup>&reg;</sup> 120
+                                </span>
+                              </td>
+                              <td class="faqLine1"><span class="bodyText">Chocolate</span></td>
+                              <td class="faqLine1">
+                                <input type="text" onblur="getCount120();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_1_choco_qty;?>" id="hmr_120_cho_qty" name="hmr_120_cho_qty">
+                              </td>
+                              <td class="faqLine1" colspan="3">                                            
+                                 <strong><div id="updateDiv120_qty">
+                                  Total: <?php echo $hmr_product_shake_1_choco_qty+$hmr_product_shake_1_valina_qty;?> 
+                                 </div></strong>                              
+                              </td>
+                            </tr>
+
+                            <tr> 
+                              <td class="faqLineBlu">&nbsp;</td> 
+                              <td class="faqLine1"><span class="bodyText">Vanilla</span></td>
+                              <td class="faqLine1">
+                                <input type="text" onblur="getCount120();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_1_valina_qty?>" id="hmr_120_van_qty" name="hmr_120_van_qty">
+                              </td>  
+                              <td class="faqLineBlu">&nbsp;</td>             
+                            </tr>
+                            </tbody></table>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody></table>
+                      </td></tr>
+
+                      <tr><td></td></tr>
+
+                      <tr><td>
+                      <table cellspacing="1" cellpadding="4" width="100%" border="1">
+                      <tbody>
+                      <tr>
+                      <td>
+                      <input type="checkbox" name="chk_shake_2" value="2" <?php echo (in_array(2, $shakes_id_array)) ? "CHECKED" : "" ?>/> 
+                      </td>
+
+                      <td>
+                      <div id="shake_2">
+                      <table cellspacing="1" cellpadding="4" width="100%">
+                      <tbody>
+                      <tr>
+                        <td class="faqLineBlu">
+                          <span class="at-home-green">
+                            Choose <input type="text" onblur="getCount70();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_2_choco_qty+$hmr_product_shake_2_valina_qty;?>" id="hmr_70_qty" name="hmr_70_qty" readonly="readonly"> HMR<sup>&reg;</sup> 70+
+                          </span>
+                        </td>
+                        <td class="faqLineBlu"><span class="bodyText">Chocolate</span></td>
+                        <td class="faqLineBlu">
+                          <input type="text" onblur="getCount70();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_2_choco_qty?>" id="hmr_70_cho_qty" name="hmr_70_cho_qty"></td>
+                        <td class="faqLineBlu" colspan="3">
+                          <strong><div id="updateDiv70_qty">           
+                            Total: <?php echo $hmr_product_shake_2_choco_qty+$hmr_product_shake_2_valina_qty;?>                                   
+                          </div></strong>
+                        </td>                            
+                       </tr>
+                      <tr> 
+                        <td class="faqLineBlu">&nbsp;</td>
+                        <td class="faqLineBlu"><span class="bodyText">Vanilla</span></td>
+                        <td class="faqLineBlu"><input type="text" onblur="getCount70();" maxlength="1" value="<?php echo $hmr_product_shake_2_valina_qty?>" size="5" id="hmr_70_van_qty" name="hmr_70_van_qty"></td>
+                        <td class="faqLineBlu">&nbsp;</td>
+                      </tr>
+                      </tbody></table>
+                      </div>
+
+                      </td></tr></tbody></table>
+                      </td></tr>
+
+                </tbody></table>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </td> 
+      </tr>
+      <tr>
+        <td class="shopHeader" colspan="4">
+          <table cellspacing="0" cellpadding="0" width="100%" >
+            <tbody>
+                <tr>
+                  <td bgcolor="#FFFFCC" style="padding-left:3px;" class="cloudLGRed" colspan="4">
+                    <input type="checkbox" name="chk_choose_variety" value="1" checked="checked" id="chk_choose_variety" onclick="hidevariety();"/>
+                    <strong>Step 2: Choose From a Variety of <input type="text" onblur="getCountEntrees();" maxlength="1" size="5" 
+                      value="<?php echo $no_of_entrees;?>" id="hmr_tot_entrees_qty" name="hmr_tot_entrees_qty" readonly="readonly"> Entrees</strong>
+                  </td>
+                </tr>
+                <tr id="tbl_choose_variety"><td><table cellspacing="0" cellpadding="0" width="100%" border="1"><tbody>
+
+              <?php foreach($allEntrees_result as $key=>$value){ ?>
+                <tr class="faqLineBlu">
+                  <td>
+                    <input type="checkbox" name="chk_entree_<?php echo $key+1;?>" id="chk_entree_<?php echo $key+1;?>" value="<?php echo $key+1;?>" <?php echo (in_array($key+1, $entrees_id_array)) ? "CHECKED" : "" ?>/>
+                    <font color="#CC0000"><b>New!</b></font> <?php echo $value['entree_name'];?></td>
+                  <td><input type="text" onblur="getCountEntrees();" size="5" value="<?php if($product_variety_result_qty[$key]!=0) { 
+                    echo $product_variety_result_qty[$key]; } else {echo 0;}?>" name="entree_<?php echo $key+1;?>" id="entree_<?php echo $value['entree_id'];?>"></td>
+                </tr>
+              <?php }?>
+
+                </tbody></table></td></tr> 
+              </tbody>
+            </table>
+          </td>
+        </tr>      </table>
+      
+  <?php if(count($subscription_occurance_values) >1){ ?> 
+
+    <?php
+      $_productCollection = Mage::getModel('catalog/product')->getCollection();
+      $_productCollection->addAttributeToFilter('hmr_product', array('eq' => 1))->addAttributeToFilter('status',1);
+    ?>
+
+       <table cellspacing="10" cellpadding="0" width="100%">
+       <tr>
+          <td>
+            <strong>STEP B: Please select 2-Week Ongoing Order Product:</strong>
+          </td>
+       </tr>
+       
+       <tr>
+        <td>
+         <table cellspacing="0" cellpadding="0" width="100%" border="0">
+         <tr>
+          <td>    
+
+            <select name="next_subscription_product" id="next_subscription_product">
+              <option value="0">Please Choose any product</option>
+              <?php foreach ($_productCollection as $_product){ ?>
+                <?php $_product = Mage::getModel('catalog/product')->load($_product->getID()); ?>
+                <?php if($this_product->getId() != $_product->getID()){ ?>
+                  <?php $product_name = $_product->getName(); ?>
+                  <option value="<?php echo $_product->getID(); ?>" <?php if($_product->getID() == $hmr_product_next_result) { ?>selected="selected" <?php } ?>><?php echo $product_name; ?>
+                  </option>
+                <?php } ?>
+              <?php } ?>
+            </select>
+          </td>
+         </tr>
+         </table>
+        </td>
+       </tr> 
+
+       </table>     
+  <?php } ?>
+  
+<?php }else{ ?>
+    <table><tr><td>There is no need to configure kit for this product.</td></tr></table>
+<?php } ?>

@@ -1,0 +1,353 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Magik
+ * @package    Magik_Magikfees
+ * @author     ModuleCreator
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Magik_Magikfees>
+            <version>4.0.0</version>
+        </Magik_Magikfees>
+    </modules>
+    <frontend>
+        <routers>
+        <Magik_Magikfees>
+               <use>standard</use>
+               <args>
+                   <module>Magik_Magikfees</module>
+                   <frontName>magikfees</frontName>
+               </args>
+           </Magik_Magikfees>
+        </routers>
+        <layout>
+            <updates>
+                <magikfees>
+                    <file>magikfees.xml</file>
+                </magikfees>
+            </updates>
+        </layout>
+        <events>
+        	<checkout_controller_onepage_save_shipping_method>
+		<observers>
+			<setMagikFees>
+			<type>singleton</type>
+			<class>magikfees/observer</class>
+			<method>setMagikFees</method>
+			</setMagikFees>
+		</observers>
+        	</checkout_controller_onepage_save_shipping_method>
+        	<checkout_controller_multishipping_shipping_post>
+                <observers>
+                    <setMagikFeesMultishipping>
+                        <type>singleton</type>
+                        <class>magikfees/observer</class>
+                        <method>setMagikFeesMultishipping</method>
+                    </setMagikFeesMultishipping>
+                </observers>
+		</checkout_controller_multishipping_shipping_post>	
+		<checkout_cart_product_add_after>  
+		    <observers>  
+			<magikfees_observer>  
+			    <type>singleton</type>  
+			    <class>magikfees/observer</class>    
+			    <method>setProductFees</method>            
+			</magikfees_observer>              
+		    </observers>  
+		</checkout_cart_product_add_after>     
+		<checkout_cart_product_update_after>  
+		    <observers>  
+			<magikfees_update_observer>  
+			    <type>singleton</type>  
+			    <class>magikfees/observer</class>    
+			    <method>setProductFees</method>            
+			</magikfees_update_observer>              
+		    </observers>  
+		</checkout_cart_product_update_after>
+                <paypal_prepare_line_items>
+		    <observers>
+			<MagikPaypalCart>
+			    <type>singleton</type>
+			    <class>magikfees/observer</class>
+			    <method>updatePaypalCart</method>
+			</MagikPaypalCart>
+		    </observers>
+		</paypal_prepare_line_items>
+		<sales_quote_collect_totals_after>
+		    <observers>
+			<Magikquote>
+			    <type>singleton</type>
+			    <class>magikfees/observer</class>
+			    <method>UpdateMagikQuote</method>
+			</Magikquote>
+		    </observers>
+		</sales_quote_collect_totals_after>
+		<checkout_cart_save_after>
+                   <observers>
+                       <Magikquoteitems>
+                           <type>singleton</type>
+                           <class>magikfees/observer</class>
+                           <method>UpdateMagikOrderFee</method>
+                       </Magikquoteitems>
+                   </observers>
+               </checkout_cart_save_after>
+        </events>
+    </frontend>
+    <admin>
+        <routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<magikfees before="Mage_Adminhtml">Magik_Magikfees_Adminhtml</magikfees>
+					</modules>
+				</args>
+			</adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+ 
+		<menu>
+			<magikfees module="magikfees">
+				<title>Magik Fees</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="magikfees">
+						<title>All Extra Fees</title>
+						<sort_order>0</sort_order>
+						<action>adminhtml/magikfees_magikfees</action>
+					</items>					
+					<mhelp module="magikfees">
+						<title>Help / FAQ</title>
+						<sort_order>1</sort_order>
+						<action>adminhtml/magikfees_magikfeeshelp</action>
+					</mhelp>
+				</children>
+			</magikfees>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<magikfees module="magikfees">
+							<title>Magik Fees</title>
+							<sort_order>71</sort_order>               
+							<children>
+								<items module="magikfees">
+									<title>All Extra Fees</title>
+									<sort_order>0</sort_order>
+									
+								</items>								
+								<mhelp module="magikfees">
+									<title>Help / FAQ</title>
+									<sort_order>1</sort_order>
+									
+								</mhelp>								
+							</children>
+						</magikfees>	
+						
+					</children>	
+				</admin>				 
+			</resources>
+		</acl>
+		<acl>
+		    <resources>
+			<admin>  <!--This is acl based on URL. If you see URL it would be /admin/system_config/ -->
+			    <children>
+				<system>
+				    <children>
+					<config>
+						<children>
+						    <magikfees_section translate="title" module="magikfees">  <!-- This is name of the section created by us -->
+							<title>MagikFees Section ACL</title>  <!-- Title as shown in User->Roles->Permissions Window -->
+							<sort_order>99</sort_order>
+						    </magikfees_section>
+						</children>
+					</config>
+				    </children>
+				</system>
+			    </children>
+			</admin>
+		    </resources>
+		</acl>
+		<layout>
+			<updates>
+				<magikfees>
+					<file>magikfees.xml</file>
+				</magikfees>
+			</updates>
+		</layout>
+		<events>
+		      <sales_convert_order_item_to_quote_item>
+		      <observers>
+			<editadminorder>
+			  <type>singleton</type>
+			  <class>magikfees/observer</class>
+			  <method>editOrderAdmin</method>
+			</editadminorder>
+		      </observers>
+		      </sales_convert_order_item_to_quote_item>
+		</events>
+    </adminhtml>   
+    <global>   
+	<fieldsets> 
+	    <sales_convert_quote_item>                
+		<payment_fee><to_order_item>*</to_order_item></payment_fee>       
+		<payment_str><to_order_item>*</to_order_item></payment_str>
+	    </sales_convert_quote_item>	
+	    <sales_convert_order_item>
+		<payment_fee><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></payment_fee>       
+		<payment_str><to_invoice_item>*</to_invoice_item><to_shipment_item>*</to_shipment_item><to_cm_item>*</to_cm_item></payment_str>
+	    </sales_convert_order_item>		  
+	    <sales_convert_quote_address>
+		<base_magikfee_amount><to_order>*</to_order></base_magikfee_amount>
+                <magikfee><to_order>*</to_order></magikfee>
+                <base_magikfee><to_order>*</to_order></base_magikfee>
+                <detail_magikfee><to_order>*</to_order></detail_magikfee>
+	    </sales_convert_quote_address>
+	</fieldsets>
+	
+        <models>
+            <magikfees>
+                <class>Magik_Magikfees_Model</class>
+                <resourceModel>magikfees_mysql4</resourceModel>		
+            </magikfees>         
+	    <sales>		
+		<rewrite>
+ 		<quote_address_total_shipping>Magik_Magikfees_Model_Sales_Quote_Address_Total_Shipping</quote_address_total_shipping> 
+		</rewrite>
+		<rewrite>
+		    <quote_item>Magik_Magikfees_Model_Quote_Item</quote_item>
+		</rewrite>		
+	    </sales>
+	  
+	    <adminhtml>
+		<rewrite>
+			<sales_order_create>Magik_Magikfees_Model_Adminhtml_Order_Create</sales_order_create>
+		</rewrite>	
+	    </adminhtml> 	    	  
+	    <sales>
+                <rewrite>
+                    <order_invoice_total_tax>Magik_Magikfees_Model_Sales_Order_Invoice_Total_Tax</order_invoice_total_tax>
+                </rewrite>
+            </sales>
+            <magikfees_mysql4>
+                <class>Magik_Magikfees_Model_Mysql4</class>
+		
+                <entities>
+                    <magikfees>
+                        <table>magikfees</table>			
+                    </magikfees>		   
+                </entities>
+            </magikfees_mysql4>             
+        </models>
+        <resources>
+            <magikfees_setup>
+                <setup>
+                    <module>Magik_Magikfees</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </magikfees_setup>
+            <magikfees_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </magikfees_write>
+            <magikfees_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </magikfees_read>
+        </resources>
+        <blocks>
+            <magikfees>
+                <class>Magik_Magikfees_Block</class>
+            </magikfees>
+            <adminhtml>
+                <rewrite>
+		    <sales_order_totals>Magik_Magikfees_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+		    <sales_order_invoice_totals>Magik_Magikfees_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Magik_Magikfees_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+                    <!--<sales_order_grid>Magik_Magikfees_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>-->
+                </rewrite>
+            </adminhtml>
+            <checkout>
+                <rewrite>                   
+                    <total_default>Magik_Magikfees_Block_Checkout_Total_Default</total_default>
+                </rewrite>
+            </checkout>
+            <sales>
+                <rewrite>
+                    <order_totals>Magik_Magikfees_Block_Sales_Order_Totals</order_totals>
+		    <order_invoice_totals>Magik_Magikfees_Block_Sales_Order_Invoice_Totals</order_invoice_totals>
+		    <order_creditmemo_totals>Magik_Magikfees_Block_Sales_Order_Creditmemo_Totals</order_creditmemo_totals>
+                </rewrite>
+            </sales>
+        </blocks>
+        <helpers>
+            <magikfees>
+                <class>Magik_Magikfees_Helper</class>
+            </magikfees>          
+        </helpers>
+        <sales>
+            <quote>
+                <totals>                                 
+                    <fee>
+                       <class>magikfees/sales_quote_address_total_fee</class> 
+ 		       <after>subtotal,discount,tax,shipping</after>
+                       <before>grand_total</before>                   
+                    </fee> 
+                </totals>
+            </quote>
+             <order_invoice>
+                <totals>
+                    <magikfees>
+                        <class>magikfees/sales_order_invoice_total_fee</class>
+                    </magikfees>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <magikfees>
+                        <class>magikfees/sales_order_creditmemo_total_fee</class>
+                    </magikfees>
+                </totals>
+            </order_creditmemo>
+        </sales>  
+        <pdf>
+            <totals>
+                <magikfees translate="title" module="magikfees">
+                    <title>Additional Fees</title>
+                    <source_field>magikfee</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>650</sort_order>
+                </magikfees>
+            </totals>
+        </pdf>
+      </global>
+      <default>
+    	<sales>    	   
+	  <totals_sort>
+		  <magikfees>1000</magikfees>
+		  <fee>1010</fee>
+	  </totals_sort>
+        </sales>
+ 
+	<magikfees_section>
+	  <magikfees_group1>
+	    <title>Additional Fees</title>
+	    <order_title>Optional Order Fees</order_title>
+	    <order_text>Please select the fee you need to apply on order.</order_text>	  
+	  </magikfees_group1>
+	</magikfees_section>
+ 
+    </default>
+</config>

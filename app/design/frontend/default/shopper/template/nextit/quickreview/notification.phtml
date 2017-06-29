@@ -1,0 +1,152 @@
+<?php
+	/*
+	  * By : Mbitson
+	  * Company : NeXt IT
+	  * Email : mbitson @ next-it . net
+	  */
+	$data = $this->getReviewData();
+?>
+<?php if(!isset($data['error']) && !isset($_COOKIE['qrCloseFlag'])): ?>
+<div class="quickReviewPane">
+	<a class="qr-close" href="#">X</a>
+    <img alt="<?php echo $data['name']; ?>'s Main Image" src="<?php echo $data['image']; ?>" />
+	<div class="qr-left-box">
+		<span class="qrhead">How would you rate your <?php echo $data['name']; ?>?</span>
+		<input type="text" rows="2" name="review" id="quickReviewReview" placeholder="(OPTIONAL) Please provide some comments about your product." />
+	</div>
+	<div class="qr-right-box">
+		<div class="quickReviewrating">
+			<a data-val="5" class="qr-star-5"></a><a data-val="4" class="qr-star-4"></a><a data-val="3" class="qr-star-3"></a><a data-val="2" class="qr-star-2"></a><a data-val="1" class="qr-star-1"></a>
+		</div>
+		<button type="button" class="btn btn-success quickReviewSubmit">Submit Review</button>
+	</div>
+</div>
+<script type="text/javascript">
+	// Set global variables for this review.
+	var tmprating;
+	var tmpreview;
+	var tmpname = '<?php echo $data['name']; ?>';
+	var tmpitemid = '<?php echo $data['itemId']; ?>';
+
+	// This function will be used to close the pane with a specific message and timer.
+	function closeQRPane(msg, timer){
+		jQuery('.quickReviewPane').each(function(){
+			jQuery(this).stop(true, true).fadeOut('fast').html(msg).fadeIn('fast').delay(timer).slideUp('fast');
+		});
+	}
+
+	// Standard setCookie function.
+	function setCookie(c_name, value, exdays) {
+		var exdate = new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+		document.cookie = c_name + "=" + c_value;
+	}
+
+	// This function will be used to submit the review via Ajax.
+	function submitQRReview(){
+		var request = jQuery.ajax({
+			url: "/ajaxrating/index/rate/",
+			type: "POST",
+			data: {
+				id      : tmpitemid,
+				rating  : tmprating,
+				name    : tmpname,
+				review  : tmpreview
+			}
+		});
+
+		request.done(function( response ) {
+			if(jQuery.parseJSON(response)){
+				var data = jQuery.parseJSON(response);
+				if(data.success){
+					console.log(data);
+					console.log(tmpitemid);
+					console.log(tmprating);
+					console.log(tmpname);
+					console.log(tmpreview);
+					closeQRPane('<h2 style="text-align: center;">Thank you for your review!</h2>', 2000);
+					setCookie('qrCloseFlag', 'true', 30);
+				}else{
+					closeQRPane('<h2 style="text-align: center;">There was an error submitting your request.</h2>', 6000);
+				}
+			}else{
+				closeQRPane('<h2 style="text-align: center;">There was an error submitting your request.</h2>', 6000);
+			}
+		});
+
+		request.fail(function( jqXHR, textStatus ) {
+			alert( "Request failed: " + textStatus );
+		});
+	}
+
+	// Once the page has loaded...
+	jQuery(document).ready(function()
+	{
+		// When a user clicks on a star...
+		jQuery('.quickReviewrating a').each(function()
+		{
+			jQuery(this).click(function(e)
+			{
+				// Prevent anchor tag action
+				e.preventDefault();
+
+				// Get selected rating.
+				tmprating = jQuery(this).attr('data-val');
+
+				// Clear stars currently highlighted
+				jQuery('.quickReviewrating a').removeClass('qr-star-selected');
+
+				// Set counter as our rating
+				var counter = tmprating;
+
+				// Loop through stars
+				while(counter>0){
+					// Add class to stars to highlight them if they are lower than the rating.
+					jQuery('.qr-star-'+counter).addClass('qr-star-selected');
+					counter--;
+				}
+			});
+		});
+
+		// When a user clicks on the close "X"...
+		jQuery('.qr-close').click(function()
+		{
+			// Animate the pane closed with no message nor delay.
+			closeQRPane('', 0);
+
+			// Set a cookie to keep their window closed for 30 days.
+			setCookie('qrCloseFlag', 'true', 30);
+		});
+
+		// When a user leaves the review input
+		jQuery('#quickReviewReview').blur(function()
+		{
+			// Save their review text for submitting.
+			tmpreview = jQuery(this).val();
+		});
+
+		// When a user clicks submit
+		jQuery('.quickReviewSubmit').each(function()
+		{
+			jQuery(this).click(function(e)
+			{
+				// Prevent default button action
+				e.preventDefault();
+
+				// If we have a rating
+				if(typeof tmprating != 'undefined')
+				{
+					// Submit rating
+					submitQRReview();
+				}else
+				{
+					// Alert the user to select a rating before submitting.
+					alert("Please select a star rating.");
+				}
+			});
+		});
+	});
+</script>
+<?php else : ?>
+<?php endif; ?>

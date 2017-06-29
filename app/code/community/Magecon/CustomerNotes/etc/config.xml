@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Open Biz Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file OPEN-BIZ-LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mageconsult.net/terms-and-conditions
+ *
+ * @category   Magecon
+ * @package    Magecon_CustomerNotes
+ * @version    2.0.0
+ * @copyright  Copyright (c) 2012 Open Biz Ltd (http://www.mageconsult.net)
+ * @license    http://mageconsult.net/terms-and-conditions
+ */
+-->
+
+<config>
+    <modules>
+        <Magecon_CustomerNotes>
+            <version>0.0.1</version>
+        </Magecon_CustomerNotes>
+    </modules>
+    <admin>
+        <routers>
+            <customernotes>
+                <use>admin</use>
+                <args>
+                    <module>Magecon_CustomerNotes</module>
+                    <frontName>customernotes</frontName>
+                </args>
+            </customernotes>
+        </routers>
+    </admin>
+    <global>
+        <blocks>
+            <customernotes>
+                <class>Magecon_CustomerNotes_Block</class>
+            </customernotes>
+            <adminhtml>
+                <rewrite>
+                    <dashboard_grids>Magecon_CustomerNotes_Block_Adminhtml_Dashboard_Grids</dashboard_grids>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <customernotes>
+                <class>Magecon_CustomerNotes_Helper</class>
+            </customernotes>
+        </helpers>
+        <models>
+            <customernotes>
+                <class>Magecon_CustomerNotes_Model</class>
+                <resourceModel>customernotes_mysql4</resourceModel>
+            </customernotes>
+            <customernotes_mysql4>
+                <class>Magecon_CustomerNotes_Model_Mysql4</class>
+                <entities>
+                    <customer_notes>
+                        <table>magecon_customer_notes</table>
+                    </customer_notes>
+                </entities>
+            </customernotes_mysql4>
+        </models>
+        <resources>
+            <customernotes_setup>
+                <setup>
+                    <module>Magecon_CustomerNotes</module>
+                    <class>Magecon_CustomerNotes_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customernotes_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <customernotes>
+                    <file>customernotes.xml</file>
+                </customernotes>
+            </updates>
+        </layout>
+    </adminhtml>
+    <default>
+        <customernotes>
+            <settings>
+                <enabled>1</enabled>
+                <dashboard>1</dashboard>
+            </settings>
+        </customernotes>
+    </default>
+</config>

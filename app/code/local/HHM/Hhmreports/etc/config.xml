@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category   HHM
+ * @package    HHM_Hhmreports
+ * @author     Jamie P Holcomb
+ */
+ -->
+<config>
+    <modules>
+        <HHM_Hhmreports>
+            <version>0.1.0</version>
+        </HHM_Hhmreports>
+    </modules>
+    <admin>
+        <routers>
+            <hhmreports>
+                <use>admin</use>
+                <args>
+                    <module>HHM_hhmreports</module>
+                    <frontName>hhmreports</frontName>
+                </args>
+            </hhmreports>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <report>
+                <children>
+                    <hhmreports translate="title" module="hhmreports">
+                        <title>HHMReports Report</title>
+                        <action>hhmreports/adminhtml_hhmreports</action>
+                    </hhmreports>
+                </children>
+            </report>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <report>
+                            <children>
+                                <hhmreports translate="title" module="hhmreports">
+                                    <title>HHMReports Report</title>
+                                    <action>hhmreports/adminhtml_hhmreports</action>
+                                </hhmreports>
+                            </children>
+                        </report>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <reports>
+                    <file>hhmreports.xml</file>
+                </reports>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <models>
+            <hhmreports>
+                <class>HHM_Hhmreports_Model</class>
+                <resourceModel>hhmreports</resourceModel>
+            </hhmreports>
+        </models>
+        <resources>
+            <hhmreports_setup>
+                <setup>
+                    <module>HHM_Hhmreports</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </hhmreports_setup>
+            <hhmreports_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </hhmreports_write>
+            <hhmreports_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </hhmreports_read>
+        </resources>
+        <blocks>
+            <hhmreports>
+                <class>HHM_Hhmreports_Block</class>
+            </hhmreports>
+        </blocks>
+        <helpers>
+            <hhmreports>
+                <class>HHM_Hhmreports_Helper</class>
+            </hhmreports>
+        </helpers>
+    </global>
+</config>

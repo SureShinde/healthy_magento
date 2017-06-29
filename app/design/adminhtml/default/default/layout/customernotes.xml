@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Open Biz Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file OPEN-BIZ-LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mageconsult.net/terms-and-conditions
+ *
+ * @category   Magecon
+ * @package    2.0.0
+ * @copyright  Copyright (c) 2012 Open Biz Ltd (http://www.mageconsult.net)
+ * @license    http://mageconsult.net/terms-and-conditions
+ */
+-->
+
+<layout>
+    <customernotes_notes_grid>
+        <update handle="formkey"/>
+        <block type="customernotes/adminhtml_notes_grid" name="notes.grid" output="toHtml" />
+    </customernotes_notes_grid>
+    <customernotes_notes_view>
+        <reference name="content">
+            <block type="customernotes/adminhtml_notes" name="notes.view" />
+        </reference>
+    </customernotes_notes_view>
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tab_view">
+            <block type="customernotes/adminhtml_edit_notes" name="customer_notes" template="customernotes/tab.phtml"/>
+        </reference>
+    </adminhtml_customer_edit>
+</layout>

@@ -1,0 +1,45 @@
+[11-Nov-2014 13:39:48 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:39:53 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:39:55 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:20 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:22 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:31 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:35 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:55 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:40:55 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:41:00 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:41:04 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:41:18 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:41:21 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:41:23 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:15 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:16 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:20 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:41 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:43 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:42:59 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:02 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:09 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:10 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:38 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:41 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:43:44 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[11-Nov-2014 13:45:12 UTC] PHP Fatal error:  Class 'Mage_Shoppersettings_Helper_Color' not found in /home/hackleyhhm/public_html/app/Mage.php on line 545
+[07-Jul-2015 22:12:10 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Model_Store_Exception' in /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php:1357
+Stack trace:
+#0 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(842): Mage_Core_Model_App->throwStoreException()
+#1 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(491): Mage_Core_Model_App->getStore()
+#2 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(274): Mage_Core_Model_App->_initCurrentStore('default'', 'store')
+#3 /home/hackleyhhm/public_html/app/Mage.php(614): Mage_Core_Model_App->init('default'', 'store', Array)
+#4 /home/hackleyhhm/public_html/skin/frontend/default/shopper/css/options.css.php(11): Mage::app('default'')
+#5 {main}
+  thrown in /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php on line 1357
+[25-Feb-2016 06:25:34 UTC] PHP Fatal error:  Uncaught exception 'Mage_Core_Model_Store_Exception' in /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php:1357
+Stack trace:
+#0 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(842): Mage_Core_Model_App->throwStoreException()
+#1 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(491): Mage_Core_Model_App->getStore()
+#2 /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php(274): Mage_Core_Model_App->_initCurrentStore('default'', 'store')
+#3 /home/hackleyhhm/public_html/app/Mage.php(614): Mage_Core_Model_App->init('default'', 'store', Array)
+#4 /home/hackleyhhm/public_html/skin/frontend/default/shopper/css/options.css.php(11): Mage::app('default'')
+#5 {main}
+  thrown in /home/hackleyhhm/public_html/app/code/core/Mage/Core/Model/App.php on line 1357

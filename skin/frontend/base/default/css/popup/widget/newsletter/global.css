@@ -1,0 +1,67 @@
+.newsletterPopup{
+  /*text-align:center;*/                
+}
+
+.cssLoadedChecker.moctod-dribegam{
+  display:none; /*DONT CHANGE THIS LINE! jQuery use this to check if css is loaded*/            
+}
+
+.newsletterPopup form {                  
+    height:auto;
+    display:inline-block;
+    position: relative;
+}
+
+.newsletterPopup form input {
+  margin:0; 
+  padding:0; 
+  -webkit-box-sizing:border-box;
+  box-sizing:content-box;
+}
+
+.newsletterPopup form button {
+  background-image:none;
+  white-space:nowrap;    
+}
+
+.newsletterPopup form button:hover{ 
+  cursor: pointer;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity:0.8;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;   
+}
+
+.newsletterPopup form  button:active,
+.newsletterPopup form  button:focus{  
+    /*background: #c42f2f;*/
+  	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  	filter: alpha(opacity=100);
+  	-moz-opacity:1;
+  	-khtml-opacity: 1;
+  	opacity: 1;
+    outline: 0;  
+}
+
+.dialogBody #thankMsg{
+  text-align:center; 
+  margin-top:40px;      
+  margin-bottom:30px;   
+} 
+
+.newsletterPopup input::-webkit-input-placeholder,.newsletterPopup input:-moz-placeholder,input:-ms-input-placeholder,.moctoddribegam:-ms-input-placeholder {
+   color: #999;
+   font-weight: normal;
+   font-style: italic; 
+}
+
+.newsletterPopup form table {              
+    border-spacing:0 !important;
+    border-collapse:separate;
+} 
+
+.newsletterPopup form input::-ms-clear {
+    display: none;
+}

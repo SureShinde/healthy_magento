@@ -1,0 +1,14 @@
+/html
+/media/
+/var/
+/includes/src/
+/app/etc/local.xml
+.sass-cache/
+.idea/
+.phpstorm.meta.php
+.DS_Store
+sitemap.xml
+*_sitemap.xml
+iworx-backupcs
+/skin/frontend/rwd/*/.sass-cache/
+/skin/frontend/rwd/*/css/*

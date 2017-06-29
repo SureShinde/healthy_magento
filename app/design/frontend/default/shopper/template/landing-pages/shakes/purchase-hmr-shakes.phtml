@@ -1,0 +1,248 @@
+</div>
+<!-- close main wrapping divs -->
+</div>
+<!-- close main wrapping divs -->
+</div>
+<!-- close main wrapping divs -->
+
+<div class="ppc-lp-wrapper">
+  <div class="ppc-lp-logo">
+    <div class="ppc-lp-inner">
+      <div class="ppc-lp-third"><a href="http://www.hackleyhealthmanagement.com/" title="Hackley Health Management" class="logo"><img src="http://www.hackleyhealthmanagement.com/media/queldorei/shopper/hhm-logo.png" alt="Shopper Store"></a></div>
+      <div class="ppc-lp-two-third ppc-lp-last">CALL US! TOLL FREE <span>800.521.9054</span></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="ppc-lp-headline">
+    <div class="ppc-lp-inner">
+      <div class="ppc-lp-headline-wrapper">
+        <h1>HMR Diet Shakes</h1>
+        <p>Delicious, filling, and versatile­—what more could you ask for in a weight-loss food?</p>
+        <div class="add-to-cart"> <a title="Buy Now" class="button btn-cart" href="#shakes"> <span><span>Buy Now</span></span> </a> </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="ppc-lp-instructions">
+    <div class="ppc-lp-inner">
+      <p id="shakes"><strong>Enter quantities for your selections below.</strong></p>
+      <p style="margin-bottom: 15px;">Then, add all items to your cart at one time be clicking on the <a class="instructions-link" href="#btnAnchor">add selection to cart</a> button below.</p>
+      <p>To view other items from HMR, or <strong>to view our full website</strong>, please <a class="instructions-link" href="/">click here</a>.</p>
+    </div>
+  </div>
+  <div class="ppc-lp-inner">
+    <form id="product_addtocart_form" class="product_addtocart_form" method="get" action="fastselectadd/">
+      <?php
+		$categoryid = 16;
+		$category = new Mage_Catalog_Model_Category();
+		$category->load($categoryid);
+		$collection = $category->getProductCollection();
+		$collection->addAttributeToSelect('*')->addAttributeToFilter('type_id', 'simple');
+		foreach ($collection as $_product) { ?>
+      <div class="ppc-lp-product">
+        <div class="ppc-lp-product-inner">
+          <h2><a href="<?php echo $_product->getProductUrl(); ?>"><?php echo $_product->getName(); ?></a></h2>
+          <div class="ppc-lp-product-img"> <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>" alt="<?php echo $_product->getName(); ?>" /> </div>
+          <div class="health-symbols-wrap">
+<img class="health-symbol-icon" title="Gluten Free" alt="Gluten Free" src="/media/health-symbols/98.png">
+<img class="health-symbol-icon" title="Kosher" alt="Kosher" src="/media/health-symbols/99.png">
+<img class="health-symbol-icon" title="Vegetarian" alt="Vegetarian" src="/media/health-symbols/97.png">
+</div><?php if($_product->getRatingSummary()){ echo $this->getReviewsSummaryHtml($_product); } ?>
+          <div class="ppc-lp-product-tools"> <?php echo $this->getChildHtml('other'); ?>
+            <?php if ( ! $_product->isGrouped() ): ?>
+            <div class="qty-container clearfix"> <a class="lp-learn-more" href="<?php echo $_product->getProductUrl(); ?>">learn more</a>
+              <input type="hidden" name="product_id" value="<?php echo $_product->getId(); ?>" />
+              <input type="text" data-id="<?php echo $_product->getId(); ?>" name="qtyy[<?php echo $_product->getId(); ?>]" id="qty" maxlength="12"
+								 value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>"
+								 class="input-text qty"/>
+              <label for="qty">ENTER <?php echo $this->__('Qty') ?>:</label>
+            </div>
+            <?php endif; ?>
+            <?php if ( $_product->isSaleable() ): ?>
+            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
+      <div id="btnAnchor" class="add-to-box">
+        <div class="add-to-cart">
+          <button type="button" title="Add Items To Cart" class="button btn-cart" onclick="productAddToCartForm.submit(this)"> <span><span>Add Selection To Cart</span></span> </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="ppc-lp-credit">
+    <div class="ppc-lp-inner">
+      <h2>this time losing weight can be different</h2>
+      <p>Lose weight quickly by replacing your current meals and snacks with HMR Shakes, Entrees, and with some plans, you’ll add fruits and vegetables. While on the diet, you won’t go hungry. You can eat as many of these foods as you need to stay full... and still lose weight</p>
+    </div>
+    <div class="owl-carousel owl-theme">
+      <div class="item">
+        <h4><a title="HMR Diet Foods" href="/shop"><img src="/media/landing-pages/carousel/food1.png" alt="HMR Diet Food" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Diet Food" href="/shop">HMR Diet Food</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree1.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake1.png" alt="HMR Shakes" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree2.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Diet Foods" href="/shop"><img src="/media/landing-pages/carousel/katie-reading.png" alt="HMR Diet Foods" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Diet Foods" href="/shop">HMR Diet Foods</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake2.png" alt="HMR Shakes" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Cereal" href="/hmr-multigrain-cereal"><img src="/media/landing-pages/carousel/cereal1.png" alt="HMR Cereal" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Cereal" href="/hmr-multigrain-cereal">HMR Cereal</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Diet Food" href="/shop"><img src="/media/landing-pages/carousel/food2.png" alt="HMR Diet Food" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Diet Food" href="/shop">HMR Diet Foods</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree3.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake3.png" alt="HMR Shakes" /></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree4.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake4.png" alt="HMR Shakes" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR At Home Program - Save 10%!" href="/hmr-at-home-program"><img src="/media/landing-pages/carousel/family1.png" alt="HMR At Home Program - Save 10%!" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR At Home Program - Save 10%!" href="/hmr-at-home-program">HMR At Home Program - Save 10%!</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree5.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake5.png" alt="HMR Shakes" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree6.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings"><img src="/media/landing-pages/carousel/shake6.png" alt="HMR Shakes" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Shakes" href="/shop/hmr-diet-shakes-puddings">HMR Shakes</a></div>
+      </div>
+      <div class="item">
+        <h4><a title="HMR Entrees" href="/shop/hmr-diet-entrees"><img src="/media/landing-pages/carousel/entree7.png" alt="HMR Entrees" /></a></h4>
+        <div class="lp-carousel-cta"><a title="HMR Entrees" href="/shop/hmr-diet-entrees">HMR Entrees</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="ppc-lp-proof">
+    <div class="ppc-lp-inner">
+      <div class="ppc-lp-third"><a href="http://health.usnews.com/best-diet/hmr-diet" target="_blank"><img src="/media/revslider/homeslider_fullscreen/usnews-badge-hackleyhealthmanagement-hmr-final.png" width="160" height="auto" alt="For Your Better Health!" /></a></div>
+      <div class="ppc-lp-two-third ppc-lp-last">
+        <p class="us-heading"><span>For Your Better Health!</span><br />
+          <strong>Clinically proven.</strong></p>
+        <div class="usnews-info">
+          <ul style="list-style: disc;padding-left: 30px;">
+          	<li>Structured diets</li>
+            <li>Physical activity</li>
+            <li>Lifestyle-change coaching</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ppc-lp-testimonials">
+    <div class="ppc-lp-inner">
+      <h2>HMR Healthy Solutions</h2>
+      <div class="ppc-lp-half">
+        <p>Watch how Kevin used <strong>HMR Healthy Solutions</strong>|<em>in clinic</em><br/>
+          to lose weight and change <strong>his</strong> story.</p>
+        <p>If you're interested in visiting our clinic,<br/>
+          please call <a href="tel:2316724325">(231) 672-4325</a></p>
+        <iframe width="100%" height="360" src="https://www.youtube.com/embed/STRGBL5p7LA" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="ppc-lp-half ppc-lp-last">
+        <p>Learn how you can use <strong>HMR Healthy Solutions</strong>|<em>at home</em><br/>
+          to lose weight <em>at home</em> and change <strong>your</strong> story.</p>
+        <p>If you're interested the HMR At Home Program,<br/>
+          please click <a href="/hmr-at-home-program" title="HMR At Home Program">here</a>.</p>
+        <iframe width="100%" height="360" src="https://www.youtube.com/embed/3kMlpjlcrQE" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+  <div class="ppc-lp-credit fullsitelink">
+    <div class="ppc-lp-inner">
+      <div class="add-to-cart"> <a title="Buy Now" class="button btn-cart" href="/"> <span><span>Visit Full website</span></span> </a> </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	var productAddToCartForm = new VarienForm('product_addtocart_form');
+	productAddToCartForm.submit = function (button, url) {
+		if (this.validator.validate()) {
+			var form = this.form;
+			var $form = jQuery('#product_addtocart_form');
+			var inputs = jQuery('input[name=product_id]', $form);
+			var queryString = '?';
+			jQuery(inputs).each(function(){
+				id = jQuery(this).val();
+				var qty = jQuery('input[data-id='+id+']', $form).val();
+				if(qty >= 1){
+					queryString += 'product_id[]='+id+'&qtyy['+id+']='+qty+'&';
+				}
+			});
+			window.location.href = form.action+queryString;
+			return false;
+			// https://www.hackleyhealthmanagement.com/fastselectadd/?product_id[]=4&qtyy[4]=1&product_id[]=5&qtyy[5]=1&product_id[]=86&qtyy[86]=1&product_id[]=85&qtyy[85]=1&
+		}
+	}.bind(productAddToCartForm);
+
+// Fire the Carousel
+jQuery('.owl-carousel').owlCarousel({
+    margin:10,
+    loop:true,
+    autoWidth:true,
+	pagination: true,
+	autoplay:true,
+    autoplayTimeout:3000,
+	items: 11
+})
+// Smooth Scrolling!
+jQuery(function($) {
+  $('a[href*=#]:not([href=#])').click(function() {
+    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+        return false;
+      }
+    }
+  });
+});
+</script>
+<div class="displayNone">
+<!-- Open new tags for the closing tags below and then hide them -->
+<div class="displayNone">
+<!-- Open new tags for the closing tags below and then hide them -->
+<div class="displayNone">
+<!-- Open new tags for the closing tags below and then hide them -->

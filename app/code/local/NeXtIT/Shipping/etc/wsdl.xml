@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+                    schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+        </schema>
+    </types>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="nitShipmentTest">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="nitShipmentAddTrackingTo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+                           encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="nitShipmentTest">
+            <documentation>Get Info</documentation>
+            <input message="typens:nitShipmentTestRequest" />
+            <output message="typens:nitShipmentTestResponse" />
+        </operation>
+        <operation name="nitShipmentAddTrackingTo">
+            <documentation>Add tracking number to an order.</documentation>
+            <input message="typens:nitShipmentAddTrackingToRequest" />
+            <output message="typens:nitShipmentAddTrackingToResponse" />
+        </operation>
+    </portType>
+    <message name="nitShipmentTestRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="nitShipmentTestResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <message name="nitShipmentAddTrackingToRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="orderId" type="xsd:string" />
+        <part name="trackingNumber" type="xsd:string" />
+        <part name="date" type="xsd:string" />
+    </message>
+    <message name="nitShipmentAddTrackingToResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

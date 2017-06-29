@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Open Biz Ltd
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file OPEN-BIZ-LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://mageconsult.net/terms-and-conditions
+ *
+ * @category   Magecon
+ * @package    Magecon_CustomerNotes
+ * @version    2.0.0
+ * @copyright  Copyright (c) 2013 Open Biz Ltd (http://www.mageconsult.net)
+ * @license    http://mageconsult.net/terms-and-conditions
+ */
+-->
+<config>
+    <menu>
+        <customernotes translate="title" module="customernotes">
+            <title>Customer Notes</title>
+            <sort_order>1000</sort_order>
+            <action>customernotes/notes/view</action>
+        </customernotes>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow everything</title>
+            </all>
+            <admin>
+                <children>
+                    <customernotes translate="title" module="customernotes">
+                        <title>Customer Notes Menu</title>
+                        <sort_order>100</sort_order>
+                    </customernotes>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <customernotes>
+                                        <title>Customer Notes</title>
+                                    </customernotes>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config> 

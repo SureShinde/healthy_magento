@@ -1,0 +1,109 @@
+<script type="text/javascript">  
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/register/global.css?v=1.3.5') ?>" type="text/css" />');
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/register/1.css?v=1.3.5') ?>" type="text/css" />');
+var successMsg = decodeURIComponent(('<?php echo urlencode(Mage::helper('cms')->getBlockTemplateProcessor()->filter(urldecode($this->getData('success_msg')))) ?>'+'').replace(/\+/g, '%20'));
+var successAction = '<?php echo $this->getData('on_success');?>';
+var successUrl = '<?php echo $this->getData('success_url');?>';
+var workingText = '<?php echo $this->__('Working')?>...';
+<?php
+$delay = 0;
+if($this->getData('on_success')==2){
+  $delay = $this->getData('close_delay'); 
+}elseif($this->getData('on_success')==3){
+  $delay = $this->getData('redirect_delay');
+}
+?>
+var actionDelay = '<?php echo $delay*1000; ?>'; 
+</script> 
+
+<?php 
+$randomId = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
+$buttonColor = $this->getData('button_color') ? $this->getData('button_color') : '#d83c3c';
+if(strpos($buttonColor,'#') === false) $buttonColor = "#".$buttonColor; 
+$buttonTextColor = $this->getData('button_text_color');
+if(!$buttonTextColor) $buttonTextColor = "#FFFFFF";
+if(strpos($buttonTextColor,'#') === false) $buttonTextColor = "#".$buttonTextColor;
+if(Mage::app()->getStore()->isCurrentlySecure()){
+  $action = Mage::getUrl('popup/user/register', array('_forced_secure' => true));         
+}else{
+  $action = Mage::getUrl('popup/user/register');
+}   
+?>    
+<style>
+#<?php echo $randomId?>.registerPopup form {              
+    width: <?php echo $this->getData('width')?><?php echo $this->getData('width_unit')==2 ? "%" : "px";?>;   
+}
+
+#<?php echo $randomId?>.registerPopup form input {
+    <?php if($this->getData('width_unit')==2):?>              
+    width: 100%;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;     
+    <?php else:?>    
+    width: <?php echo $this->getData('width')-7?>px;    
+    <?php endif; ?>
+}
+
+#<?php echo $randomId?>.registerPopup button {
+    background-color: <?php echo $buttonColor ?>;
+    <?php if($this->getData('width_unit')==2):?>              
+    width: 100%; 
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;        
+    <?php else:?>
+    width: <?php echo $this->getData('width')-8?>px;
+    <?php endif; ?>         
+    color:<?php echo $buttonTextColor?>;   
+}             
+
+</style>
+<div class="registerPopup tp1" id="<?php echo $randomId?>">   
+  <div class="error" style="display:none;"></div>
+  <form action="<?php echo $action ?>" method="post" id="signup-form" class="site-form" onsubmit="return false">    
+    <input type="hidden" name="newsletter_option" value="<?php echo $this->getData('newsletter_option')?>" />
+    <input type="hidden" name="coupon_option" value="<?php echo $this->getData('coupon_option')?>" />
+    <input type="hidden" name="coupon_type" value="<?php echo $this->getData('coupon_type')?>" />
+    <input type="hidden" name="rule_id" value="<?php echo $this->getData('rule_id')?>" />
+    <input type="hidden" name="coupon_code" value="<?php echo $this->getData('coupon_code')?>" />
+    <input type="hidden" name="send_coupon" value="<?php echo $this->getData('send_coupon')?>" />
+    <input type="hidden" name="list_id" value="<?php echo $this->getData('mailchimp_list_id')?>" />
+    <input type="hidden" name="apply_coupon" value="<?php echo $this->getData('apply_coupon')?>" />    
+    <ul>
+      <li>
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" title="<?php echo $this->__('Enter Your First Name')?>" />
+      </li>
+      <li>
+        <label for="lastname">Last name</label>
+        <input type="text" id="lastname" name="lastname" title="<?php echo $this->__('Enter Your Last Name')?>" />
+      </li>
+      <li>
+        <label for="email">Email address</label>
+        <input type="text" id="email" name="email" title="<?php echo $this->__('Enter Your Email')?>" />
+      </li>
+      <li>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" title="<?php echo $this->__('Select Your Password')?>" />
+      </li>
+      <?php if($this->getData('newsletter_option')==2): ?>
+      <li>
+        <div id="subscribeNewsletter">
+          <input type="checkbox" id="is_subscribed" name="is_subscribed"<?php if($this->getData('checkbox_checked')==1) echo ' checked="checked"'?>>
+          <label for="is_subscribed"><?php echo $this->getData('checkbox_text') ? $this->getData('checkbox_text') : $this->__('Subscribe newsletter') ?></label>   
+        </div>
+      </li>
+      <?php endif;?>
+      <li>
+        <button class="async_false" type="submit" title="<?php echo $this->__('Subscribe')?>">
+        <?php echo $this->getData('button_text') ? $this->getData('button_text') : $this->__('Create Account') ?>
+        </button>
+      </li>
+    </ul>
+  </form>
+</div>
+<!--DONT REMOVE! jQuery use it to check if css is loaded-->
+<div class="cssLoadedChecker moctod-dribegam"></div>
+<div class="cssLoadedChecker2 moctod-dribegam"></div>
+<script src="<?php echo $this->getSkinUrl('js/popup/register.js') ?>"></script>

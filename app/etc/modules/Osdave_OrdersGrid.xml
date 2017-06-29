@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Module bootstrap file
+-->
+<config>
+    <modules>
+        <Osdave_OrdersGrid>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Sales />
+            </depends>
+        </Osdave_OrdersGrid>
+    </modules>
+</config>

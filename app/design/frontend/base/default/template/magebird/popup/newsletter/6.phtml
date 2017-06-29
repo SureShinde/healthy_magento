@@ -1,0 +1,76 @@
+<script>
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/newsletter/6.css?v=1.3.5') ?>" type="text/css" />');
+var successMsg = decodeURIComponent(('<?php echo urlencode(Mage::helper('cms')->getBlockTemplateProcessor()->filter(urldecode($this->getData('success_msg')))) ?>'+'').replace(/\+/g, '%20'));
+var successAction = '<?php echo $this->getData('on_success') ? $this->getData('on_success') : 1;?>';
+var successUrl = '<?php echo $this->getData('success_url');?>';
+var errorText = '<?php echo $this->__('Write a correct Email address') ?>';
+<?php
+$delay = 0;
+if($this->getData('on_success')==2){
+  $delay = $this->getData('close_delay'); 
+}elseif($this->getData('on_success')==3){
+  $delay = $this->getData('redirect_delay');
+}
+?>
+var actionDelay = '<?php echo $delay*1000; ?>'; 
+</script>
+<?php 
+echo $this->getLayout()->createBlock('core/template')->setTemplate('magebird/popup/newsletter/global.phtml')->toHtml();
+
+$randomId = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);
+$buttonColor = $this->getData('button_color') ? $this->getData('button_color') : '#d83c3c';
+if(strpos($buttonColor,'#') === false) $buttonColor = "#".$buttonColor; 
+$buttonTextColor = $this->getData('button_text_color');
+if(!$buttonTextColor) $buttonTextColor = "#FFFFFF";
+if(strpos($buttonTextColor,'#') === false) $buttonTextColor = "#".$buttonTextColor; 
+?>    
+<style>
+#<?php echo $randomId?>.newsletterPopup form {              
+    width: <?php echo $this->getData('width')?><?php echo $this->getData('width_unit')==2 ? "%" : "px";?>;
+    <?php if($this->getData('width_unit')==2):?>
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;  
+    <?php endif;?>    
+}
+
+#<?php echo $randomId?>.newsletterPopup form input {              
+    width: <?php echo $this->getData('width')-7?>px;
+    <?php if($this->getData('width_unit')==2):?>
+    width:100%;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;  
+    <?php endif;?>     
+}
+
+#<?php echo $randomId?>.newsletterPopup button {
+    background-color: <?php echo $buttonColor ?>;
+    width: <?php echo $this->getData('width')-8?>px; 
+    color:<?php echo $buttonTextColor?>;   
+    <?php if($this->getData('width_unit')==2):?>
+    width:100%;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;  
+    <?php endif;?>     
+}             
+
+</style>
+<div class="newsletterPopup tp6" id="<?php echo $randomId?>"> 
+  <div class="error" style="display:none;"></div>
+  <form method="post" id="popup-newsletter-form" onsubmit="return false"> 
+          <input type="text" placeholder="<?php echo $this->__('Enter Your Email')?>" name="email" id="popupNewsletter" title="<?php echo $this->__('Email address')?>" />        
+          <input type="hidden" name="coupon_type" value="<?php echo $this->getData('coupon_type')?>" />
+          <input type="hidden" name="rule_id" value="<?php echo $this->getData('rule_id')?>" />
+          <input type="hidden" name="coupon_code" value="<?php echo $this->getData('coupon_code')?>" />
+          <input type="hidden" name="send_coupon" value="<?php echo $this->getData('send_coupon')?>" />          
+          <input type="hidden" name="list_id" value="<?php echo $this->getData('mailchimp_list_id')?>" />
+          <input type="hidden" name="apply_coupon" value="<?php echo $this->getData('apply_coupon')?>" />
+          <input type="hidden" name="confirm_need" value="<?php echo $this->getData('confirm_need')?>" />
+          <button class="async_false" type="submit" title="<?php echo $this->__('Subscribe')?>">
+          <?php echo $this->getData('button_text') ? $this->getData('button_text') : $this->__('Subscribe') ?>
+          </button>
+  </form>
+</div> 
+<script src="<?php echo $this->getSkinUrl('js/popup/newsletter.js') ?>"></script>

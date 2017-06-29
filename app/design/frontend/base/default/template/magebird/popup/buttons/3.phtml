@@ -1,0 +1,23 @@
+<script type="text/javascript">  
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/buttons.css') ?>" type="text/css" />');
+</script>     
+<?php 
+$color = $this->getData('button_color'); 
+if(strpos($color,'#') === false) $color = "#".$color;
+$buttonTextColor = $this->getData('buttontext_color');
+if(strpos($buttonTextColor,'#') === false) $buttonTextColor = "#".$buttonTextColor;
+$randomId = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);   
+?>
+<style>
+#<?php echo $randomId?>.popupButton{
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
+  background-color: <?php echo $color?>;
+  color:<?php echo $buttonTextColor?>
+}  
+</style>
+<a href="<?php echo $this->getData('button_href')?>" <?php if($this->getData('link_target')==2) echo 'target="_blank"'?> id="<?php echo $randomId?>" class="popupButton <?php echo $this->getData('button_size')?>"><?php echo $this->getData('button_text')?></a> 

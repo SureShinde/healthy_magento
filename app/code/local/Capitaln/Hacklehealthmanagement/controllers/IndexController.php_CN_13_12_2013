@@ -1,0 +1,264 @@
+<?php
+class Capitaln_Hacklehealthmanagement_IndexController extends Mage_Core_Controller_Front_Action
+{
+    public function indexAction()
+    {
+      
+      /*
+       * Load an object by id 
+       * Request looking like:
+       * http://site.com/hacklehealthmanagement?id=15 
+       *  or
+       * http://site.com/hacklehealthmanagement/id/15   
+       */
+      /* 
+    $hacklehealthmanagement_id = $this->getRequest()->getParam('id');
+
+      if($hacklehealthmanagement_id != null && $hacklehealthmanagement_id != '')  {
+      $hacklehealthmanagement = Mage::getModel('hacklehealthmanagement/hacklehealthmanagement')->load($hacklehealthmanagement_id)->getData();
+    } else {
+      $hacklehealthmanagement = null;
+    } 
+    */
+    
+     /*
+       * If no param we load a the last created item
+       */ 
+      /*
+      if($hacklehealthmanagement == null) {
+      $resource = Mage::getSingleton('core/resource');
+      $read= $resource->getConnection('core_read');
+      $hacklehealthmanagementTable = $resource->getTableName('hacklehealthmanagement');
+      
+      $select = $read->select()
+         ->from($hacklehealthmanagementTable,array('hacklehealthmanagement_id','title','content','status'))
+         ->where('status',1)
+         ->order('created_time DESC') ;
+         
+      $hacklehealthmanagement = $read->fetchRow($select);
+    }
+    Mage::register('hacklehealthmanagement', $hacklehealthmanagement);
+    */
+
+      
+    $this->loadLayout();     
+    $this->renderLayout();
+    }
+
+    public function editorderAction()
+    {
+         
+         $this->loadLayout();     
+         $this->renderLayout();
+    }
+
+   public function hrmAction()
+    {
+
+        //$customerId = $this->getRequest()->getParam('customerid')
+
+        //$hmrorderDetails =  $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE `customer_id`='.$customerId); 
+
+        $this->loadLayout();     
+        $this->renderLayout();
+
+   }
+
+   public function updateSubcriptionProductOptionAction()
+   {
+      $resource = Mage::getSingleton('core/resource');
+      $readConnection = $resource->getConnection('core_read');    
+      $writeConnection = $resource->getConnection('core_write');
+
+      $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');      
+
+      $getPriviousOrderProductInfoOptions = $readConnection->fetchOne('SELECT `product_options` FROM `sales_flat_order_item` WHERE `item_id` = '  .$_POST['item_id']);
+      $getQuoteItemId = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE `item_id` = '  .$_POST['item_id']);
+      $quote_array =  $readConnection->fetchAll('SELECT * FROM `sales_flat_quote_item` WHERE `item_id`='.$getQuoteItemId);
+      
+     // echo '<pre>';
+      //print_r($quote_array);
+      //exit;
+
+        //$hmr_product_specs = '';
+        //$hmr_product_specs  = '<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="kit_cart_details"><tbody>';
+        $hmr_product_specs  = '<table><tbody>';
+        $hmr_product_specs .= '<tr bgcolor="#FFFFFF" class="attributes-odd"><td>'; 
+       //$hmr_product_specs .= '<div class="cart_detials">';
+       //$hmr_product_specs .= '<div class="cart_detials">';
+       // $hmr_product_specs .= '<span class="show_two" id="this_show_two" onclick="show_hide()" style="display:block"><span>+</span>';
+       // $hmr_product_specs .= '<span>Show Details</span></span>';
+       // $hmr_product_specs .= '<span class="hide_two" id="this_hide_two" onclick="show_hide()" style="display:none"><span>--</span>';
+       // $hmr_product_specs .= '<span>Hide Details</span></span>';
+        $hmr_product_specs .= '<strong>['.$quote_array[0]['subscribed_prod_ref'].']</strong>';
+        $hmr_product_specs .= '<div class="two_week" id="two_week" style="display:block">';
+        //$hmr_product_specs .= '<span class="phase_1_title_2"><strong>HMR at Home Program Enrollment (Phase 1)</strong></span>';
+        
+        /////// no use of this now /////////
+        //$hmr_product_specs.='<tr bgcolor="#FFFFFF" class="attributes-odd">';
+        //$hmr_product_specs.='<td class="phase_1_title" style="display: none;">'
+        //$hmr_product_specs.='<span class="phase_1_title_2"><strong>HMR at Home Program Enrollment (Phase 1)</strong></span></td>';
+        //$hmr_product_specs.='</tr>';
+        //$hmr_product_specs.='<tr><td><br /><div class="cart_detials"><div class="two_week" id="two_week" style="display:none">';
+        /////// no use of this now /////////
+       $allsubcribedproductoptions = '';
+       foreach($allEntrees_result as $key=>$value){
+          // if($_POST['subscribed_entree_'.($key+1)]!=0) {         
+            $hmr_product_specs.=$_POST['hmr_entree_'.($key+1).'_qty'].'<span class="smallText">X</span>'.$value['entree_name'].'<br>'; 
+            if($_POST['hmr_entree_'.($key+1).'_qty']>0){
+              $allsubcribedproductoptions .= ','.$_POST['hmr_entree_'.($key+1).'_qty'];              
+            }else{
+              $allsubcribedproductoptions .= ',0';      
+            }
+          // }
+        }
+        $allsubcribedproductoptions_final = ltrim ($allsubcribedproductoptions, ',');
+
+      if($_POST['hmr_120_cho_qty'] > 0){
+        $hmr_product_specs .= $_POST['hmr_120_cho_qty'].'<span class="smallText"> X </span> HMR&reg; 120 Chocolate<br />';
+      }
+      if($_POST['hmr_120_van_qty'] > 0){
+        $hmr_product_specs .= $_POST['hmr_120_van_qty'].'<span class="smallText"> X </span> HMR&reg; 120 Vanilla<br />';
+      }      
+      //$hmr_product_specs.= '</div></div></td></tr>';
+      $hmr_product_specs.= '</div></td></tr>';
+      $hmr_product_specs.= '</tbody></table>';
+
+      //echo '<pre>';
+      //print_r($_POST);
+      //echo $hmr_product_specs;
+      //exit;
+      //echo $allsubcribedproductoptions_final;
+      //exit;
+
+      $getUnserializedOrderProductInfoOptions = unserialize($getOrderProductInfoOptions);   
+      //echo $getUnserializedOrderProductInfoOptions['additional_options'][0]['value'];  exit;
+      $options['info_buyRequest'] = array(
+                  'product' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['product'],
+                  'add_to_cart' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['add_to_cart'],
+                  'qty' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['qty']
+                );
+
+              $options['additional_options'] = array(
+              array(
+                'code' => 'hmr_spec',
+                'label' => '',
+                'value' => $hmr_product_specs
+              ));
+
+        $additionalOptions = serialize($options);
+        $query = "UPDATE `sales_flat_order_item` SET `product_options` = '".$additionalOptions."' WHERE `item_id` = '".$_POST['item_id']."'";
+        $writeConnection->query($query);
+
+        $query_to_update_shakes = "UPDATE `sales_flat_quote_item` SET 
+                                  `subscribed_hmr_70_choco` = '0',
+                                  `subscribed_hmr_70_vani` = '0',
+                                  `subscribed_hmr_120_choco` = '".$_POST['hmr_120_cho_qty']."',
+                                  `subscribed_hmr_120_vani` = '".$_POST['hmr_120_van_qty']."',
+                                  `subscribed_variety_entree` = '".$allsubcribedproductoptions_final."'   
+                                  WHERE `item_id` = '".$getQuoteItemId."'";
+        $writeConnection->query($query_to_update_shakes);
+
+        $this->_redirect('sales/order/history/');
+
+   }
+
+    ////////// No use of now ///////////////
+    public function updateorderAction()
+    {
+        $resource = Mage::getSingleton('core/resource');
+        $readConnection = $resource->getConnection('core_read');    
+        $writeConnection = $resource->getConnection('core_write');
+
+        $getOrderProductInfoOptions = $readConnection->fetchOne('SELECT `product_options` FROM `sales_flat_order_item` WHERE `order_id` = '  .$_POST['item_id']);
+        $getQuoteItemId = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE `order_id` = '  .$_POST['order_id']);
+
+        $quote_items = Mage::getModel('sales/quote')->getItemsCollection(); 
+        $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+        $hmr_product_specs = '<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0"><tbody><tr bgcolor="#FFFFFF" class="attributes-odd"><td><strong>HMR at Home: Healthy Solutions Intro Diet Kit (3 Week Supply)</strong></td></tr>';
+            
+        foreach($allEntrees_result as $key=>$value){
+              if($_POST['entree_'.($key+1)]!=0) {
+        $hmr_product_specs.='<tr bgcolor="#FFFFFF"><td bgcolor="#FFFFFB">'.$_POST['entree_'.($key+1)].'<span class="smallText">X</span> <font color="#CC0000"></font>'.$value['entree_name'].'</td></tr>';
+                  }
+              }
+        $hmr_product_specs.='<tr bgcolor="#FFFFFF" class="attributes-odd"><td><strong>HMR at Home Program Enrollment (Phase 1)</strong></td></tr>';
+
+        foreach($allEntrees_result as $key=>$value){
+         // if($_POST['subscribed_entree_'.($key+1)]!=0) {
+                    $hmr_product_specs.='<tr bgcolor="#FFFFFF"><td bgcolor="#FFFFFB">'.$_POST['subscribed_entree_'.($key+1)].'<span class="smallText">X</span> <font color="#CC0000"></font>'.$value['entree_name'].'</td></tr>';
+
+                   $allsubcribedproductoptions = $allsubcribedproductoptions.','.$_POST['subscribed_entree_'.($key+1)];
+                  $allsubcribedproductoptions11= ltrim ($allsubcribedproductoptions, ',');
+            
+                 // }
+
+                }
+                $hmr_product_specs.= '</tbody></table>';
+            $getUnserializedOrderProductInfoOptions = unserialize($getOrderProductInfoOptions);   
+        //echo $getUnserializedOrderProductInfoOptions['additional_options'][0]['value'];  exit;
+        $options['info_buyRequest'] = array(
+                    'product' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['product'],
+                    'add_to_cart' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['add_to_cart'],
+                    'qty' => $getUnserializedOrderProductInfoOptions['info_buyRequest']['qty']
+                  );
+
+                $options['additional_options'] = array(
+                array(
+                  'code' => 'hmr_spec',
+                  'label' => '',
+                  'value' => $hmr_product_specs
+                ));
+          $additionalOptions = serialize($options);
+          $query = "UPDATE `sales_flat_order_item` SET `product_options` = '".$additionalOptions."' WHERE `order_id` = '".$_POST['order_id']."'";
+          $writeConnection->query($query);
+          $query_to_update_shakes = "UPDATE `custom_sales_flat_quote_item` SET `subscribed_hmr_70_choco` = '".$_POST['hmr_70_cho_qty']."',`subscribed_hmr_70_vani` = '".$_POST['hmr_70_van_qty']."'  WHERE `item_id` = '".$getQuoteItemId."'";
+          $writeConnection->query( $query_to_update_shakes);
+          $query_to_update_custom_table = "UPDATE `custom_sales_flat_quote_item` SET `subscribed_variety_entree` = '".$allsubcribedproductoptions11."' WHERE `item_id` = '".$getQuoteItemId."'";
+          $writeConnection->query($query_to_update_custom_table);
+
+          //$this->_redirectReferer(Mage::getUrl('*/index/index/order_id/'.$_POST['order_id']));
+          $this->_redirect('hacklehealthmanagement/index/index/order_id/'.$_POST['customer_id']);
+    }
+    public function updatestatuspauseAction()
+    {
+
+
+        $custId = Mage::getSingleton('customer/session')->getId();
+        $orderId = Mage::app()->getRequest()->getParam('order_id');
+        $resource = Mage::getSingleton('core/resource');
+        $readConnection = $resource->getConnection('core_read');    
+        $writeConnection = $resource->getConnection('core_write');
+
+        $getQuoteItemId = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE `order_id` = '  .$orderId);
+
+        $query_to_update_status = "UPDATE `custom_sales_flat_quote_item` SET `action` = '0'  WHERE `item_id` = '".$getQuoteItemId."'";
+        $writeConnection->query( $query_to_update_status);
+
+        $this->_redirect('hacklehealthmanagement/index/index/order_id/'.$custId);
+    }
+    public function updatestatusresumeAction()
+    {
+        $custId = Mage::getSingleton('customer/session')->getId();
+        $orderId = Mage::app()->getRequest()->getParam('order_id');
+        $date = Mage::app()->getRequest()->getParam('date');
+        $resource = Mage::getSingleton('core/resource');
+        $readConnection = $resource->getConnection('core_read');    
+        $writeConnection = $resource->getConnection('core_write');
+
+    		/*echo "<pre>";
+    		print_r(Mage::app()->getRequest());
+    		echo "</pre>";
+    		echo "help ".$date;
+    		exit;*/
+
+        $getQuoteItemId = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE `order_id` = '  .$orderId);
+
+        $query_to_update_status = "UPDATE `custom_sales_flat_quote_item` SET `action` = '1',`nextshipdate` = '".$date."'   WHERE `item_id` = '".$getQuoteItemId."'";
+        $writeConnection->query( $query_to_update_status);
+
+        $this->_redirect('hacklehealthmanagement/index/index/order_id/'.$custId);
+    }
+    ////////// No use of now ///////////////
+
+  }

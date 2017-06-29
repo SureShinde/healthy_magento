@@ -1,0 +1,16 @@
+<div id="review_fields">
+<?php $reviews = $this->getReviews() ?>
+<?php foreach($reviews as $review): ?>
+	<h5><?php echo $review->getReviewName() ?> - <?php echo $review->getReviewEmail() ?></h5>
+	<p>
+		<?php echo $review->getReviewText() ?><br />
+		<span><?php echo date('m-d-Y \a\t h:i A', strtotime($review->getCreatedAt())) ?></span>
+		<?php if(!$review->getApproved()): ?>
+			 - <a href="<?php echo Mage::getModel('adminhtml/url')->getUrl('recipe/adminhtml_recipe/approvereview') ?>id/<?php echo $review->getId() ?>">Approve</a>
+		<?php endif ?>
+		- <a href="<?php echo Mage::getModel('adminhtml/url')->getUrl('recipe/adminhtml_recipe/deletereview') ?>id/<?php echo $review->getId() ?>">Delete</a>
+	</p>
+	
+	<br /><br />
+<?php endforeach ?>
+</div>

@@ -1,0 +1,261 @@
+<?php
+    error_reporting(0);
+
+	?>
+
+<style>
+select#recipe-search-dish {
+	
+}
+.recipesearch {
+	margin: 10px 0px 15px 0px;
+}
+.recipelist {
+	height: auto !important;
+	overflow: hidden !important;
+}
+.recipedetails {
+	float: none !important;
+	width: 600px;
+}
+.recipethumb {
+	height: 85px !important;
+	width: 135px !important;
+	float: left;
+	margin: 0;
+}
+.recipe-list-main h5 {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+}
+</style>
+<title>test</title>
+    <div class="recipe-list-wrapper">
+    <?php echo $this->getChildHtml('breadcrumbs') ?>
+      <div class="home-left"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_banners_slideshow')->toHtml();
+	   echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe_home.phtml')->toHtml(); ?> </div>
+      <div class="recipe-list-main">
+        <?php 
+        if( $_SERVER[REQUEST_URI] == '/hmr-recipes/shakes-and-smoothies') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Shake and Smoothie Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/pudding-and-mousse') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Recipes for Pudding and Mousse</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/multigrain-cereal') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Multigrain Cereal Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/entrees') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Entree Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/soup') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Recipes for Soup</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/benefit-bars') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> BeneFit Bar Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/desserts') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Dessert Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/hot-drinks') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>HMR<sup>&reg;</sup> Hot Drink Recipes</h2>";
+        } elseif ( $_SERVER[REQUEST_URI] == '/hmr-recipes/miscellaneous') {
+            $xRecipeCatTitle = "<h2 class='recipe-header'>Misc. HMR<sup>&reg;</sup> Recipes</h2>";
+        }
+        echo $xRecipeCatTitle;
+        ?>
+        <div class="recipesearch">
+          <select id="recipe-search-dish" onchange="searchMe()">
+            <?php $types = Mage::getModel('recipe/type')->getCollection() ?>
+            <option value="">-- HMR Recipe Type --</option>
+            <?php $count = 1;
+			
+				  foreach($types as $type): 
+				  switch($_SERVER['REQUEST_URI']){
+				  		case '/hmr-recipes/shakes-and-smoothies':
+							if($count == 1){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/pudding-and-mousse':
+							if($count == 2){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/multigrain-cereal':
+							if($count == 3){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/entrees':
+							if($count == 4){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/soup':
+							if($count == 5){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/benefit-bars':
+							if($count == 6){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/desserts':
+							if($count == 7){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/hot-drinks':
+							if($count == 8){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						case '/hmr-recipes/miscellaneous':
+							if($count == 9){
+								$my_selection = 'selected="selected"';	
+							} else {
+								$my_selection = '';	
+							}
+							break;
+						
+				  }?>
+            <option <?php echo $my_selection; ?> value="<?php echo $type->getId() ?>"><?php echo $type->getDishtype() ?></option>
+            <?php $count++;
+					endforeach ?>
+          </select>
+        <select id="recipe-search-diff" style="display: none;">
+          <option value="">Difficulty</option>
+          <option value="1">Easy</option>
+          <option value="2">Moderate</option>
+          <option value="3">Hard</option>
+        </select>
+        
+        <select style="display: none;">
+            <option value="">Prep Time</option>
+            <option value="1">Less than 30 mins</option>
+            <option value="2">30 to 60 mins</option>
+            <option value="3">More than 60 mins</option>
+        </select>
+          
+        </div>
+        <div class="recipe-list-wrapper">
+<?php
+		$recipes = $this->getRecipes();
+		
+       	//echo $this->getRecipes();
+	// Pagination
+        $xDisplay = 6; // How many posts per page
+        $xPage = 0; // What page we're currently on
+        // Adding a count for number of testimonials 
+        // connection 
+        $conn = Mage::getSingleton('core/resource')->getConnection('core_read');
+        // query recipes table in the database
+        $rowNum_Query = $conn->fetchAll("SELECT * FROM recipe_entity;");
+        $xNum_rows = count($rowNum_Query); // Count the results
+	
+        foreach($recipes as $recipe) {
+	
+            $xCount ++; //set counter
+            $xCond = $xCount - 1; // Use zero count for opening DIV
+            // If we're at a multiple of $xDisplay 
+            if ($xCond % $xDisplay == 0) {
+                $xPage ++; // Increase the page number
+                $xStart = '<div class="recipe-page" id="recipe-page_' . $xPage . '">'; // Declare the DIV ID and class
+                $xLinks .= '<a id="recipe-page-link-'.$xPage.'" href="#"> ' . $xPage . '</a>'; // Create/add the page link
+                // Create the dynamic jQuery
+                /*
+                 *	Create a click function for each page link ID
+                 *	Hide all the pages based on class
+                 *	Display single page based on ID
+                 */
+                $xJQuery .= "jQuery(document).ready(function() {
+                    jQuery('#recipe-page-link-" . $xPage . "').click(function() {
+                        jQuery('.recipe-page').hide(800);
+                        jQuery('#recipe-page_" . $xPage . "').show(800);
+						jQuery('.pagenumofnum #page').text(". $xPage . ");
+                        });
+                        });";
+            }
+            // Otherwise
+            else {
+                // Override the variables
+                $xStart = '';
+            }				
+            // Checking if we need to close the DIV 
+            if ($xCount % $xDisplay == 0 || $xCount == $xNum_rows) {
+                $xEnd = '</div>';
+            }
+            else {
+                $xEnd = '';
+            }
+            $xRecipe = $xRecipe . $xStart . '<div class="recipelist" id="xCC'.$xCount.'">';
+			
+            $xRecipe = $xRecipe . '<h5><a href="'. $recipe->getUrl() .'">'. $recipe->getTitle() .'</a></h5>';
+            $xRecipe = $xRecipe . '<div class="recipethumb">';
+            $xRecipe = $xRecipe . '<a href="'. $recipe->getUrl() .'" title="'. $recipe->getTitle() .'"><img src="' . Mage::getBaseUrl('media') .'recipe/tn/'. $recipe->getLrgPath() .'" /></a>';
+            $xRecipe = $xRecipe . '<div class="ratings">';
+            $xRecipe = $xRecipe . '<div class="rating-box">';
+            $xRecipe = $xRecipe . $rating = $recipe->getRateTotal() / $recipe->getRateCount() * 20;
+            $xRecipe = $xRecipe . '<div style="width:' . round($rating) .'%" class="rating"></div>';
+            $xRecipe = $xRecipe . '</div>';
+            $xRecipe = $xRecipe . '<p class="rating-links"> <a href="'. $recipe->getUrl() .'#recipe-review-achor">' . count($reviews) . ' Review(s)</a> </p>';
+            $xRecipe = $xRecipe . '</div>';
+            $xRecipe = $xRecipe . '</div>';
+            $xRecipe = $xRecipe . '<div class="recipedetails" style="float:left;">';
+            $xRecipe = $xRecipe . '<p>'. $recipe->getDesc() .'</p>';
+            $xRecipe = $xRecipe . '<a class="view-recipe-link" href="'. $recipe->getUrl() .'" title="'. $recipe->getTitle() .'">View Recipe</a>';
+            $xRecipe = $xRecipe . '</div>';
+            $xRecipe = $xRecipe . '<div class="clear"></div>';
+            $xRecipe = $xRecipe . "<style>
+            #recipe-page_".$xPage." {
+                display: none;
+            }
+            #recipe-page_1 {
+                display: block;
+            }
+            </style>
+            </div>" . $xEnd;
+            // Insert the closing DIV when necessary 
+            // Display page links 
+            //$xLinks = explode('', $links);
+             }
+        // Add jQuery to function variable
+        $xRecipe .= '<script>' . $xJQuery . '</script>';
+		
+        echo $xRecipe;
+        
+        ?>
+        </div>
+        <div class="clear"></div>
+        <div id="xLinks">
+
+        <div class="pagenumofnum"><span style="clear:both;">Page <span id='page'>1</span> of <?php echo $xPage; ?></span></div>
+ 		<div class="goto-page-links"><span style="clear:both;">Go to page: </span><?php echo $xLinks; ?></div>  
+        </div>
+      </div>
+    </div>
+</div>
+<script>
+function searchMe() {
+	var url = '<?php echo Mage::getBaseUrl('web') . "recipe/index/list/" ?>';
+	if($('recipe-search-dish').getValue()) {
+		url = url + "dish/" + $('recipe-search-dish').getValue() + "/";
+	}
+	if($('recipe-search-diff').getValue()) {
+		url = url + "diff/" + $('recipe-search-diff').getValue() + "/";
+	}
+	window.location = url;
+}
+</script>

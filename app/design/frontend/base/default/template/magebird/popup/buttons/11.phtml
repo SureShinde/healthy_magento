@@ -1,0 +1,29 @@
+<script type="text/javascript">  
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/buttons.css') ?>" type="text/css" />');
+</script>     
+<?php 
+$color = $this->getData('button_color'); 
+if(strpos($color,'#') === false) $color = "#".$color;
+$buttonTextColor = $this->getData('buttontext_color');
+if(strpos($buttonTextColor,'#') === false) $buttonTextColor = "#".$buttonTextColor;   
+$color1 = $this->brightness($color,14);
+$color2 = $this->brightness($color,-52);
+$color3 = $this->brightness($color,25);
+$randomId = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 7);  
+?>
+<style>
+#<?php echo $randomId?>.popupButton{
+    border: none;        
+    background-color: <?php echo $color1?>; 
+  	background-image: -webkit-linear-gradient(top, <?php echo $color1?> 0%, <?php echo $color2?> 100%);
+  	background-image: -moz-linear-gradient(top, <?php echo $color1?> 0%, <?php echo $color2?> 100%);
+  	background-image: -ms-linear-gradient(top, <?php echo $color1?> 0%, <?php echo $color2?> 100%);
+  	background-image: -o-linear-gradient(top, <?php echo $color1?> 0%, <?php echo $color2?> 100%);
+  	background-image: linear-gradient(top, <?php echo $color1?> 0%, <?php echo $color2?> 100%);
+		-moz-border-radius: 6px;
+		-webkit-border-radius: 6px;
+		border-radius: 6px; 
+    color:<?php echo $buttonTextColor?>
+}  
+</style>
+<a href="<?php echo $this->getData('button_href')?>" <?php if($this->getData('link_target')==2) echo 'target="_blank"'?> id="<?php echo $randomId?>" class="popupButton <?php echo $this->getData('button_size')?>"><?php echo $this->getData('button_text')?></a>   

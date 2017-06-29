@@ -1,0 +1,50 @@
+<br />
+<div class="entry-edit">
+    <div class="entry-edit-head"><div class="ajax"><h4 class="icon-head head-customer-view"><?php echo Mage::helper('customernotes')->__('Customer Notes') ?></h4></div></div>
+    <fieldset>
+        <div>
+            <?php if ($this->canAddNote()): ?>
+                <div id="history_form" class="order-history-form">
+                    <form method="POST" action="<?php echo $this->getSubmitAction(); ?>">
+                        <?php echo $this->getBlockHtml('formkey') ?>
+                        <input type="hidden" name="customer_id" value="<?php echo $this->getCustomerId(); ?>" />
+                        <input type="hidden" name="customer_name" value="<?php echo $this->getCustomerName(); ?>" />
+                        <span class="field-row">
+                            <label class="normal" for="note"><?php echo Mage::helper('customernotes')->__('Note') ?></label>
+                            <textarea name="note" rows="3" cols="5" style="height:6em; width:99%;" id="history_note"></textarea>
+                        </span>
+                        <div class="f-right">
+                            <input type="submit" class="form-button" value="<?php echo Mage::helper('customernotes')->__('Add Note') ?>" />
+                        </div>
+                        <div class="clear"></div>
+                    </form>	
+                </div>
+                <div class="divider"></div>
+            <?php endif; ?>
+
+            <ul class="note-list">
+
+                <?php $notes = array_reverse($this->getNotes());
+                foreach ($notes as $note):
+                    ?>
+                    <form method="POST" action="<?php echo $this->getDeleteAction(); ?>">
+    <?php echo $this->getBlockHtml('formkey') ?>
+                        <li>
+                            <input type="hidden" name="customer_id" value="<?php echo $this->getCustomerId() ?>" />
+                            <input type="hidden" name="note_id" value="<?php echo $note['note_id']; ?>" />
+                            <strong><?php echo $this->helper('core')->formatDate($note['created_time'], 'medium') ?></strong>
+                            <small><?php echo $this->helper('core')->formatTime($note['created_time'], 'medium') ?>
+                            </small>
+    <?php echo "posted by: " . $note['username']; ?>
+                            <div class="f-right">
+                                <input type="submit" class="form-button" value="<?php echo Mage::helper('customernotes')->__('Delete Note') ?>" onclick="return confirm('Are you sure you want to delete the note?')"/>
+                            </div>
+                            <br/><?php echo $this->htmlEscape($note['note'], array('b', 'br', 'strong', 'i', 'u')) ?>
+                        </li>
+                    </form>
+<?php endforeach; ?>
+
+            </ul>
+        </div>
+    </fieldset>
+</div>

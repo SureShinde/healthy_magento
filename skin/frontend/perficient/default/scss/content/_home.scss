@@ -1,0 +1,964 @@
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition License
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magentocommerce.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://www.magentocommerce.com/license/enterprise-edition
+ */
+
+/* ============================================ *
+ * Homepage
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Primary Banner
+ */
+
+body.cms-home {
+
+    .main-container {
+        padding-top: 10px;
+
+      @include bp(max-width, $bp-medium) {
+        padding: 15px;
+      }
+    }
+
+    .slideshow-container {
+        margin-top: 0;
+    }
+}
+
+.slideshow .banner-msg {
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    top: 30%;
+    @include not-selectable;
+}
+
+.slideshow .banner-msg h2 {
+    color: #FFFFFF;
+    font-size: 24px;
+    @include single-text-shadow(1px, 1px, 3px, false, #555555);
+}
+
+.slideshow .banner-msg h2 strong {
+    font-weight: bold;
+    display: block;
+    font-size: 36px;
+}
+
+@include bp(max-width, $bp-medium) {
+
+    .slideshow .banner-msg h2 {
+        font-size: 20px;
+    }
+
+    .slideshow .banner-msg h2 strong {
+        font-size: 24px;
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+
+    .slideshow .banner-msg {
+        top: 20%;
+    }
+
+    .slideshow .banner-msg h2 {
+        font-size: 14px;
+    }
+
+    .slideshow .banner-msg h2 strong {
+        font-size: 16px;
+    }
+}
+
+/* -------------------------------------------- *
+ * Promotion Banner Section
+ */
+
+.promos {
+    margin: 0 0 $gap 0;
+    padding: 0;
+    width: 100%;
+}
+
+.promos:after {
+    @include clearfix;
+}
+
+/* Specifying the body only in order to override the .std ul li styling */
+
+body .promos > li {
+    margin: 0 0 10px 0;
+    list-style: none;
+    text-align: center;
+    position: relative;
+    border: 1px solid $c-module-border;
+    @include not-selectable;
+}
+
+.promos > li:last-child {
+    margin-bottom: 0;
+}
+
+.promos img {
+    max-width: 100%;
+    width: 100%;
+}
+
+.promos a:hover {
+    @include opacity(0.8);
+    display: block;
+}
+
+.promos span {
+    color: #FFFFFF;
+    text-transform: uppercase;
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 10%;
+    font-weight: 500;
+    font-size: 20px;
+    font-family: $f-stack-special;
+    @include single-text-shadow(1px, 1px, 3px, false, #555555);
+}
+
+.promos strong {
+    font-weight: 600;
+    font-size: 26px;
+    display: block;
+}
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .promos span {
+        font-size: 16px;
+    }
+
+    .promos strong {
+        font-size: 17px;
+    }
+
+    /* Config: Three columns + flexible gutter */
+    // Container: 480 - (2 * 30 trim wide) = 420
+    // Math: (420 - (2 * 10 gutter)) / 3 items = 133.333333333
+    body .promos > li {
+        float: left;
+        width: percentage(133.333333333 / 420);
+        margin-right: percentage(10 / 420);
+    }
+
+    .promos > li:nth-child(3n) {
+        margin-right: 0;
+    }
+}
+
+@include bp(min-width, 880px) {
+    .promos span {
+        font-size: 18px;
+    }
+
+    .promos strong {
+        font-size: 24px;
+    }
+}
+
+/* -------------------------------------------- *
+ * New Products Section
+ */
+
+/* Hiding the reviews content via CSS because we can't modify the template, */
+/* since it may be used in other places where those elements are needed */
+.cms-index-index .products-grid .ratings,
+.cms-index-index .products-grid .actions,
+.cms-index-noroute .products-grid .ratings,
+.cms-index-noroute .products-grid .actions {
+    display: none;
+}
+
+.cms-index-index h2.subtitle {
+    padding: 6px 0;
+    text-align: center;
+    color: $c-text-primary;
+    font-weight: 600;
+    border-bottom: 1px solid $c-module-border;
+    border-top: 1px solid $c-module-border;
+}
+
+.cms-index-noroute h2.subtitle {
+    display: none;
+}
+
+
+body.cms-home {
+
+  h2 {
+    font-family: $f-stack-sans;
+    font-weight: $f-light;
+  }
+
+  #home-email,
+  #tips .inner-container,
+  #styles,
+  #connections .inner-container,
+  #promos {
+    max-width: $max-content-width + $trim + $trim;
+    margin: 0 auto;
+    overflow: hidden;
+
+    @include bp(max-width, $bp-medium) {
+      padding: 0;
+    }
+  }
+  #connections .inner-container {
+    padding: 0 25px 0 25px;
+  }
+
+  #tips,
+  #connections {
+    background: $c-lighter-gray;
+    margin: 0;
+
+    @include bp(max-width, $bp-medium) {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+
+  #home-email {
+    padding: 22px 25px;
+
+    .block-subscribe {
+      width: $one;
+      margin-bottom: 0;
+      color: $c-text;
+
+      .form-subscribe-header {
+        float: left;
+        width: auto;
+      }
+
+      .block-title {
+        float: left;
+        width: auto;
+        margin: 0;
+        padding: 0;
+
+        strong {
+          color: $c-text;
+          font-size: 32px;
+          font-weight: $f-light;
+          font-family: $f-stack-sans;
+          text-transform: uppercase;
+          border-right: 1px solid $c-border-med;
+          padding: 0 20px 0 0;
+          margin: 0 20px 0 0;
+
+          @include bp(max-width, 1151px) {
+            font-size: 28px;
+          }
+        }
+      }
+
+      .block-content {
+        margin: 0;
+      }
+
+      .input-box {
+        width: 287px;
+        float: left;
+        margin-left:15px;
+      }
+
+      input[type=email] {
+        background: $c-light-gray-2;
+        border:none;
+        height: 36px;
+        @include border-radius(5px);
+      }
+
+      .actions {
+        float: left;
+        margin: 3px 0 0 15px;
+      }
+
+      label {
+        font-size: $f-size;
+        padding: 10px 0 0 0;
+
+        @include bp(max-width, 1125px) {
+          display: none;
+        }
+      }
+    }
+
+    @include bp(max-width, $bp-medium) {
+      display: none;
+    }
+  }
+
+  #tips {
+    padding: 40px 0;
+
+    li {
+      float: left;
+      width: $one-third;
+      text-align: center;
+      padding: 20px 2% 35px 2%;
+
+      a{
+        display: block;
+      }
+
+      .icon{
+        display: block;
+        width:60px;
+        height:60px;
+        margin:auto;
+        margin-bottom:15px;
+      }
+
+      &:nth-child(2) {
+        border-right: 1px solid $c-border-light;
+        border-left: 1px solid $c-border-light;
+      }
+
+      h3 {
+        font-weight: $f-light;
+        font-family: $f-stack-sans;
+        text-transform: uppercase;
+        font-size: 22px;
+      }
+
+      @include bp(max-width, $bp-large) {
+        padding: 20px 2% 30px 2%;
+
+        p {
+          display: none;
+        }
+      }
+
+      @include bp(max-width, $bp-medium) {
+        width: $one;
+        float: none;
+        border-bottom: 1px solid $c-border-light;
+        padding: 10px 0;
+
+        &:nth-child(2) {
+          border-right: none;
+          border-left: none;
+        }
+
+        &:last-child {
+          border: none;
+        }
+
+        span,
+        .learn-more {
+          display: none !important;
+        }
+      }
+    }
+    li.clickable {
+      cursor: pointer;
+    }
+
+    @include bp(max-width, $bp-medium) {
+      padding: 0;
+      margin-top: 10px;
+
+      h3 {
+        margin: 0;
+      }
+
+      ul {
+        margin: 0 15px;
+      }
+    }
+  }
+
+  #styles {
+    margin: 55px auto 100px auto;
+    padding: 0 25px;
+
+    @include bp(max-width, $bp-medium) {
+      margin: 32px 0 60px 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0 0 25px 0;
+      font-size:32px;
+      @include bp(max-width, $bp-medium) {
+        font-size:22px;
+      }
+    }
+
+    h3 {
+      background: $c-light-gray;
+      font-size: 13px;
+      text-align: center;
+      padding: 13px 0;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .main-style {
+      float: left;
+      width: 38.5%;
+      border: 1px solid $c-border-light;
+
+      @include bp(max-width, $bp-medium) {
+        width: $one;
+        float: none;
+        margin-bottom: 5%;
+      }
+
+      img {
+        width: $one;
+      }
+    }
+
+    .sub-styles {
+      float: left;
+      width: 60%;
+
+      h3{
+        color: #666;
+      }
+
+      @include bp(max-width, $bp-medium) {
+        width: $one;
+      }
+      ul.no-list{
+        overflow: hidden;
+        margin: 0;
+      }
+
+      li {
+        float: left;
+        width: 30.333%;
+        border: 1px solid $c-border-light;
+        margin: 0 3%;
+        &:first-child{
+          margin-right:0;
+        }
+        @include bp(max-width, $bp-medium) {
+          margin: 0;
+          &:first-child{
+            margin: 0 5%;
+          }
+        }
+        &:last-child{
+          margin-left:0;
+          margin-right:0;
+        }
+
+        a {
+          display: block;
+        }
+
+        img {
+          width: $one;
+        }
+
+        @include bp(max-width, $bp-medium) {
+          width: 47.5%;
+          margin: 0;
+
+          &:first-child{
+            margin-right: 2.5% ;
+            margin-left: 0;
+          }
+
+          &:nth-child(2n){
+            margin-left: 2.5% ;
+            margin-right: 0;
+          }
+        }
+      }
+
+      ul.top-style li{
+        margin-bottom:3%;
+
+        @include bp(max-width,$bp-medium){
+          margin-bottom:5%;
+        }
+      }
+
+      ul.top-style li,
+      ul.bottom-style li{
+
+        @include bp(max-width, $bp-large) {
+
+          &:last-child {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  @include bp-range(min-width, $bp-medium + 1, max-width, $bp-large){
+
+    #styles{
+      padding:0 5px;
+    }
+
+    .id-styles{
+      display: table;
+      width:100%;
+      border-spacing:20px 0;
+
+      > div{
+        display: table-cell;
+        width:50% !important;
+        float:none !important;
+      }
+
+      .main-style{
+        position: relative;
+
+        h3{
+          position: absolute;
+          left:0;
+          right:0;
+          top:0;
+        }
+      }
+
+      .sub-styles{
+
+        ul.top-style li{
+          margin-bottom:20px !important;
+        }
+
+        ul li{
+          width:calc(50% - 10px) !important;
+        }
+
+        ul.top-style li,
+        ul.bottom-style li{
+
+          &:first-child{
+            margin-left:0 !important;
+            margin-right:20px !important;
+          }
+
+          &:nth-child(2){
+            margin-left:0 !important;
+            margin-right:0 !important;
+          }
+        }
+      }
+    }
+  }
+
+  #connections {
+    padding: 75px 0 47px 0;
+    @include bp(max-width, $bp-medium) {
+      padding: 35px 0;
+    }
+
+    .caring-content {
+      float: left;
+      width: $one-third;
+      min-height: 274px;
+      border-right: 1px solid $c-border-light;
+
+      @include bp(max-width, $bp-large) {
+        min-height: 477px;
+      }
+
+      &.expanded {
+        min-height: 410px;
+      }
+
+      h2 {
+        padding: 0 40px 0 0;
+        font-weight: $f-light;
+        font-size: 22px;
+      }
+      p {
+        padding: 0 40px 0 0;
+      }
+      .see-all-toggle {
+        font-family: $f-stack-special;
+        font-weight: $f-bold;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        @include bp(max-width, $bp-large) {
+          display: none;
+        }
+
+        > span{
+          vertical-align: middle;
+        }
+
+        .icon {
+          display:inline-block;
+          width:25px;
+          height:25px;
+          margin-right:10px;
+
+          img{
+            width:100%;
+          }
+        }
+
+        span.text{
+          line-height: 25px;
+        }
+      }
+
+      @include bp(max-width, $bp-medium) {
+        float: none;
+        width: $one;
+        border: none;
+        min-height: inherit;
+
+        h2 {
+          padding: 0;
+          text-align: center;
+        }
+        p {
+          padding: 0;
+          text-align: center;
+        }
+        .see-all-toggle {
+          display: block;
+          text-align: center;
+        }
+      }
+    }
+
+    .caring-partners {
+      float: left;
+      width: $one-sixth;
+      margin: 0;
+
+      @include bp(max-width, $bp-medium) {
+        float: none;
+        width: $one;
+      }
+
+      li {
+        float: left;
+        width: $one-quarter;
+
+        @include bp(max-width, $bp-large) {
+          width: $one-third;
+        }
+
+        img {
+          padding: 0 0 0 23px;
+          margin: 0 0 13px 0;
+          width: $one;
+        }
+      }
+
+      @include bp(max-width, $bp-medium) {
+
+        li {
+          width: $one-half;
+        }
+      }
+
+      @include bp(min-width,$bp-large + 1){
+        li:nth-child(n + 9){
+          display:none;
+        }
+      }
+
+      @include bp(max-width,$bp-medium){
+        li:nth-child(n + 3){
+          display:none;
+        }
+      }
+
+      &.expanded{
+        li{
+          display: block !important;
+        }
+      }
+    }
+  }
+
+  #promos {
+    padding: 90px 25px 115px;
+
+    .col-half:nth-child(2) {
+      margin: 8px 0 0 0;
+    }
+
+    img {
+      display: block;
+      margin: 0 0 20px 0;
+    }
+
+    @include bp(max-width, $bp-large) {
+      padding: 60px 25px 80px;
+    }
+
+    @include bp(max-width, $bp-medium) {
+      padding: 50px 0 35px;
+      overflow: visible;
+
+      p,
+      .learn-more {
+        display: none;
+      }
+
+      .col-half {
+        text-align: center;
+
+        img {
+          display: inline-block;
+          margin: 0;
+        }
+      }
+
+      .col-half:nth-child(2) {
+       padding: 0;
+
+        .inner-padding {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+/* -------------------------------------------- *
+ * Flex Slider
+ */
+
+#slideshow.flexslider {
+  border: none;
+  margin: 0;
+
+  @include bp(max-width, $bp-medium) {
+    margin: 0 -15px;
+  }
+
+  .slides {
+
+    li {
+      background: $slide-bg-1;
+    }
+  }
+
+  .slide-image {
+    width: 65%;
+    float: left;
+
+    @include bp(max-width, $bp-large) {
+      float: none;
+      width: $one;
+    }
+  }
+  .slide-content {
+    width: 35%;
+    float: right;
+    text-align: center;
+    color: $c-text-white;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto;
+    padding: 0;
+
+    @include bp(max-width, 1200px) {
+      padding: 0;
+      top: 8%;
+      transform: inherit;
+    }
+
+    @include bp(max-width, $bp-large) {
+      position: static;
+      float: none;
+      width: $one;
+      overflow: hidden;
+      padding: 20px 24px;
+    }
+
+    @include bp(max-width,$bp-medium){
+      padding:20px 0;
+    }
+  }
+
+  .slide-title {
+    font-family: $f-stack-sans;
+    font-weight: $f-light;
+    font-size: 42px;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    color: $c-text-white;
+
+    @include bp(max-width, 1200px) {
+      font-size: 36px;
+    }
+
+    span {
+      display: block;
+    }
+    strong {
+      font-weight: $f-bold;
+    }
+
+    @include bp(max-width, $bp-large) {
+      float: left;
+      margin: 0;
+      width: 70%;
+      max-width: none;
+      padding-right: 24px;
+      text-align: center;
+
+      span {
+        display: inline;
+      }
+    }
+
+    @include bp(max-width, $bp-medium) {
+      font-size: 24px;
+      text-align: center;
+      float: none;
+      width: $one;
+      max-width:none;
+      padding-right: 0;
+    }
+  }
+
+  p {
+    margin: 0 0 2px 0;
+    line-height: 1.5;
+
+    @include bp(max-width, $bp-large) {
+      display: none;
+    }
+  }
+
+  .slide-button {
+    background: rgba(255, 255, 255, 0.3);
+    @include border-radius(5px);
+    color: $c-text-white;
+    font-family: $f-stack-special;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: $f-bold;
+    text-align: center;
+    padding: 15px 30px;
+    margin: 30px 0 0 0;
+    display: inline-block;
+
+    @include bp(max-width, $bp-large) {
+      float: right;
+      width: 30%;
+      margin: 0;
+      padding: 10px 20px;
+    }
+
+    @include bp(max-width, $bp-medium) {
+      float: none;
+      display: block;
+      width: 195px;
+      padding: 10px 0;
+      margin: 20px auto 0 auto;
+    }
+  }
+
+  .custom-navigation {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+    z-index: 999999;
+    text-align: center;
+
+    @include bp(max-width, $bp-large) {
+      bottom: 95px;
+      width: 100% !important;
+    }
+
+    @include bp(max-width, $bp-medium) {
+      bottom: 130px;
+    }
+
+    .flex-prev, .flex-next {
+      display: inline-block;
+      width: 48px;
+      height: 48px;
+      font-size: 0;
+      text-indent: -999999px;
+      vertical-align: middle;
+
+      @include bp(max-width, $bp-large) {
+        display: none;
+      }
+    }
+    .flex-prev {
+      background: url('../images/btn-slide-prev.png') no-repeat;
+      margin-right: 10px;
+    }
+    .flex-next {
+      background: url('../images/btn-slide-next.png') no-repeat;
+      margin-left: 10px;
+    }
+    .custom-controls-container {
+      display: inline-block;
+      vertical-align: middle;
+
+      ol.flex-control-nav {
+        position: static;
+
+        li {
+          margin: 10px 10px 0 0;
+
+          &:first-child {
+            margin-left: 10px;
+          }
+
+          a {
+            background: #000000;
+            opacity: 0.2;
+
+            &.flex-active {
+              background: #ffffff;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  ul,
+  ol {
+    list-style: none;
+    margin: 0;
+  }
+}
+

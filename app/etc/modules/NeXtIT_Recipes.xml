@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <NeXtIT_Recipes>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </NeXtIT_Recipes>
+  </modules>
+</config>

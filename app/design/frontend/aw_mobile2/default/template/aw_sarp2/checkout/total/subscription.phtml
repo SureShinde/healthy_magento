@@ -1,0 +1,50 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Sarp2
+ * @version    2.2.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><tr class="shopping-cart-summary__row">
+    <td colspan="<?php echo $this->getColspan()?>" class="shopping-cart-summary__name">
+        <?php echo sprintf(($this->getRenderingArea() == $this->getTotalArea()) ? '<strong>%s</strong>' : '%s', $this->escapeHtml($this->getTotalTitle())) ?>
+    </td>
+    <td class="shopping-cart-summary__price">
+        <span class="price"></span>
+    </td>
+</tr>
+<?php foreach ($this->getTotalItems() as $i => $item): ?>
+    <?php foreach ($this->getTotalItemDetails($item) as $j => $row):?>
+        <tr class="shopping-cart-summary__row total-details">
+            <td colspan="<?php echo $this->getColspan(); ?>" class="shopping-cart-summary__name">
+                <?php echo $this->escapeHtml($this->getItemDetailsRowLabel($row)) ?>
+            </td>
+            <td class="shopping-cart-summary__price">
+                <span class="price"><?php echo $this->formatPrice($this->getItemDetailsRowAmount($row)) ?></span>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    <tr class="shopping-cart-summary__row">
+        <td colspan="<?php echo $this->getColspan()?>" class="shopping-cart-summary__name">
+            <strong><?php echo $this->escapeHtml($this->getItemName($item)); ?></strong>
+        </td>
+    </tr>
+<?php endforeach; ?>

@@ -1,0 +1,15 @@
+<script type="text/javascript">  
+jQuery('head').append('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/popup/widget/newsletter/global.css?v=1.3.5') ?>" type="text/css" />');
+var workingText = '<?php echo $this->__('Working')?>...';
+<?php
+if(Mage::app()->getStore()->isCurrentlySecure()){
+  $subscribeUrl = Mage::getUrl('popup/newsletter/subscribe', array('_forced_secure' => true));         
+}else{
+  $subscribeUrl = Mage::getUrl('popup/newsletter/subscribe');
+}
+?>
+var subscribeUrl = '<?php echo $subscribeUrl ?>';
+</script>
+<!--DONT REMOVE! jQuery use it to check if css is loaded-->
+<div class="cssLoadedChecker moctod-dribegam"></div>
+<div class="cssLoadedChecker2 moctod-dribegam"></div>

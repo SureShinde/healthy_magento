@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<config>
+    <tabs>
+        <oscommerceimporttab1 translate="label" module="oscommerceimporthelper1">
+            <label>osCommerce Import</label>
+            <sort_order>1</sort_order>
+        </oscommerceimporttab1>
+    </tabs>
+    
+    <sections>	   		
+        <oscommerceimportconf translate="label" module="oscommerceimporthelper1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>oscommerceimporttab1</tab>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <oscconfiguration translate="label">
+                    <label>Step 1 - osCommerce Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <conf_hostname translate="label">
+                            <label>Ip or Hostname</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                            <comment><![CDATA[Remember to enabled the remote mysql conection in your oscommerce server. <a href="https://www.google.com/search?q=cpanel+allow+remote+mysql+access" target="_blank">click here for help</a> ]]></comment>
+                        </conf_hostname>
+												
+                        <conf_port translate="label">
+                            <label>Port (Default as 3306)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </conf_port>
+												
+                        <conf_db translate="label">
+                            <label>DataBase</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                        </conf_db>
+												
+                        <conf_username translate="label">
+                            <label>DataBase Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                        </conf_username>																								
+												
+                        <conf_password translate="label">
+                            <label>DataBase Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                        </conf_password>
+																								
+                        <conf_imageurl translate="label">
+                            <label>Image URL Location</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry validate-url</validate>
+                            <comment><![CDATA[osCommerce Image Folder url ex: http://yourstore.com/images/ ]]></comment>														
+                        </conf_imageurl>	
+						
+                        <conf_language_id translate="label">
+                            <label>Language ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry validate-number</validate>
+                            <comment><![CDATA[By default use 1, but if you use a different language pls find in your oscommerce the id and update this value]]></comment>														
+
+                        </conf_language_id>	
+																																																																																															
+                    </fields>
+                </oscconfiguration>   
+								
+                <mageconfiguration translate="label">
+                    <label>Step 2 - Magento Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <conf_website translate="label">
+                            <label>Create Under default website</label>
+                            <frontend_type>select</frontend_type>
+														<source_model>adminhtml/system_config_source_store</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                        </conf_website>
+												
+                        <conf_category translate="label">
+                            <label>Default Category</label>
+                            <frontend_type>select</frontend_type>
+														<source_model>adminhtml/system_config_source_category</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+														<validate>required-entry</validate>
+                        </conf_category>
+
+                        <conf_attribute translate="label">
+                            <label>Default Attribute Set</label>
+                            <frontend_type>select</frontend_type>
+							<source_model>Ezmage_OscommerceImport_Model_Source_GetAttributeSets</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry</validate>
+                        </conf_attribute>	
+
+                        <conf_totalperimportcat translate="label">
+                            <label>Total Categories Per Batch</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry validate-number</validate>
+                            <comment><![CDATA[We recommend to do 20 categories per batch]]></comment>														
+                        </conf_totalperimportcat>
+																								
+                        <conf_totalperimport translate="label">
+                            <label>Total Products Per Batch</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry validate-number</validate>
+                            <comment><![CDATA[We recommend to do 50 products per batch]]></comment>														
+                        </conf_totalperimport>
+																							
+                        <conf_totalperimportcustomer translate="label">
+                            <label>Total Customers Per Batch</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry validate-number</validate>
+                            <comment><![CDATA[We recommend to do 50 customers per batch]]></comment>														
+                        </conf_totalperimportcustomer>
+
+                        <conf_totalperimportorder translate="label">
+                            <label>Total Orders Per Batch</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>required-entry validate-number</validate>
+                            <comment><![CDATA[We recommend to do 50 orders per batch]]></comment>														
+                        </conf_totalperimportorder>
+
+																																																																																															
+                    </fields>
+										
+										
+                </mageconfiguration>  
+								
+                <oscommercebegin translate="label">
+                    <label>Step 3 - Navigate to the import tool</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>										
+					<comment><![CDATA[The URL will be http://www.<b>your-magento-domain.com</b>/oscommerceimport or http://www.<b>your-magento-domain.com</b>/index.php/oscommerceimport]]></comment>										
+                </oscommercebegin>  
+																																                                             
+            </groups>
+        </oscommerceimportconf>
+												
+    </sections>
+</config>

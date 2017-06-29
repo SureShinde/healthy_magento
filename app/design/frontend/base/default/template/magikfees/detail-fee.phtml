@@ -1,0 +1,9 @@
+<?php $_helper = Mage::helper('magikfees') ?>
+<?php $items = $this->getItems() ?>
+<?php if ($items): ?>
+    <div class="multifees-details">    
+    <?php foreach ($items as $value) {
+	  echo $value['title'].": ".Mage::helper('core')->currency($value['price'],true,false)."<br/>"; 
+     } ?>
+    </div>
+<?php endif; ?>

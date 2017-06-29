@@ -1,0 +1,173 @@
+<config>
+	<modules>
+		<Nick_Trackingimport>
+			<version>18.0.4</version>
+		</Nick_Trackingimport>
+	</modules>
+
+    <global>
+        <models>
+            <Trackingimport>
+                <class>Nick_Trackingimport_Model</class>
+            </Trackingimport>
+        </models>
+        <helpers>
+            <trackingimport>
+                <class>Nick_Trackingimport_Helper</class>
+            </trackingimport>
+        </helpers>
+		<blocks>
+            <trackingimport>
+            	<class>Nick_Trackingimport_Block</class>
+           	</trackingimport>
+		</blocks>     
+     </global>
+	
+	<admin>
+        <routers>
+            <trackingimport>
+                <use>admin</use>
+                <args>
+                    <module>Nick_Trackingimport</module>
+                    <frontName>trackingimport</frontName>
+                </args>
+            </trackingimport>
+        </routers>
+    </admin>
+    
+	 
+    <adminhtml>
+        <menu>
+            <sales>
+                <children>
+				   <trackingimport translate="title" module="trackingimport">
+                   		<title>Tracking</title>
+						<sort_order>1000</sort_order>
+						  	<children>
+								<grid module="trackingimport">
+									<title>Tracking Grid</title>
+									<action>trackingimport/grid/grid</action>
+									<sort_order>1</sort_order>
+								</grid>
+							 </children>
+							 <children>
+							 	<massimport module="trackingimport">
+									<title>Mass Import Tracking</title>
+									<action>trackingimport/import</action>
+									<sort_order>2</sort_order>
+						   		</massimport>
+						   </children>
+                   </trackingimport>
+				</children>
+			</sales>
+		</menu>
+		<acl>
+            <resources>
+			<all>
+					<title>Allow Everything</title>
+				</all>			
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                                <trackingimport>
+									<title>Tracking</title>
+									<sort_order>1000</sort_order>
+										<children>
+											<grid>
+												<title>Tracking Grid</title>
+												<sort_order>1</sort_order>
+											</grid>
+										 </children>
+										 <children>
+											<massimport>
+												<title>Import Tracking</title>
+												<sort_order>2</sort_order>
+											</massimport>
+									   </children>
+								</trackingimport>
+                            </children>
+                        </sales>
+					  <system>
+	                        <children>
+	                            <config>
+	                                <children>
+	                                    <trackingimport module="trackingimport">
+											<title>Tracking Import</title>
+	                                    </trackingimport>
+	                                </children>
+	                            </config>
+	                        </children>
+	                    </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+		<layout>
+            <updates>
+                <sintax>
+                    <file>trackingimport.xml</file>
+                </sintax>
+            </updates>
+        </layout>
+		
+		
+	</adminhtml>
+	
+	
+    <routers>
+            <Nick_Trackingimport>
+                <use>admin</use>
+                <args>
+                    <module>Nick_Trackingimport</module>
+                    <frontName>trackingimport</frontName>
+                </args>
+            </Nick_Trackingimport>
+    </routers>
+
+   <crontab>
+        <jobs>
+            <trackingimport>
+                <schedule>
+                	<cron_expr>*/20 * * * *</cron_expr>
+                </schedule>
+                <run>
+                	<model>Trackingimport/Observer::Fileimport</model>
+                </run>
+            </trackingimport>
+        </jobs>
+    </crontab>
+	<default>
+        <trackingimport>
+            <general>
+				<idselect>0</idselect>
+				<capture>0</capture>
+				<invoice>0</invoice>
+				<email>1</email>
+				<skip>0</skip>
+				<delimiter>,</delimiter>
+				<enclosure>"</enclosure>
+				<importstatus>complete</importstatus>
+			</general>
+			<trackinggrid>
+				<shipments>0</shipments>
+				<invoices>0</invoices>
+				<showstatus>complete</showstatus>
+			</trackinggrid>
+			<csvheaders>
+                <orderid>OrderNo</orderid>
+                <shipmentid>ShipmentNo</shipmentid>
+                <carrierid>Carrier</carrierid>
+	            </csvheaders>
+			<cron_settings>
+				<active>0</active>
+				<localdir>shipment</localdir>
+				<cron_archive>shipment/archive</cron_archive>
+			</cron_settings>
+			<ftp>
+				<enable_ftp>0</enable_ftp>
+			</ftp>
+        </trackingimport>
+  </default>
+</config>
+

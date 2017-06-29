@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+    <api>
+        <resources>
+            <!-- Start API Resources -->
+            <shipping_info>
+                <model>nextit_shipping/api</model>
+                <title>NeXt I.T.'s FedEx Shipping Integration</title>
+                <methods>
+                    <test translate="title" module="nextit_shipping">
+                        <title>Get Shipping Info</title>
+                        <method>info</method>
+                    </test>
+                    <addTrackingTo translate="title" module="nextit_shipping">
+                        <title>Add Tracking Number To Order</title>
+                        <method>addTrackingTo</method>
+                    </addTrackingTo>
+                </methods>
+            </shipping_info>
+            <!-- End API Resources -->
+        </resources>
+        <v2>
+            <resources_function_prefix>
+                <shipping_info>nitShipment</shipping_info>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <nextit_shipping translate="title" module="nextit_shipping">
+                    <title>FedEx Data</title>
+                    <sort_order>3</sort_order>
+                </nextit_shipping>
+            </resources>
+        </acl>
+    </api>
+</config>

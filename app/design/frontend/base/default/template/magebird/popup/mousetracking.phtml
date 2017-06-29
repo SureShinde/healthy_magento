@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Magento Commerce</title>
+<link rel="stylesheet" type="text/css" href="http://dev.magento186.com/skin/frontend/default/default/css/styles.css" media="all" />
+<link rel="stylesheet" type="text/css" href="http://dev.magento186.com/skin/frontend/base/default/css/popup/style.css" media="all" />
+<script type="text/javascript" src="http://dev.magento186.com/skin/frontend/base/default/js/popup/jquery.js"></script>
+<script type="text/javascript" src="http://dev.magento186.com/skin/frontend/base/default/js/popup/main.js?v=1.3.9&amp;previewId=0&amp;templateId=0&amp;popup_page_id=7&amp;filterId=0&amp;ref=&amp;baseUrl=http://dev.magento186.com/default/&amp;isAjax=0&amp;requestType=POST"></script> 
+</head>
+<body>
+<style>
+body{
+  background:none;
+  background-color:#e2e6ea;
+}
+#mousetrackBg{
+  width:900px;
+  height:1200px;
+}
+#circle {
+	border-radius: 50%;
+	width: 30px;
+	height: 30px; 
+	background-color:yellow;
+  opacity: 0.8;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);  
+  position:absolute;
+  z-index:999999;
+  top:10px;
+  left:10px;
+}
+</style>
+<?php
+$data = $this->getTrackingData();
+$mousetracking = $data['mousetracking']->getData(); 
+$mouseflow = $mousetracking['mousetracking'];
+
+if(Mage::app()->getStore()->isCurrentlySecure()){
+  $statsUrl = Mage::getUrl('popup/index/stats', array('_forced_secure' => true));
+  $jsUrl = $this->getSkinUrl('js/popup/', array('_secure' => true,'_nosid' => true));          
+}else{
+  $statsUrl = Mage::getUrl('popup/index/stats');
+  $jsUrl = $this->getSkinUrl('js/popup/',array('_nosid' => true));
+} 
+$style = "";
+  $mousetrackingPopup = $data['mousetrackingpopup']->getData();  
+  $popup = $data['popup']->getData();  
+  
+  //template preview page
+  if(!isset($popup['popup_id'])) $popup['popup_id'] = $popup['template_id'];
+  
+  //image popup  
+  if($popup['popup_type']==1){  
+    if($popup['image'] && $popup['width_unit']==2){
+      $imgSrc = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . "media/" . $popup['image'];
+      $style .= '.dialogBody img{width:100%; height:auto;}';
+    }elseif($popup['image']){
+      $imgSrc = Mage::getModel('popup/popup')->getPictureResize($mousetrackingPopup['popup_width'],null,$popup['image']);
+    }     
+    
+    if(!$popup['image']){
+      $content = '';
+    }elseif($popup['url']){
+      $content = "<a class='imgType' href='".$popup['url']."'><img src='".$imgSrc."' /></a>";    
+    }else{
+      $content = "<img src='".$imgSrc."' />";       
+    }              
+  }else{
+    $content = Mage::helper('cms')->getBlockTemplateProcessor()->filter($popup['popup_content']);        
+  }     
+
+  //editor bugfix for tables -> see http://stackoverflow.com/questions/22803723/border-spacing-css-property-overrides-table-cellspacing                      
+  $cellspacing = $this->getHtmlAttributeVal("cellspacing",$content);
+  $popupBackground = $popup['popup_background'];
+  if(strpos($popupBackground,'#') === false) $popupBackground = "#".$popupBackground;
+  $borderColor = $popup['border_color'];
+  if(strpos($borderColor,'#') === false) $borderColor = "#".$borderColor;    
+  $popup_js['popupId'] = $popup['popup_id'];
+  $popup_js['overlay'] = $popup['background_color'];
+  $popup_js['appearType'] = $popup['appear_effect'];
+  $popup_js['closeEffect'] = $popup['close_effect'];
+  $popup_js['startTime'] = '';
+  $popup_js['showWhen'] = 1;
+  $popup_js['scrollPx'] = $popup['scroll_px'];
+  //if show on click
+  if($popup['show_when']==4){
+    $popup_js['selector'] = $popup['click_selector'];
+  //if show on hover
+  }elseif($popup['show_when']==5){
+    $popup_js['selector'] = $popup['hover_selector'];
+    $popup_js['closeOnOut'] = $popup['close_on_hoverout']; 
+  }
+  $popup_js['secondsDelay'] = $popup['seconds_delay'];
+  $popup_js['closeTimeout'] = $popup['close_on_timeout'];
+  $popup_js['closeOnOverlay'] = $popup['close_on_overlayclick'];
+  $popup_js['title'] = $popup['title'];
+  $popup_js['content'] = $content;
+  $popup_js['horizontalPosition'] = $popup['horizontal_position'];
+  $popup_js['horizontalPositionPx'] = $popup['horizontal_position_px'];
+  $popup_js['verticalPosition'] = $popup['vertical_position'];
+  $popup_js['verticalPositionPx'] = $popup['vertical_position_px'];
+  $popup_js['elementIdPosition'] = $popup['element_id_position'];  
+  $popup_js['closeStyle'] = $popup['close_style'];
+  $popup_js['makeStats'] = false;
+  
+  
+  $popup_js['onlyOnce'] = (isset($popup['showing_frequency']) && $popup['showing_frequency']!=3) ? true : false;
+  $popups[$popup['popup_id']] = $popup_js;  
+ 
+  if($cellspacing = $this->getHtmlAttributeVal("cellspacing",$content)){
+    $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody table{border-spacing:{$cellspacing}px !important}";
+  }
+  if($cellpadding = $this->getHtmlAttributeVal("cellpadding",$content)){
+    $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody > table > tbody > tr > td{padding:{$cellpadding}px !important}";
+  }  
+  
+  $border = $popup['border_color'] ? "border:{$popup['border_size']}px solid {$borderColor};" : "";
+  $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody{{$border};padding:{$popup['padding']}px;}";
+  $style .= ".dialog.popupid{$popup['popup_id']}{width:".($mousetrackingPopup['popup_width'])."px;}"; 
+  
+  if($popup['corner_style']==1){ //if sharp corners
+    $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody{border-radius: {$popup['border_radius']}px; -webkit-border-radius:{$popup['border_radius']}px; -moz-border-radius: {$popup['border_radius']}px; -o-border-radius: {$popup['border_radius']}px;}";
+  }elseif($popup['corner_style']==2){ //if circle popup
+    $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody, .dialog.popupid{$popup['popup_id']} .dialogBody table{border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -o-border-radius: 50%;}";
+    $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody{height:{$mousetrackingPopup['popup_width']}px;}";
+  }
+  
+  if($popup['background_color']==2){ //popup overlay background 1=white,2=dark,3 and 4=no overlay
+    $style .= ".dialogBg.popupid{$popup['popup_id']}{background: rgba(0, 0, 0, 0.65);}";           
+  }
+
+  if($popup['close_on_overlayclick']==0){
+    $style .= ".dialogBg.popupid{$popup['popup_id']}{cursor:auto;}";
+  }    
+  
+  $style .= ".dialog.popupid{$popup['popup_id']} .dialogBody{background-color: {$popupBackground};".($popup['popup_shadow']!=1 ? "-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;" : "")."}";
+  $style .= ".dialog.popupid{$popup['popup_id']} table{border-spacing:none !important;}";
+  $style .= ".popupid{$popup['popup_id']} .dialogClose.style4,.popupid{$popup['popup_id']} .dialogClose.style3{top:".($popup['border_size']+0)."px;right:".($popup['border_size']+0)."px;}";
+  $style .= ".dialog.popupid{$popup['popup_id']}{";
+  if($popup['background_color']==3){
+      $style .= "position:fixed;";  
+  }
+  $style .= "left: {$mousetrackingPopup['popup_left_position']}px;";
+  $style .= "top:{$mousetrackingPopup['popup_top_position']}px;";
+  $style .= "}";
+  
+  if($popup['custom_css']){
+    $style .= Mage::helper('popup')->getPrefixedCss($popup['custom_css'],'.dialog.popupid'.$popup['popup_id']);
+  }          
+
+?>     
+<script type="text/javascript">  
+//<![CDATA[
+var mb_popup_style = jQuery('<style type="text/css">'+<?php echo json_encode($style); ?>+'</style>');
+jQuery('html > head').append(mb_popup_style);
+var mb_popups =  <?php echo json_encode($popups) ?>;
+mb_popup.statsUrl = '<?php echo $statsUrl?>';
+mb_popup.jsUrl = '<?php echo $jsUrl?>';                 
+mb_popup.doGaTracking = 2;
+mb_popup.ajaxAsync = <?php echo Mage::getStoreConfig('popup/statistics/ajax_async');?>;
+mb_popup.requestType = '<?php echo Mage::getStoreConfig('popup/settings/requesttype') == 1 ? 'GET' : 'POST';?>';
+mb_popup.serverTime = <?php echo time()?>;
+for (var key in mb_popups) {
+    if (!mb_popups.hasOwnProperty(key)) continue
+    mb_popups[key].dialogActive = false;
+    mb_popup.prepareDialog(mb_popups[key]);              
+    if(mb_popups[key].makeStats!=false){
+      mb_popup.showStatsGlobal = true;
+    }    
+    var popupListener = setInterval(function(){
+        //wait until popup is loaded
+        if(typeof mb_popups[key].startTime !== 'undefined'){                                          
+            clearInterval(popupListener)
+            startMouse()
+        }
+    },20)         
+}
+mb_popup.mouseTracking();                           
+//for case if popup show delay (e.g. show when using scroller, show after 4 seconds, ...)
+var delayS = <?php echo $mousetrackingPopup['start_seconds']?>;
+function startMouse(){            
+  var mousetracks = '<?php echo $mouseflow?>';
+  mousetracks = mousetracks.split(',');
+  var trackNo = 0+(delayS*10); //10 because 1second = 1000-1 second)/100ms-interval=10
+  var trackData = '';
+  var myVar = setInterval(function(){
+      if(trackNo==jQuery(mousetracks).size()){
+        clearInterval(myVar)
+      }else{
+        trackData = mousetracks[trackNo].split('-');
+        jQuery('#circle').css('background-color','yellow')
+        jQuery('#circle').css('left',parseInt(trackData[0]-15)+'px')
+        jQuery('#circle').css('top',parseInt(trackData[1]-15)+'px')
+        if(trackData[2]==1){
+          jQuery('#circle').css('background-color','red') 
+        }
+        trackNo++;    
+      }  
+  }, 100); //100 must be the same as inside main.js interval inside mouseTracking function
+}
+
+
+//]]>
+</script>
+<div id="circle"></div>
+<div id="mousetrackBg">
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?php if ('fee' == $this->getTotal()->getCode()): ?>
+<tr class="magikfees-total" onclick="expandDetails(this, '.magikfees-detail-view')">
+    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+		<div class="magikfees-collapse"><?php echo $this->getTotal()->getTitle() ?></div>
+    </td>
+    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right">
+		<?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+    </td>
+</tr>
+<tr class="magikfees-detail-view" style="display:none;">
+	<td colspan="<?php echo $this->getColspan(); ?>" class="a-right" style="<?php echo $this->getTotal()->getStyle() ?>">
+		<?php echo Mage::helper('magikfees')->getViewDetails(Mage::getSingleton('checkout/session')->getFeeList()); ?>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+<?php else: ?>
+<tr>
+    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right" colspan="<?php echo $this->getColspan(); ?>">
+        <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
+            <?php echo $this->getTotal()->getTitle() ?>
+        <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
+    </td>
+    <td style="<?php echo $this->getTotal()->getStyle() ?>" class="a-right">
+        <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?><strong><?php endif; ?>
+            <?php echo $this->helper('checkout')->formatPrice($this->getTotal()->getValue()) ?>
+        <?php if ($this->getRenderingArea() == $this->getTotal()->getArea()): ?></strong><?php endif; ?>
+    </td>
+</tr>
+<?php endif; ?>

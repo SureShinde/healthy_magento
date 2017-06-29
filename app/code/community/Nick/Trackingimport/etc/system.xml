@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <trackingimport translate="label" module="trackingimport">
+            <label>Tracking Import</label>
+			<tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>500</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<general>
+            		<label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+   						   <idselect translate="label">
+                                <label>Invoice During Import</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>Trackingimport/system_config_source_dispatchby</source_model>
+								<comment>Define if the number you are importing is the Order Number or Invoice Number (Invoice Number will ship only items on the invoice)</comment>
+                                <sort_order>1</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                           </idselect>
+						   
+						   <invoice translate="label">
+                                <label>Invoice During Import</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>2</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                           </invoice>
+                           <capture translate="label">
+                                <label>Capture Invoice</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <comment>Capture invoice for payment gateways such as Authorize.net</comment>
+                                <sort_order>3</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                           </capture>
+                           <email translate="label">
+                                <label>Email Customer</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>4</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                           </email>
+						   <delimiter translate="label">
+								<label>Set Delimiter</label>
+								<frontend_type>text</frontend_type>
+								<comment>The seperater used in the CSV file</comment>
+								<sort_order>5</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </delimiter>
+                      	  <enclosure translate="label">
+								<label>Set Encloser</label>
+								<frontend_type>text</frontend_type>
+								<comment>The encloser used in the CSV file</comment>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </enclosure>
+						  <skip translate="label">
+                                <label>Skip First Row Of CSV</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>2</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                           </skip>
+							<importstatus translate="label">
+								<label>Select Import Order Status</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_order_status</source_model>
+								<comment>The final order status once the tracking information has been imported</comment>
+								<sort_order>7</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </importstatus>
+                   </fields>
+            	</general>
+				<trackinggrid>
+            		<label>Tracking Grid Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<fields>
+						 <shipments translate="label">
+								<label>Show All Shipments On An Order</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<comment>Enabling this will show all shipments on an order, allowing for additional tracking to be added to an order.</comment>
+								<sort_order>1</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </shipments>
+						  <invoices translate="label">
+								<label>Show Invoices Column</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<comment>Enabling this will show a column with invoice numbers relating to the order and a direct link to print the invoice PDF.</comment>
+								<sort_order>2</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </invoices>
+						   <showstatus translate="label">
+							<label>Tracking Grid Order Status</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>adminhtml/system_config_source_order_status</source_model>
+                            <comment>This filters the order statuses that will show on the tracking grid</comment>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+                        </showstatus>
+					</fields>
+				</trackinggrid>
+				<csvheaders>
+            		<label>CSV Headers</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<fields>
+						 <orderid translate="label">
+								<label>OrderId Column</label>
+								<frontend_type>text</frontend_type>
+								<comment>The csv column header for orderId</comment>
+								<sort_order>1</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </orderid>
+						  <shipmentid translate="label">
+								<label>Tracking Code Column</label>
+								<frontend_type>text</frontend_type>
+								<comment>The csv column header for tracking number</comment>
+								<sort_order>2</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </shipmentid>
+						  <carrierid translate="label">
+								<label>Carrier Column</label>
+								<frontend_type>text</frontend_type>
+								<comment>The csv column header for carrier name</comment>
+								<sort_order>3</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </carrierid>
+					</fields>
+				</csvheaders>
+				<cron_settings>
+            		<label>Cron Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<fields>
+						<active translate="label">
+                                <label>Enable Cron Import</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>0</sort_order>
+                                <comment>Enable Automatic Imports</comment>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                        </active>
+						<localdir translate="label">
+								<label>Local Import Folder</label>
+								<frontend_type>text</frontend_type>
+								<comment>Which Folder You Would Like To Scan Within var/import</comment>
+								<sort_order>1</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </localdir>
+                      	  <cron_archive translate="label">
+                                <label>Archive Cron Imports</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <comment>Save the imported cron files</comment>
+                                <sort_order>0</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                        </cron_archive>
+					</fields>
+				</cron_settings>
+				<ftp>
+            		<label>FTP Login</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                    	<enable_ftp translate="label">
+                                <label>Enable FTP</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <comment>Enable FTP</comment>
+                                <sort_order>0</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                        </enable_ftp>
+                    	<ftp_username translate="label">
+								<label>Ftp Username</label>
+								<frontend_type>text</frontend_type>
+								<comment>Ftp Username</comment>
+								<sort_order>1</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </ftp_username>
+                      	  <ftp_password translate="label">
+								<label>Ftp Password</label>
+								<frontend_type>password</frontend_type>
+								<comment>Ftp Password</comment>
+								<sort_order>2</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </ftp_password>
+                      	  <ftp_host translate="label">
+								<label>Ftp Host or IP</label>
+								<frontend_type>text</frontend_type>
+								<comment>Ftp Host</comment>
+								<sort_order>3</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </ftp_host>
+						  <ftp_port translate="label">
+								<label>FTP Port</label>
+								<frontend_type>text</frontend_type>
+								<comment>FTP Port Used To Connect</comment>
+								<sort_order>3</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	  </ftp_port>
+                      	  <enable_pass translate="label">
+                                <label>Enable Passive Mode</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <comment>Enable Passive Mode</comment>
+                                <sort_order>4</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>
+                        </enable_pass>
+                      	<ftp_remotedir translate="label">
+								<label>Direct Path Remote Directory</label>
+								<frontend_type>text</frontend_type>
+								<comment>Needs to be the full path to the directory with files</comment>
+								<sort_order>5</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>0</show_in_website>
+								<show_in_store>0</show_in_store>
+                      	</ftp_remotedir>
+                    </fields>
+                 </ftp>
+            </groups>
+        </trackingimport>
+    </sections>
+</config>

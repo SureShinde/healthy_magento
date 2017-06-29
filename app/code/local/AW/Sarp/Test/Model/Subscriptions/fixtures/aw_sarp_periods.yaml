@@ -1,0 +1,22 @@
+tables:
+  sarp/period: 
+    - 
+      id: 1
+      name: First period
+      period_type: day
+      period_value: 2
+      expire_type: day
+      expire_value: 20
+      excluded_weekdays: 0
+      payment_offset: 1
+      sort_order: 0
+    - 
+      id: 2
+      name: Once a week
+      period_type: day
+      period_value: 7
+      expire_type: day
+      expire_value: 50
+      excluded_weekdays: 0
+      payment_offset: 2
+      sort_order: 1

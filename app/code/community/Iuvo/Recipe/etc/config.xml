@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Iuvo_Recipe>
+			<version>0.1.5</version>
+		</Iuvo_Recipe>
+	</modules>
+	<frontend>
+        <routers>
+            <recipe>
+                <use>standard</use>
+                <args>
+                    <module>Iuvo_Recipe</module>
+                    <frontName>recipe</frontName>
+                </args>
+            </recipe>
+        </routers>
+        <layout>
+            <updates>
+                <recipe>
+                    <file>recipe.xml</file>
+                </recipe>
+            </updates>
+        </layout>
+    </frontend>
+    
+    
+    <admin>
+        <routers>
+        	<recipe>
+        		<use>admin</use>
+        		<args>
+        			<module>Iuvo_Recipe</module>
+        			<frontName>recipe</frontName>
+        		</args>
+        	</recipe>
+        </routers>
+    </admin>
+
+    <adminhtml>
+		<menu>
+			<recipe module="recipe">
+				<title>Recipes</title>
+				<sort_order>73</sort_order>               
+				<children>
+					<recipes module="recipe">
+						<title>Manage Recipes</title>
+						<sort_order>20</sort_order>
+						<action>recipe/adminhtml_recipe/index</action>
+					</recipes>
+					<recipes_type module="recipe">
+						<title>Dish Types</title>
+						<sort_order>30</sort_order>
+						<action>recipe/adminhtml_type/index</action>
+					</recipes_type>
+					<recipes_submit module="recipe">
+						<title>User Submissions</title>
+						<sort_order>40</sort_order>
+						<action>recipe/adminhtml_submit/index</action>
+					</recipes_submit>
+				</children>
+			</recipe>
+		</menu>
+		<acl>
+            <resources>
+                <admin>
+                    <children>
+                        <recipe translate="title" module="recipe">
+                            <title>Recipes</title>
+                            <sort_order>60</sort_order>
+                            <children>
+                                <recipes_new>
+                                    <title>New Recipe</title>
+                                </recipes_new>
+                                <recipes>
+                                    <title>Manage Recipes</title>
+                                </recipes>
+                                <recipes_submit>
+                                	<title>User Submissions</title>
+                                </recipes_submit>
+                            </children>
+                       </recipe>
+                   </children>
+               </admin>
+           </resources>
+        </acl>    
+		<layout>
+			<updates>
+				<recipe>
+					<file>recipe.xml</file>
+				</recipe>
+			</updates>
+		</layout>
+    </adminhtml>
+
+	<global>
+		<models>
+            <recipe>
+                <class>Iuvo_Recipe_Model</class>
+                <resourceModel>recipe_resource</resourceModel>
+            </recipe>
+            <recipe_resource>
+                <class>Iuvo_Recipe_Model_Resource</class>
+                <entities>
+                    <recipe>
+                        <table>recipe_entity</table>
+                    </recipe>
+					<ingredient>
+                        <table>recipe_ingredient</table>
+                    </ingredient>
+                    <step>
+                        <table>recipe_step</table>
+                    </step>
+                    <review>
+                        <table>recipe_review</table>
+                    </review>
+                    <submit>
+                        <table>recipe_submit</table>
+                    </submit>
+                    <type>
+                        <table>recipe_dishtype</table>
+                    </type>
+                </entities>
+            </recipe_resource>
+        </models>
+		<resources>
+			<recipe_setup>
+				<setup>
+                    <module>Iuvo_Recipe</module>
+                </setup>
+				<connection>
+					<use>default_setup</use>
+				</connection>
+			</recipe_setup>
+			<recipe_write>
+				<connection>
+					<use>default_write</use>
+				</connection>
+			</recipe_write>
+			<recipe_read>
+				<connection>
+					<use>default_read</use>
+				</connection>
+			</recipe_read>
+		</resources>
+		<blocks>
+            <recipe>
+                <class>Iuvo_Recipe_Block</class>
+            </recipe>
+        </blocks>
+        <helpers>
+            <recipe>
+                <class>Iuvo_Recipe_Helper</class>
+            </recipe>
+        </helpers>
+		<events>
+			<after_reindex_process_tag_summary>
+				<observers>
+					<iuvo_recipe_addurlrewrites>
+						<type>singleton</type>
+						<class>recipe/observer</class>
+						<method>addUrlRewrites</method>
+					</iuvo_recipe_addurlrewrites>
+				</observers>
+			</after_reindex_process_tag_summary>
+		</events>
+	</global>
+</config>

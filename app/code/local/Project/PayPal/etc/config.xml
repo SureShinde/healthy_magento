@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <global>
+        <models>
+            <paypal>
+                <rewrite>
+                    <config>Project_Paypal_Model_Config</config>
+                </rewrite>
+            </paypal>
+        </models>
+    </global>
+</config>

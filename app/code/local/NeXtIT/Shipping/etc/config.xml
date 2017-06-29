@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <NeXtIT_Shipping>
+            <version>0.0.1</version>
+        </NeXtIT_Shipping>
+    </modules>
+    <global>
+        <models>
+            <nextit_shipping>
+                <class>NeXtIT_Shipping_Model</class>
+            </nextit_shipping>
+        </models>
+    </global>
+    <crontab>
+        <jobs>
+            <nitshipping_process_emails>
+                <schedule>
+                    <cron_expr>0,15,30,45 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>nextit_shipping/observer::processShipmentEmails</model>
+                </run>
+            </nitshipping_process_emails>
+        </jobs>
+    </crontab>
+</config>

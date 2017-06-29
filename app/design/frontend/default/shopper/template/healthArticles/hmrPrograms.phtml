@@ -1,0 +1,144 @@
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+		$(document).ready(function(){
+		    
+		    $("#button_clinic").click(function () {
+		    var divname = "clinic";
+		      $("#"+divname).show("slow").siblings().hide("slow");
+			  $("#button_clinic").addClass("selected");
+			  $("#button_home").removeClass("selected");
+			  $(".hmrPrograms_intro").addClass("hidden");
+		    });
+			$("#button_home").click(function () {
+		    var divname = "home";
+		      $("#"+divname).show("slow").siblings().hide("slow");
+			  $("#button_home").addClass("selected");
+			  $("#button_clinic").removeClass("selected");
+			  $(".hmrPrograms_intro").addClass("hidden");
+		    });
+		
+		  });
+	</script>
+
+<div id="hmrPrograms_header">
+  <h3><img src="../media/health-articles/hmrPrograms.jpg" alt="HMR Programs" /></h3>
+</div>
+<div id="hmrPrograms_body">
+  <div id="hmrPrograms_clinic">
+    <input type="button" id="button_clinic" class="buttons" value="HMR Clinic Programs" />
+    <p class="hmrPrograms_intro">Offered in prestigious medical centers, HMR&#174;'s in-clinic weight-loss program is the most respected—and effective—in the country. It is scientifically based and promotes fast, maximum weight loss and better health.</p>
+  </div>
+  <div id="hmrPrograms_home">
+    <input type="button" id="button_home" class="buttons" value="HMR At Home Programs" />
+    <p class="hmrPrograms_intro">The HMR at Home Program allows you to lose weight on your own using HMR&#174;'s state-of-the-art approach. Complete diet kits help you get a Quick Start&#8482; with your weight loss. Optional phone support is available.</p>
+  </div>
+  <!-- Dynamic content -->
+  <div id="hmrPrograms_content"> 
+    <!-- Clinic content -->
+    <div id="clinic" style="display:none">
+      <p id='hmrPrograms_intro'>Offered in prestigious medical centers, HMR®'s in-clinic weight-loss program is the most respected—and effective—in the country. It is scientifically based and promotes fast, maximum weight loss and better health.</p>
+      <h3>What our clinic offers:</h3>
+      <ul>
+        <li>HMR&#174; clinic weight-loss programs are staffed by highly trained healthcare professionals.</li>
+        <li>Sessions are held once a week and last 1–1½ hours. You work with an HMR personal weight-loss coach to set realistic goals and determine the right HMR Program for you.</li>
+        <li>HMR Health Educators provide advice, guidance, tips, and telephone follow-up to help you achieve your weight-loss goals.</li>
+        <li>HMR nutritious, low-calorie shakes and entrees are available onsite for convenient purchase and pick-up.</li>
+        <li>The programs are highly structured and practical. No counting calories, carbs or points to consider. And no decisions to make—thanks to a step-by-step daily diet plan.</li>
+        <li>The group environment provides ongoing encouragement and support, with dieters sharing stories, recipes, and tactics for overcoming weight-loss challenges.</li>
+        <li>HMR’s state-of-the-art maintenance program, the most comprehensive in the industry, focuses on lifestyle strategies for long-term weight management. So you learn habits and behaviors to keep the weight off.</li>
+      </ul>
+      <h3>HMR Decision Free</h3>
+      <p>HMR’s premier weight loss program for people with 40 pounds or more to lose. We provide a very structured program with wonderful support. No decisions. Rapid weight loss. Medical supervision provided.<br />
+        <br />
+        <span class='hmrPrograms_highlight'>Decision-Free&#8482; Clinic Weight-Loss Program: Our Renowned Medically Supervised Program for Weight Loss</span><br />
+        <br />
+        If you’re faced with losing a significant amount of weight or have weight-related health issues, the HMR&#174; Decision-Free Program can help you lose the weight that you want.<br />
+        <br />
+        This highly regarded weight-loss program is medically supervised and proven to work. You’re guided through a simple Decision-Free diet structure that helps you quickly lose weight in a healthy, sensible way. No more anxieties about making the “wrong” choice or eating off the diet.<br />
+        <br />
+        The Decision-Free Program offers healthy, low-calorie diets with a lot of food so you don’t have to feel hungry. It uses HMR’s nutritionally complete weight-loss shakes and entrees in place of grocery store food. And the program is adapted to your needs so you’re more likely to stick with it.</p>
+      <h3>The Decision-Free Program includes:</h3>
+      <ul>
+        <li>A structured, easy-to-follow, and filling diet</li>
+        <li>HMR Shakes, Puddings, Soup, Entrees, Bars, and Multigrain Hot Cereal</li>
+        <li>Weekly group meetings at a Hackley Health Management</li>
+        <li>Lifestyle education with individual plans for building healthy eating habits and practicing doable levels of physical activity</li>
+        <li>Weekly coaching calls with a trained HMR Health Educator</li>
+      </ul>
+      <h3>HMR Healthy Solutions</h3>
+      <p><span class='hmrPrograms_highlight'>Healthy Solutions&#174 Clinic Weight-Loss Program: A Healthy Way to Lose Weight Quickly<br />
+        If you’re looking to lose weight quickly without the need for medical supervision, the HMR® Healthy Solutions weight-loss program is for you.</span><br />
+        <br />
+        Designed by health professionals to maximize weight loss without the need for medical supervision for most people,&#42; the HMR Healthy Solutions Program follows a diet that is simple to stick with, filling so you don’t feel hungry, and with lots of delicious variety. Each day, you’ll enjoy:</p>
+      <h3>The Healthy Solutions Program includes:</h3>
+      <ul>
+        <li>A structured, easy-to-follow, and filling diet</li>
+        <li>HMR Shakes, Puddings, Soup, Entrees, Bars, Multigrain Hot Cereal and fruits and vegetables of your choice</li>
+        <li>Weekly group meetings at Hackley Health Management</li>
+        <li>Lifestyle education with individual plans for building healthy eating habits and practicing doable levels of physical activity</li>
+        <li>Weekly coaching calls with a trained HMR Health Educator</li>
+        <li>And proven results!</li>
+      </ul>
+      <p id='hmrPrograms_footer'>&#42;Dieters taking medication for diabetes do require medical supervision. Medical supervision may also be recommended for other serious medical conditions.</p>
+    </div>
+    <!-- Home content -->
+    <div id="home" style="display:none">
+      <div id='hmrPrograms_homeHeader'>
+        <h3>HMR at Home&#174; - <span id='hmrPrograms_homeSubHeader'>Save More Money, Lose More Weight</span></h3>
+      </div>
+      <div id='hmrPrograms_homeContent'>
+        <h3>WHAT IS HMR AT HOME?</h3>
+        <p>The HMR at Home Program makes losing weight easy and convenient with automatic food delivery, personalized support, and extra savings – so you can save more money and lose more weight.<br />
+          <br />
+          <span class='hmrPrograms_highlight'>HMR at Home members receive:</span></p>
+        <ul>
+          <li>Great savings on HMR Healthy Solutions Quick Start&#8482; Diet Kits</li>
+          <li>Automated Kit delivery for uninterrupted weight loss</li>
+          <li>Detailed, step-by-step dieting “how-to” materials with your first Kit order</li>
+          <li>Free Quick Start&#8482; CD to help you lose the most weight in the first few weeks</li>
+          <li>Free customer service calls to answer any questions at any point during your diet</li>
+        </ul>
+        <h3>HMR AT HOME SAVINGS</h3>
+        <p>When you join HMR at Home, you will receive automatic discounts and free shipping on each scheduled Kit order. With no initiation or subscription fees, becoming a part of HMR at Home helps you lose more weight while saving more money.<br />
+          <br />
+          <span class='hmrPrograms_highlight'>HMR at Home savings:</span></p>
+        <ul>
+          <li>Free to join - there are no initial fees or charges</li>
+          <li>Save 10% on your first Kit order</li>
+          <li>Save another 10% on every Kit re-order</li>
+          <li>Save 10% on any extra HMR&#174; foods purchased at the time of your order</li>
+          <li>Receive free shipping on all Kit orders</li>
+          <li>Change or cancel your order at any time</li>
+        </ul>
+        <h3>YOUR DAILY DIET PLAN</h3>
+        <p>If you want to reach your goal weight, it’s important to always feel full so you’re not tempted to go off your diet. Each HMR Healthy Solutions Quick Start&#8482; Diet Kit includes enough low-calorie and filling HMR&#174; food to keep you satisfied, so you keep losing weight week after week.<br />
+          <br />
+          <span class='hmrPrograms_highlight'>The Healthy Solutions&#174; Diet Plan:</span></p>
+        <ul>
+          <li>Each day you will enjoy at least 3 creamy HMR Shakes and 2 flavorful Entrees - just add fruits and vegetables to complete your meal.</li>
+          <li>HMR foods are proven to work - published studies show that dieters using meal replacements lose 2 1/2-3 times more weight than those on traditional diets.</li>
+          <li>Lose even more weight by following the simple, proven weight-loss strategies outlined in the Diet Kit materials and Quick Start™ CD included in your first Kit order.</li>
+        </ul>
+        <h3>FREE SUPPORT</h3>
+        <p>We want you to lose the most weight possible! As a member of the HMR at Home Program, you’re invited to call one of our friendly and supportive Weight-Loss Consultants at any point during your diet. They all use HMR® foods to manage their weight, and they have lots of tips and recipe ideas they can share with you to keep you on track to reach your goal.<br />
+          <br />
+          <span class='hmrPrograms_highlight'>HMR at Home members enjoy:</span></p>
+        <ul>
+          <li>FREE Quick Start™ CD with proven strategies to help you lose the most weight:</li>
+          <ul>
+            <li>Hear how to maximize your weight loss while staying full and satisfied.</li>
+            <li>Learn the best way to prepare HMR Shakes and Entrees for delicious variety.</li>
+            <li>Avoid common dieting mistakes.</li>
+          </ul>
+          <li>Free ongoing support: Call any time you have a question about HMR foods or the diet plan. We’re dedicated to your success!</li>
+        </ul>
+      </div>
+      <div id='hmrPrograms_homeFooter'>
+        <h3>Join Now!</h3>
+        <p id='hmrPrograms_subFooter'>Lose the Most Weight</p>
+        <p>Join HMR at Home and get 10% off your Healthy Solutions Quick Start&#8482; Diet Kits. Plus, receive FREE shipping on every HMR at Home order. Cancel any time.</p>
+        <p id='hmrPrograms_copyright'>Copyright 2009, Health Management Resources&#174; Corporation (HMR&#174;), Boston, Massachusetts. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</div>

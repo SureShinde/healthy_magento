@@ -1,0 +1,48 @@
+<?php	
+	$importCategoryTotal = Mage::getSingleton('core/session')->getimportCategoryTotal();
+	$importedCategoryTotal = Mage::getSingleton('core/session')->getimportedCategoryTotal();	
+	$error_msg = Mage::getSingleton('core/session')->getErrorMSG(); 
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><h1><strong>osCommerce Products/Categories/Customers/Orders Import </strong></h1></td>
+  </tr>
+  <tr>
+    <td><strong>Step 4. Import Categories</strong></td>
+  </tr>
+  <tr>
+    <td><br /><br />
+</td>
+  </tr>
+	<?php if ($error_msg != ''){?>
+  <tr>
+    <td class="error"><hr /><h1><strong>ERROR</strong></h1><?php echo $error_msg; ?><hr /></td>
+  </tr>    
+  <?php } ?> 
+  <tr>
+    <td><br />
+    <?php if ($importCategoryTotal != $importedCategoryTotal) { ?>
+    Click the link below to import the categories, every time that you click teh script will go to import <?php echo Mage::getStoreConfig('oscommerceimportconf/mageconfiguration/conf_totalperimportcat',Mage::app()->getStore()); ?> categories<br /><br />
+    <br /><br />
+      <a href="<?php echo $this->getUrl('oscommerceimport/index/step41/')?>">Please click to import</a>
+    <?php }else{?>  
+      Congratulation the categories have been imported <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/check-ok.jpg" />
+    <?php }?>      
+      <br />
+      <br /> 
+      <br />
+      <strong>Total categories to import:</strong> <?php echo $importCategoryTotal; ?><br />
+      <strong>Total categories imported:</strong> <?php echo $importedCategoryTotal; ?></td>
+  </tr>
+  <tr>
+    <td><br />
+    <br />
+    <br />    <div align="center"><a href="<?php echo $this->getUrl('oscommerceimport')?>">Main Menu</a></div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center">Powered by <a href="http://www.ezmage.com/" target="_blank">ezMage</a> - We provide Magento Support 702-485-3332</div></td>
+  </tr>
+</table>

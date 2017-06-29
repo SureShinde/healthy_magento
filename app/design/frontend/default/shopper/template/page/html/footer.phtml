@@ -1,0 +1,196 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$config = Mage::getStoreConfig('shoppersettings/social');
+$route = Mage::app()->getFrontController()->getRequest()->getRouteName();
+$action = Mage::app()->getFrontController()->getRequest()->getActionName();
+?>
+<!-- footer BOF -->
+
+<div class="footer-container">
+  <?php if ( !($route == 'customer' && ($action == 'login' || $action == 'forgotpassword')) ) : ?>
+  <div class="footer-banners"> <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_banners')->toHtml(); ?> </div>
+  <div class="footer-info">
+    <div class="row clearfix">
+      <div class="grid_3">
+        <?php if ( empty($config['facebook_replace']) ) { ?>
+        <span class="footer-title"><?php echo $this->__('Facebook');?></span>
+        <div class="block-content">
+                        <div class="fb-page" data-href="https://www.facebook.com/hmrhackley" data-width="270" data-height="215" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/hmrhackley"><a href="https://www.facebook.com/hmrhackley">Hackley Health Management</a></blockquote></div></div>
+        </div>
+        <?php } else {
+                echo $this->getLayout()->createBlock('cms/block')->setBlockId($config['facebook_replace'])->toHtml();
+            } ?>
+      </div>
+      <div class="grid_3">
+        <?php if ( empty($config['twitter_replace']) ) { ?>
+		  <span class="footer-title"><?php echo $this->__('From Twitter');?></span>
+        <div class="block-content">
+          <div class="twitterWidget" data-user="<?php echo $config['twitter'] ?>">
+            <div class="twitterContent">
+              <ul class="twitterList">
+                <li>Follow us on twitter</li>
+              </ul>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <script type="text/javascript">
+                    var el = {
+                            widget				: jQuery('.twitterWidget'),
+                            twitterList			: jQuery('.twitterWidget').find(".twitterList")
+                        },
+                        utils	= {
+                            username		: el.widget.data("user"),
+                            tweetNum		: parseInt(el.widget.data("num")) || 2,
+                            currentIndex	: 0,
+                            callback		: function(){},
+                            isReady			: false,
+                            height			: 0
+                        }
+                    getTweets(el, utils);
+                </script>
+        <?php } else {
+                echo $this->getLayout()->createBlock('cms/block')->setBlockId($config['twitter_replace'])->toHtml();
+            } ?>
+      </div>
+      <div class="grid_3 information"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_information')->toHtml(); ?></div>
+      <div class="grid_3"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_contact')->toHtml(); ?></div>
+    </div>
+  </div>
+  <?php endif; // ( !($route == 'customer' && $action == 'login') ) : ?>
+  <footer class="row clearfix">
+    <div class="grid_3">
+      <address>
+      <?php echo $this->getCopyright(); ?>
+      </address>
+    </div>
+    <div class="grid_9"> <?php echo $this->getChildHtml('shopper_footer_links'); ?> </div>
+  </footer>
+  <div class="mercy-footer-wrap">
+  <div class="mercy-footer">
+    <div class="mercy-footer-top">
+      <div class="mercy-footer-top-left grid_7">
+        <ul class="mercy-footer-top-left-list">
+          <li><a class="footer_global" href="http://www.hmrprogram.com/index.cfm/HMRInformation/Notices_and_Disclaimers" target="_blank">Notices & Disclaimers</a></li>
+          <li><span class="between">|</span></li>
+          <li><a class="footer_global" href="/terms">Terms of Use</a></li>
+          <li><span class="between">|</span></li>
+          <li><a class="footer_global" href="/privacy">Privacy Policy</a></li>
+          <li><span class="between">|</span></li>
+          <li><a class="footer_global" href="/shipping-disclaimer">Shipping Disclaimer</a></li>
+          <li><span class="between">|</span></li>
+          <li><a class="footer_global" href="/hipaa-privacy">HIPAA Privacy Policy</a></li>
+          <li><span class="between">|</span></li>
+          <li><a class="footer_global" href="/media/pdf/Patient_Privacy_SPAN.pdf" target="_blank"> Politica De Aislamiento de HIPAA </a></li>
+        </ul><div class="clear"></div>
+		  <p style="font-size: 10px;margin-top: 15px;"><strong>Returns Disclaimer</strong>: Due to the fact that these items are food products, they are non-refundable and cannot be returned. If you received an order that was incorrect, damaged, or have questions, please contact us via email, phone, or live chat. Thank you.</p>
+      </div>
+      <div class="mercy-footer-top-right grid_5">
+        <ul class="mercy-footer-top-right-list">
+          <li><span class="footer_rightside"> Byron Center <br />
+            </span> <a class="footer_rightside" href="http://www.mercyhealthsaintmarys.com/saint-marys-southwest" target="_blank"> Southwest <br />
+            Campus </a></li>
+          <li><span class="footer_rightside">Grand Rapids <br /></span> <a class="footer_rightside" href="http://www.mercyhealthsaintmarys.com" target="_blank"> Saint Mary's <br />
+            Campus </a></li>
+          <li><span class="footer_rightside">Muskegon <br /></span> <a class="footer_rightside" href="http://www.mercyhealthmuskegon.com" target="_blank">General Campus</a> <a class="footer_rightside" href="http://www.mercyhealthmuskegon.com" target="_blank">Hackley Campus</a> <a class="footer_rightside" href="http://www.mercyhealthmuskegon.com" target="_blank">Mercy Campus</a></li>
+          <li><span class="footer_rightside">Norton Shores <br /></span> <a class="footer_rightside" href="http://www.mercyhealthmuskegon.com/aboutlakesvillage-mhp" target="_blank">Lakes Village</a></li>
+          <li class="last-list-item"><span class="footer_rightside">Shelby <br /></span> <a class="footer_rightside" href="http://www.mercyhealthmuskegon.com/aboutlakeshore" target="_blank"> Lakeshore <br />
+            Campus </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mercy-footer-bottom">
+      <div class="mercy-footer-bottom-left grid_4">
+        <ul class="mercy-footer-bottom-list">
+          <li><a target="_blank" href="http://www.trinity-health.org"> <img border="0" alt="" src="/media/wysiwyg/icon_member.gif"></a></li>
+          <li id="footer_copyright">&copy; <script>document.write(new Date().getFullYear())</script> Mercy Health HMR</li>
+        </ul>
+      </div>
+      <div class="mercy-footer-bottom-right grid_8">&nbsp;</div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Google Code for Remarketing Tag -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1072565069;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1072565069/?value=0&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<!-- Bing Remarketing --> 
+
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5066245"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript><img src="//bat.bing.com/action/0?ti=5066245&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>
+
+
+<script type="text/javascript">
+  jQuery('#login\\:guest').hide().next('label').hide();
+  jQuery("#login\\:register").attr('checked', true);
+</script>
+<script type="text/javascript">
+  if (jQuery("body").hasClass("category-hmr-programs")) {
+	   jQuery( "label:contains('Recurring Profile Start Date')" ).css({
+		   'display': 'none'
+		   });
+  }
+</script>
+<?php
+// Change color of cart icon and font size if something is in the cart!
+$itemInCart = false;
+$totalItemsInCart = Mage::helper('checkout/cart')->getItemsCount();
+	if ($totalItemsInCart > 0) {
+		$itemInCart = true;
+	}
+	if ($itemInCart == true) { ?>
+		<script type="text/javascript">
+			jQuery(".cart-top-container").addClass('item-in-cart');
+		</script>
+	<?php } else if($itemInCart != true) { ?>
+		<script type="text/javascript">
+			jQuery(".cart-top-container").removeClass('item-in-cart');
+		</script>
+	<?php } ?>
+<!-- footer EOF -->
+
+<!-- Begin Inspectlet Embed Code -->
+<script type="text/javascript" id="inspectletjs">
+  window.__insp = window.__insp || [];
+  __insp.push(['wid', 574399186]);
+  (function() {
+    function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+    setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+  })();
+</script>
+<!-- End Inspectlet Embed Code -->

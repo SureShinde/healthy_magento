@@ -1,0 +1,12 @@
+tables:
+  sarp/subscription_item:
+    - 
+      id: 1
+      subscription_id: 1
+      primary_order_id: 1
+      primary_order_item_id: 1
+    - 
+      id: 2
+      subscription_id: 2
+      primary_order_id: 2
+      primary_order_item_id: 2

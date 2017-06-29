@@ -1,0 +1,36 @@
+﻿<?xml version="1.0"?>
+<!--
+/**
+ * KAbel_BundlePlus
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to a BSD 3-Clause License
+ * that is bundled with this package in the file LICENSE_BSD_NU.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www1.unl.edu/wdn/wiki/Software_License
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2012 Regents of the University of Nebraska (http://www.nebraska.edu/)
+ * @license     http://www1.unl.edu/wdn/wiki/Software_License  BSD 3-Clause License
+ */
+
+-->
+<layout version="0.1.0">
+
+    <PRODUCT_TYPE_bundle>
+        <!-- change composite bundle template to localized template -->
+        <reference name="product.composite.fieldset.bundle">
+            <action method="setTemplate"><template>kabel/bundleplus/product/composite/fieldset/options/bundle.phtml</template></action>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+	
+	<!-- to add an extra css file to every page -->
+	<default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><file>css/kabel/bundleplus/styles.css</file></action>
+        </reference>
+    </default>
+
+</layout>

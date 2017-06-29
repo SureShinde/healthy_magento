@@ -1,0 +1,157 @@
+<?php /*
+Created by: NeXtIT - mbitson
+Created for: Hackley Health Management
+Description: This block is used to display the timeline for the journeys section.
+CMS Usage Sample: {{block type="core/template" name="journey.timeline" title="Journey through Weight Loss Timeline" template="journeys/timeline.phtml"}}
+*/
+?>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery().timelinr({
+			arrowKeys: 'true',
+			// value: true/false, default to false
+			orientation: 'horizontal',
+			// value: horizontal | vertical, default to horizontal
+			containerDiv: '#timeline',
+			// value: any HTML tag or #id, default to #timeline
+			datesDiv: '#dates',
+			// value: any HTML tag or #id, default to #dates
+			datesSelectedClass: 'selected',
+			// value: any class, default to selected
+			datesSpeed: 'normal',
+			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to normal
+			issuesDiv : '#issues',
+			// value: any HTML tag or #id, default to #issues
+			issuesSelectedClass: 'selected',
+			// value: any class, default to selected
+			issuesSpeed: 'fast',
+			// value: integer between 100 and 1000 (recommended) or 'slow', 'normal' or 'fast'; default to fast
+			issuesTransparency: 0.2,
+			// value: integer between 0 and 1 (recommended), default to 0.2
+			issuesTransparencySpeed: 500,
+			// value: integer between 100 and 1000 (recommended), default to 500 (normal)
+			prevButton: '#prev',
+			// value: any HTML tag or #id, default to #prev
+			nextButton: '#next'
+			// value: any HTML tag or #id, default to #next
+		});
+	});
+</script>
+
+<div class="jrne-timeline">
+  <div id="timeline">
+    <ul id="dates">
+    <li><a href="#">Week 8, Day 1</a></li>
+      <li><a href="#">Week 7, Day 4</a></li>
+      <li><a href="#">Week 7, Day 1</a></li>
+      <li><a href="#">Week 6, Day 5</a></li>
+      <li><a href="#">Week 6, Day 1</a></li>
+      <li><a href="#">Week 5, Day 5</a></li>
+      <li><a href="#">Week 5, Day 1</a></li>
+      <li><a href="#">Week 4, Day 3</a></li>
+      <li><a href="#">Week 4, Day 1</a></li>
+      <li><a href="#">Week 3, Day 3</a></li>
+      <li><a href="#">Week 3, Day 1</a></li>
+      <li><a href="#">Week 2, Day 4</a></li>
+      <li><a href="#">Week 2, Day 1</a></li>
+      <li><a href="#">Week 1, Day 3</a></li>
+      <li><a href="#">Week 1, Day 1 <span style="font-size: 11px;text-transform: lowercase;">cont...</span></a></li>
+      <li><a href="#">Week 1, Day 1</a></li>
+    </ul>
+    <ul id="issues">
+          <li id="date15">
+        <img src="/media/journeys/deborah/deborah-on-the-moon-weighin.png">
+        <h1>Week 8 Day 1</h1>
+        <p class="greyedOut">Week 8 weigh-in.</p>
+        <p>Deborah was out of town this week visiting with her daughter and new granddaughter, but her weight loss plan was still in the front her mind. She weighed in at the museum of American Museum of Natural History in New York. While her weight on the moon is 23.5 that makes her weight on earth 138.2 pounds. Down 2.4 from last week!</p>
+      </li>
+      <li id="date14">
+        <img src="/media/journeys/deborah/deborah-soup-week7.jpg">
+        <h1>Week 7 Day 4</h1>
+        <p>Are you wondering how Deborah gets in all all those veggies? She very often will add some veggies to an entree, but creating different soup combinations have become a new favorite for her.</p>
+        <p>This shows a concoction of Green beans, carrots, celery, onions, white kidney beans, asparagus, corn, potatoes, peas all in vegetable broth with black pepper,thyme, and oregano.  She makes up a big batch ahead of time, and then creates portable portioned-out containers that look nice too!
+</p>
+      </li>
+      <li id="date13">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/AKb0O5oI3ZE?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 7 Day 1</h1>
+        <p class="greyedOut">Week 7 weigh-in.</p>
+        <p>This week Deborah weighed in at 140.6 which was up .8 from last week.  Although she is visibly a little discouraged, she remains positive and knows her persistence in her program will catch up. It is important to remember that weight loss can be a roller coaster ride with it's share of ups &amp; downs. Remaining strong and committed always yields good results in the end. Deborah has set a realistic weight loss goal for herself and she is only 10.6 pounds away.</p>
+      </li>
+      <li id="date12"> <img src="/media/journeys/deborah/deborah-grandaughter-journey.png">
+        <h1>Week 6 Day 5</h1>
+        <p>Deborah's Granddaughter is Here!!</p>
+        <p>She'd like you to meet Birdie Genevieve who weighs in at 8 pounds, 14 ounces. </p>
+      </li>
+      <li id="date10">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/g5a81vktoWc?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 6 Day 1</h1>
+        <p class="greyedOut">Week 6 weigh-in.</p>
+        <p>Deborah's hard work paid off! She weighed in at 139.2 pounds which is down 4.3 pounds from last week! Even though Deborah was a little frustrated after last week's weigh-in, she kept a positive mind set and pledged to not throw in the towel. She knew she was working hard and following the program. Following her Health Educator's advice, she increased her water intake over the weekend and...wa-lah!!! PAY OFF!</p>
+      </li>
+      <li id="date11"> <img src="/media/journeys/deborah/deborah-hot-choc.jpg">
+        <h1>Week 5 Day 5</h1>
+        <p>Deborah cherishes her CRAZY GOOD Caramel Hot Chocolate she makes from the HMR 500 on these cold wintery days!</p>
+        <p><a href="/crazygoodcaramelhotchocolate.html">Check out the recipe ></a></p>
+        <p><a href="/shop/hmr-diet-shakes-puddings">Shop HMR&reg; Shakes ></a></p>
+      </li>
+      <li id="date10">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/v3AmLa9hhUc?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 5 Day 1</h1>
+        <p class="greyedOut">Week 5 weigh-in.</p>
+        <p>Deborah experienced a little hiccup in her quest for weight loss this week. Although she's been sticking to the program &amp; increasing her physical activity, her weight actually went up to 143.6 pounds. Because Deborah knows she's been following the program to a tee, she remains positive and upbeat. Her Health Educator discussed possible reasons for her weight gain. After a little bit of probing, it was determined that she needed to increase her water and limit her Pop. Water is always a better choice and the increased physical activity she has been doing means she'll need to increase her water too!</p>
+      </li>
+      <li id="date9"> <img src="/media/journeys/deborah/deborah-weights-week4.jpg">
+        <h1>Week 4 Day 3</h1>
+        <p>After talking to her Health Educator on ways to vary her exercise routine, Deborah holds eight pound hand weights in each hand while she walks.  She's been increasing a little each day. The added weight will give her extra resistance.</p>
+      </li>
+      <li id="date8">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/703eCFhkHtk?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 4 Day 1</h1>
+        <p class="greyedOut">Week 4 weigh-in.</p>
+        <p>What a weigh-in!!! Deborah's on a roll! Weighing in at 142.8 pounds, she loses almost three pounds!! She is visibly excited to see the results after increasing her daily water intake!</p>
+      </li>
+      <li id="date7"> <img src="/media/journeys/deborah/deborah-shaker-work.jpg">
+        <h1>Week 3 Day 3</h1>
+        <p>Deborah doesn't let her work day get in the way of getting in her shakes! Here she uses a Blender Bottle to mix her shakes and drink it while she's on the go.</p>
+        <p><a href="/shop/hmr-diet-accessories/sportmixer-assorted">Shop Now for SportMixer&trade; Blender Bottle&reg; ></a></p>
+      </li>
+      <li id="date6">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/_eDHERa5gwM?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 3 Day 1</h1>
+        <p class="greyedOut">Week 3 weigh-in.</p>
+        <p>Deborah's daily work outs combined with sticking to her eating plan has paid off! She weighed in at 145.6 lbs. DOWN TWO POUNDS!</p>
+      </li>
+      <li id="date5"> <img src="/media/journeys/deborah/deborah-favorite-entree.jpg">
+        <h1>Week 2 Day 4</h1>
+        <p>Deborah enjoys her favorite entrée…. Our Vegetarian-friendly Pasta Fagioli! She's eating it right out of the box, but she often adds a little sautéed spinach when she cooks at home.</p>
+        <p><a href="/shop/hmr-diet-entrees">Shop Now for HMR&reg; Entrees ></a></p>
+      </li>
+      <li id="date4">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/HVi_RSw_9no?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 2 Day 1</h1>
+        <p class="greyedOut">Week 2 weigh-in.</p>
+        <p>Great work, Deborah!  At week one weigh in, she weighs in at 147.8 pounds.  DOWN a pound….the equivalent of 3500 calories!</p>
+      </li>
+      <li id="date3"> <img src="/media/journeys/deborah/deborah-journeys-week1-day3-gym.png">
+        <h1>Week 1 Day 3</h1>
+        <p>Deborah can be spotted in our gym most nights. Problem solving PA in the winter is not an easy task. Way to go, Deborah!</p>
+      </li>
+      <li id="date2"> <img src="/media/journeys/deborah/deborah-journeys-week1-day1-after.png">
+        <h1>Week 1, Day 1 <span style="font-size: 11px;text-transform: lowercase;">cont...</span></h1>
+        <p class="greyedOut">After class...</p>
+        <p>Today Deborah learned that many of her eating habits involve emotions. They started to look at tools she can use to address her old behaviors. She can be in control of her eating habits!</p>
+        <p>Examples:<br />
+          - Prepared food/meals in advance.<br />
+          - Engage in physical activity to reduce stress rather than eating.<br />
+          - Record keeping (journal): keep records of what you eat, your physical activity, emotional trends, etc.</p>
+      </li>
+      <li id="date1">
+        <iframe width="277" height="236" src="//www.youtube.com/embed/Xtu_8j1ir3k?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+        <h1>Week 1, Day 1</h1>
+        <p class="greyedOut">Before class...Week 1 weigh-in.</p>
+        <p>It's Week One and Deborah is confronting her weight! It's OK Deborah, it's all down from here!</p>
+      </li>
+    </ul>
+    <a href="#" id="next">+</a> <a href="#" id="prev">-</a> </div>
+</div>

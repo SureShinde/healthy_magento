@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_magikfees_magikfees_index>
+        <reference name="content">
+            <block type="magikfees/adminhtml_magikfees" name="magikfees" />
+        </reference>
+    </adminhtml_magikfees_magikfees_index>
+
+    <adminhtml_magikfees_magikfeestype_index>
+        <reference name="content">
+            <block type="magikfees/adminhtml_magikfeestype" name="magikfeestype" template="magikfees/settings.phtml" />
+        </reference>
+    </adminhtml_magikfees_magikfeestype_index>
+
+    <adminhtml_magikfees_magikfeeshelp_index>
+        <reference name="content">
+            <block type="magikfees/adminhtml_magikfeeshelp" name="magikfeeshelp" />
+        </reference>
+    </adminhtml_magikfees_magikfeeshelp_index>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_order_view_items_renderer_default</block>
+                <template>magikfees/sales/order/view/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_view_items_renderer</block>
+                <template>magikfees/bundle/sales/order/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/invoice/create/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/invoice/create/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/invoice/view/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/invoice/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_shipment_new>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/shipment/create/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/shipment/create/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+
+    <adminhtml_sales_order_shipment_view>
+        <reference name="shipment_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/shipment/view/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/shipment/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_shipment_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/creditmemo/create/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/creditmemo/create/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>adminhtml/sales_items_renderer_default</block>
+                <template>magikfees/sales/order/creditmemo/view/items/renderer/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_view_items_renderer</block>
+                <template>magikfees/bundle/sales/creditmemo/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+    <adminhtml_sales_order_create_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="magikfees/sales/order/create/extrafeejs.phtml" name="createextrafee" />
+        </reference>
+        <reference name="items_grid">
+            <action method="setTemplate"><template>magikfees/sales/order/create/items/grid.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_create_index>
+
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="items_grid">
+            <action method="setTemplate"><template>magikfees/sales/order/create/items/grid.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+
+    <adminhtml_sales_order_create_load_block_items>
+        <reference name="items_grid">
+            <action method="setTemplate"><template>magikfees/sales/order/create/items/grid.phtml</template></action>
+        </reference>
+    </adminhtml_sales_order_create_load_block_items>
+</layout>

@@ -1,0 +1,47 @@
+<?php	
+	$importCustomersTotal = Mage::getSingleton('core/session')->getimportCustomersTotal();
+	$importedCustomersTotal = Mage::getSingleton('core/session')->getimportedCustomersTotal();	
+	$error_msg = Mage::getSingleton('core/session')->getErrorMSG(); 
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><h1><strong>osCommerce Products/Categories/Customers/Orders Import </strong></h1></td>
+  </tr>
+  <tr>
+    <td><strong>Step 6. Import Customers</strong></td>
+  </tr>
+  <tr>
+    <td><br /><br />
+</td>
+  </tr>
+	<?php if ($error_msg != ''){?>
+  <tr>
+    <td class="error"><hr /><h1><strong>ERROR</strong></h1><?php echo $error_msg; ?><hr /></td>
+  </tr>    
+  <?php } ?>   
+  <tr>
+    <td><br />
+    <?php if ($importCustomersTotal != $importedCustomersTotal) { ?>
+    Click the link below to import the customers, every time that you click teh script will go to import <?php echo Mage::getStoreConfig('oscommerceimportconf/mageconfiguration/conf_totalperimportcustomer',Mage::app()->getStore()); ?> customers<br /><br />
+      <a href="<?php echo $this->getUrl('oscommerceimport/index/step61/')?>">Please click to import</a>
+    <?php }else{?>  
+      Congratulation the customers have been imported <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/check-ok.jpg" />
+    <?php }?>      
+      <br />
+      <br /> 
+      <br />
+      <strong>Total Customers to import:</strong> <?php echo $importCustomersTotal; ?><br />
+      <strong>Total Customers imported:</strong> <?php echo $importedCustomersTotal; ?></td>
+  </tr>
+  <tr>
+    <td><br />
+    <br />
+    <br />    <div align="center"><a href="<?php echo $this->getUrl('oscommerceimport')?>">Main Menu</a></div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center">Powered by <a href="http://www.ezmage.com/" target="_blank">ezMage</a> - We provide Magento Support 702-485-3332</div></td>
+  </tr>
+</table>

@@ -1,0 +1,73 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Sarp2
+ * @version    2.2.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php $profile = $this->getProfile(); ?>
+<?php $orderCollection = $this->getOrderCollection(); ?>
+<div class="customer-subscription__orders" id="customer_subscription_order_list">
+    <?php echo $this->getMessagesBlock()->toHtml(); ?>
+    <h2>
+        <span class="customer-subscription__view_title"><a href="<?php echo $this->getUrl('*/*/view', array('_current' => true)); ?>"><?php echo $this->__('Subscription Information'); ?></a></span>
+        <span class="customer-subscription__view_title_link"><strong><?php echo $this->__('Related Orders'); ?></strong></span>
+    </h2>
+    <h3 class="table-caption"><?php echo $this->__('Orders Based on This Profile'); ?></h3>
+    <?php if ($orderCollection->getSize()) : ?>
+        <table id="subscription_info" class="customer-subscription__list">
+            <tbody>
+            <?php foreach ($orderCollection as $order) : ?>
+                <tr class="customer-subscription__item">
+                    <td class="customer-subscription__profile_link"><a href="<?php echo $this->getOrderLink($order); ?>" title="<?php echo $this->__('View Order'); ?>"><?php echo $order->getIncrementId(); ?></a></td>
+                    <td class="customer-subscription__profile_status"><?php echo $order->getStatusLabel(); ?></td>
+                </tr>
+                <tr class="customer-subscription__item">
+                    <td class="customer-subscription__empty"></td>
+                    <td class="customer-subscription__profile_created"><?php echo $this->formatDate($order->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?></td>
+                </tr>
+                <tr class="customer-subscription__item last">
+                    <td class="customer-subscription__empty"></td>
+                    <td class="customer-subscription__profile_updated"><?php echo Mage::helper('core')->formatCurrency($order->getBaseGrandTotal(), false); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p><?php echo $this->__('There are no orders yet.'); ?></p>
+    <?php endif; ?>
+    <?php echo $this->getPagerHtml(); ?>
+    <?php echo $this->getChildHtml('buttons'); ?>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    if ($('main') && $('content_top')) {
+        $('main').setStyle({
+            paddingTop: $('content_top').getHeight() - parseInt($('page_content').getStyle('padding-top')) + 'px'
+        })
+    }
+    if (typeof pager != 'undefined') {
+        pager.containerId = 'customer_subscription_order_list';
+        pager.tableId = 'subscription_info';
+    }
+    //]]>
+</script>

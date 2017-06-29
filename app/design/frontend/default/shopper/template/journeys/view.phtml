@@ -1,0 +1,81 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+		 
+        var data = google.visualization.arrayToDataTable([
+          ['Week', 'Weight (lbs.)', 'Target: 130 lbs.'],
+          ['Wk. 1',  148.6, 130 ],
+          ['Wk. 2',  147.8, 130 ],
+          ['Wk. 3',  145.6, 130 ],
+          ['Wk. 4',  142.8, 130 ],
+		  ['Wk. 5',  143.6, 130 ],
+		  ['Wk. 6',  139.2, 130 ],
+		  ['Wk. 7',  140.6, 130 ],
+		  ['Wk. 8',  138.2, 130 ],
+		  ['Wk. 9',  135.6, 130 ],
+		  ['Wk. 10',  135.6, 130 ],
+		  ['Wk. 11',  134.6, 130 ],
+		  ['Wk. 12',  132.4, 130 ],
+		  ['Wk. 13',  132.4, 130 ],
+		  ['Wk. 14',  131.9, 130 ],
+		  ['Wk. 15',  129.2, 130 ],
+		  ['+90 Days',  126.6, 130 ]
+        ]);
+
+        var options = {
+		  colors: ['#4576A2', '#860038'],
+		  title: 'Progress of Deborah\'s Journey',  titleTextStyle: {color: '#860038'}
+        };
+
+        //var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        //chart.draw(data, options);
+		
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div')). draw(data,{ series: { 0:{color: '#4576A2', visibleInLegend: true, lineWidth: 1, pointSize: 6}, 1:{color: '#860038'} } }); 
+		chart.draw(data, options);
+		
+		
+      }
+</script>
+
+<div class="container" id="journeys">
+  <div class="jrne-main">
+    <div class="jrne-image"> <img src="/media/journeys/deborah/deborah-journeys-view.png" alt="Deborah's Journey" /><a class="jrne-button" href="/shop/"><span>SHOP  NOW</span></a></div>
+    <div class="jrne-content">
+      <div class="jrne-content-header">
+        <h1>Deborah's Journey</h1>
+      </div>
+      <div class="jrne-content-summary">
+        <p>Six months ago, I embarked on a journey to better my health. Back then I was eagerly awaiting the arrival of my first Granddaughter and looking forward to interacting with her like my parents did with me. I could envision playing on the floor with the baby, chasing her as she toddled around and riding bikes with her as she got older.  All of those things would be more difficult if I did not make my health a priority and make sure I was in good shape.  I wanted to make sure I would always be able to be close with my granddaughter and be a positive role model in her life.<br />
+          <br />
+			I knew I had to make some changes …some big changes. I have a pretty active job, but my at-home habits were less than desirable. It was time to make time for me and make my health a priority. My excuses had run out.<br />
+			<br />
+			In January I joined a Boot Camp class with Mercy Health Weight Mgmt where we followed the Healthy Solutions ™ plan using a minimum of 3 shakes, 2 entrees and 5 fruits/veggies per day. I have sustained that eating plan through today even after leaving the weight loss phase of the program in April. Sometimes I choose to have a healthy dinner consisting of a  portion-controlled protein and grain with my fruits and veggies instead of an entrée, but I am always conscientious of my food choices. I have learned that it is OK to splurge once in a while on something I really enjoy, but that has to be something that is done with care.<br />
+			<br />
+			Another big change in my life is the physical activity I make sure to incorporate every day.  It is easy to let a busy schedule be an excuse for omitting exercise. In fact, there are a million excuses that can be used to keep exercise from happening. But, I know that I am the only person who can make it happen.  I know that I need to stay strong with my routine. Once I get off track, it is difficult to find your way back.  So no matter if I am tired or busy or whatever,  I find time to walk. Then I  walk some more. The minimum PA I strive for each week averages about 5500. That number is something that is doable for me, and keeps my health and weight in check.<br />
+			<br />
+			I am proud to say that I have lost 22 pounds since January. I have maintained that weight loss for three months and work hard every day to keep it that way. Today I celebrate my birthday, but it is more important than that….. I celebrate my ability to follow through with my healthy life goal!</p>
+      </div>
+
+
+    </div>
+    <div class="jrne-data">
+      <div class="jrne-data-stats">
+        <h5>Deborah's Stats</h5>
+        <p><span class="jrne-stats-label">Starting Weight: </span><span class="jrne-stats-weight">148.6 lbs.</span><br />
+      </div>
+      <div class="jrne-data-goals">
+        <h5>Deborah's Goal</h5>
+        <p><span class="jrne-stats-label">Weight: </span><span class="jrne-stats-weight">130 lbs.</span><br />
+      </div>
+	  <div class="jrne-content-social-icons"> <span class='st_twitter_vcount' displayText='Tweet'></span> <span class='st_pinterest_vcount' displayText='Pinterest'></span> <span class='st_facebook_vcount' displayText='Facebook'></span> </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="jrne-data-progress">
+      <h1>Progress Chart - Weight Loss</h1>
+      <div id="chart_div" style="width: 100%;"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>

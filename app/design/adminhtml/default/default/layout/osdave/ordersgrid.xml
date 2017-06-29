@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- main layout definition that adds the column -->
+    <add_order_grid_column_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>payment_method</columnId>
+                <arguments module="customer" translate="header">
+                    <header>Payment Method</header>
+                    <index>payment_method</index>
+                    <type>options</type>
+                    <filter>ordersgrid/adminhtml_sales_order_filter_paymentMethod</filter>
+                    <renderer>ordersgrid/adminhtml_sales_order_renderer_paymentMethod</renderer>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+            
+            <action method="addColumnAfter">
+                <columnId>shipping_method</columnId>
+                <arguments module="customer" translate="header">
+                    <header>Shipping Method</header>
+                    <index>shipping_method</index>
+                    <type>options</type>
+                    <filter>ordersgrid/adminhtml_sales_order_filter_shippingMethod</filter>
+                    <renderer>ordersgrid/adminhtml_sales_order_renderer_shippingMethod</renderer>
+                </arguments>
+                <after>payment_method</after>
+            </action>
+        </reference>
+    </add_order_grid_column_handle>
+    <!-- order grid action -->
+    <adminhtml_sales_order_grid>
+        <!-- apply the layout handle defined above -->
+        <update handle="add_order_grid_column_handle" />
+    </adminhtml_sales_order_grid>
+    <!-- order grid view action -->
+    <adminhtml_sales_order_index>
+        <!-- apply the layout handle defined above -->
+        <update handle="add_order_grid_column_handle" />
+    </adminhtml_sales_order_index>
+</layout>

@@ -1,0 +1,188 @@
+<?php 
+$recipe = $this->getRecipe();
+$_helper = $this->helper('catalog/output');
+$reviews = $this->getReviews();
+?>
+<style>
+
+.recipe-left		{float: left; width: 25%;}
+.recipe-left #main-recipe-img	{padding: 3px; margin-top: 3px; border: none;}
+.recipe-mid		{float: left; margin: 10px 0 0; padding-right: 25px; width: 56%;}
+.recipe-mid h3	{/*color: #7A7A7A; font-size: 14px; margin-bottom: 10px; margin-top: 13px;*/}
+.recipe-mid ul 	{list-style: none; margin: 3px 0px 5px 0px;}
+.recipe-right		{float: left; width: 15%; margin:0px 0px 0px 15px;}
+.recipe-right h4	{/*color: #7A7A7A; font-size: 12px; margin-bottom: 10px;*/}
+.recipe-list li	{margin-bottom: 15px;}
+.recipe-right .actions {margin-top: 5px;}
+.specs				{width:100%; padding-top: 0px; margin-top: 0px;}
+#specs-left			{float:left; width:78px; height: 30px; border-right: #ccc 1px solid; padding-top: 15px; text-align: center;}
+#specs-middle		{float:left; width:78px; height: 30px; padding-top: 15px; text-align: center;}
+#specs-right		{float:left; width:78px; height: 30px; border-left: #ccc 1px solid; padding-top: 15px; text-align: center;}
+</style>
+
+<div class="recipe-left">
+	<h3><?php echo $recipe->getTitle() ?></h3>
+	<div class="ratings">
+        <div class="rating-box">
+        	<?php $rating = $recipe->getRateTotal() / $recipe->getRateCount() * 20 ?>
+            <div style="width:<?php echo round($rating) ?>%" class="rating"></div>
+        </div>
+        <p class="rating-links">
+            <a href="#recipe-review-achor"><?php echo count($reviews) ?> Review(s)</a>
+        </p>
+    </div>
+	<a href="<?php echo Mage::getBaseUrl('web') ?>recipe/index/print/id/<?php echo $recipe->getId() ?>" target="_blank"><img src="<?php echo $this->getSkinUrl() ?>images/i_print.gif" /></a><br />
+	<img id="main-recipe-img" src="<?php echo Mage::getBaseUrl('media') ?>recipe/<?php echo $recipe->getLrgPath() ?>" />
+	<div class="specs">
+		<div id="specs-left"><?php echo $this->getDifficultyVal($recipe->getDifficulty()) ?></div>
+		<div id="specs-middle"><?php echo $recipe->getPrepTime() ?></div>
+		<div id="specs-right"><?php echo $this->__('Serves') . " " . $recipe->getServings() ?></div>
+	</div>
+</div>
+
+<div class="recipe-mid">
+<div class="recipe-content-block">
+<p><?php echo $recipe->getDesc() ?></p>
+</div>
+	<div style="border-top: 1px #ccc dotted; width: 450px; margin-top: 20px; margin-bottom:20px;"></div>
+
+<div class="recipe-content-block">
+<h3>Ingredients</h3>
+	<ul>
+	<?php foreach($this->getIngredients($recipe->getId()) as $ing): ?>
+		<li><?php echo $ing->getMeasure() . " " . $ing->getIngredient() ?></li>
+	<?php endforeach ?>
+	</ul>
+    </div>
+
+	<div style="border-top: 1px #ccc dotted; width: 450px; margin-top: 20px; margin-bottom:20px;"></div>
+    <div class="recipe-content-block">
+<h3>Directions</h3>
+	<ul>
+	<?php $count = 1 ?>
+	<?php foreach($this->getSteps($recipe->getId()) as $step): ?>
+		<li><?php echo $count++ . ". " . $step->getStep() ?></li>
+	<?php endforeach ?>
+	</ul>
+	</div>
+	<div style="border-top: 1px #ccc dotted; width: 450px; margin-top: 20px; margin-bottom:20px;"></div>
+        <div class="recipe-content-block">
+	<h3>Rate this Recipe</h3>
+	<form id="rate-recipe" action="<?php echo Mage::getBaseUrl('web') ?>recipe/index/rate" method="get">
+		<table id="product-review-table" class="data-table" style="width:340px;">
+	        <colgroup>
+	        <col width="1">
+	        <col width="1">
+	        <col width="1">
+	        <col width="1">
+	        <col width="1">
+	        </colgroup><thead>
+	            <tr class="first last">
+	                <th><span class="nobr"><img src="/media/wysiwyg/recipe-star.png" alt="Star" /></span></th>
+	                <th><span class="nobr"><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /></span></th>
+	                <th><span class="nobr"><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /></span></th>
+
+	                <th><span class="nobr"><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /></span></th>
+	                <th><span class="nobr"><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /><img src="/media/wysiwyg/recipe-star.png" alt="Star" /></span></th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        	<tr class="first odd">
+	            	<td class="value"><input type="radio" class="radio" value="1" id="Quality_1" name="rating"></td>
+	                <td class="value"><input type="radio" class="radio" value="2" id="Quality_2" name="rating"></td>
+	                <td class="value"><input type="radio" class="radio" value="3" id="Quality_3" name="rating"></td>
+	                <td class="value"><input type="radio" class="radio" value="4" id="Quality_4" name="rating"></td>
+	                <td class="value last"><input type="radio" class="radio" value="5" id="Quality_5" name="rating"></td>
+	            </tr>
+	        </tbody>
+	    </table>
+        <input type="hidden" name="recipe_id" value="<?php echo $recipe->getId() ?>" />
+        <button type="button" type="submit" onclick="submitForm();" class="button"><span><span><?php echo $this->__('Rate this Recipe') ?></span></span></button>
+	</form>
+    </div>
+	<script>
+	function submitForm() {
+		$('rate-recipe').submit();
+	}
+	</script>
+	
+<?php $reviews = $this->getReviews() ?>
+<?php if(count($reviews)): ?>
+	<h3 id="recipe-review-achor">Reviews</h3>
+	<?php foreach($this->getReviews() as $review): ?>
+		<div style="margin-top:10px;">
+			<div class="review-name" style="float:left; width:50px; "><?php echo $review->getReviewName() ?></div>
+			<div class="review-text" style="float:left; width:89%; margin-left:20px; text-align:justify;"><?php echo $review->getReviewText() ?></div>
+			<div class="review-date" style="float:left; width:100%; text-align:right; margin-bottom:20px;">
+				<div style="border-top: 1px #ccc dotted; width: 89%; margin-top: 5px; margin-left:70px;"></div>
+				<?php echo date('m-d-Y \a\t h:i A', strtotime($review->getCreatedAt())) ?>
+			</div>
+		</div>
+	<?php endforeach ?>
+<?php endif ?>
+	
+	<!-- form for adding review -->
+	<div class="recipe-submit-review-form" style="float:left; width:450px;">
+		<form method="post" id="reviewForm" action="<?php echo Mage::getBaseUrl('web') ?>recipe/index/review">
+		    <div class="fieldset" style="margin-bottom:10px;">
+		        <h2 class="legend">Submit Review</h2>
+		        <ul class="form-list">
+		            <li class="fields">
+		                <div class="field">
+		                    <label class="required" for="name"><em>*</em>Name</label>
+		                    <div class="input-box">
+		                        <input type="text" class="input-text required-entry" value="" title="Name" id="name" name="name">
+		                    </div>
+		                </div>
+		                <div class="field">
+		                    <label class="required" for="email"><em>*</em>Email</label>
+		                    <div class="input-box">
+		                        <input type="text" class="input-text required-entry validate-email" value="" title="Email" id="email" name="email">
+		                    </div>
+		                </div>
+		            </li>
+		            <li class="wide">
+		                <label class="required" for="comment"><em>*</em>Comment</label>
+		                <div class="input-box" style="width:390px;">
+		                    <textarea style="width:390px;" rows="3" cols="5" class="required-entry input-text" title="Comment" id="comment" name="comment"></textarea>
+		                </div>
+		            </li>
+		        </ul>
+		    </div>
+		    <div class="buttons-set" style="padding-top:5px; margin:0px;">
+		    	<input type="hidden" name="recipe_id" value="<?php echo $recipe->getId() ?>" />
+		        <input type="text" style="display:none !important;" value="" id="hideit" name="hideit">
+		        <button class="button" title="Submit" type="submit"><span><span>Submit</span></span></button>
+		    </div>
+		</form>
+		<script type="text/javascript">
+		//<![CDATA[
+		    var reviewForm = new VarienForm('reviewForm', true);
+		//]]>
+		</script>
+	</div>
+</div>
+
+<div class="recipe-right">
+	<?php if($recipe->getSkus()): ?>
+	<h4>HMR&reg; Products in this Recipe</h4>
+	<ul class="recipe-list">
+	<?php foreach($this->getRecipeProducts($recipe->getSkus()) as $_product): ?>
+		<li class="item">
+		    <a class="product-image" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" href="<?php echo $_product->getProductUrl() ?>"><img width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>"></a>
+		    <h2 class="product-name"><a title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" href="<?php echo $_product->getProductUrl() ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+		    <div class="actions">
+		    	<p>
+				<?php if($_product->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>  
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                <?php endif; ?>
+                	<button type="button" title="<?php echo $this->__('View') ?>" class="button btn-cart" onclick="setLocation('<?php echo $_product->getProductUrl() ?>')"><span><span><?php echo $this->__('View') ?></span></span></button>
+                </p>
+		    </div>
+		</li>
+	<?php endforeach ?>
+	</ul>
+	<?php endif ?>
+</div>

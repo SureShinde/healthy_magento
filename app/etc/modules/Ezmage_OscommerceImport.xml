@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Ezmage_OscommerceImport>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Ezmage_OscommerceImport>
+    </modules>
+</config>

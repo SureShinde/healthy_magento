@@ -1,0 +1,62 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">
+
+  <!-- Only modify recipe handles. -->
+  <recipes_index_index>
+
+    <!-- Set template -->
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>
+
+    <!-- Set content source .phtml file -->
+    <reference name="content">   
+      <block type="recipes/index" name="recipes_index" template="recipes/index.phtml"/>   
+    </reference>
+
+    <!-- Add necessary JS and CSS to head -->
+    <reference name="head">
+
+      <!-- Angular & dependancies from bower -->
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/bower_components/angular/angular.min.js</script>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/bower_components/angular-animate/angular-animate.min.js</script>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/bower_components/angular-aria/angular-aria.min.js</script>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/bower_components/angular-material/angular-material.min.js</script>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/bower_components/angular-material-icons/angular-material-icons.min.js</script>
+      </action>
+      <action method="addCss">
+        <stylesheet>nextit/recipes/bower_components/angular-material/angular-material.min.css</stylesheet>
+      </action>
+      <action method="addCss">
+        <stylesheet>nextit/recipes/bower_components/angular-material-icons/angular-material-icons.css</stylesheet>
+      </action>
+
+      <!-- Include our app JS -->
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/app/app.js</script>
+      </action>
+      <action method="addItem">
+        <type>skin_js</type>
+        <script>nextit/recipes/app/controllers/mainCtrl.js</script>
+      </action>
+    </reference>
+
+  </recipes_index_index>
+
+</layout>   
+	

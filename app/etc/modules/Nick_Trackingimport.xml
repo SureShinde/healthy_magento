@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Nick_Trackingimport>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Nick_Trackingimport>
+		<Nick_Shipping>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Nick_Shipping>
+    </modules>
+</config> 

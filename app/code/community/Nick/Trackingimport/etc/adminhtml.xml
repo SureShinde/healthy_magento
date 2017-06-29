@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<config>
+	  <menu>
+            <sales>
+                <children>
+				  <trackingimport translate="title" module="trackingimport">
+                   		<title>Tracking</title>
+						<sort_order>1000</sort_order>
+						  	<children>
+								<grid module="trackingimport">
+									<title>Tracking Grid</title>
+									<action>trackingimport/grid/grid</action>
+									<sort_order>1</sort_order>
+								</grid>
+							 </children>
+							 <children>
+							 	<massimport module="trackingimport">
+									<title>Mass Import Tracking</title>
+									<action>trackingimport/import</action>
+									<sort_order>2</sort_order>
+						   		</massimport>
+						   </children>
+                   </trackingimport>
+				</children>
+			</sales>
+		</menu>
+		<acl>
+            <resources>
+                <admin>
+                    <children>
+                        <sales>
+                            <children>
+                               <trackingimport>
+									<title>Tracking</title>
+									<sort_order>1000</sort_order>
+										<children>
+											<grid>
+												<title>Tracking Grid</title>
+												<sort_order>1</sort_order>
+											</grid>
+										 </children>
+										 <children>
+											<massimport>
+												<title>Import Tracking</title>
+												<sort_order>2</sort_order>
+											</massimport>
+									   </children>
+								</trackingimport>
+                            </children>
+                        </sales>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+</config>

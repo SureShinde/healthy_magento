@@ -1,0 +1,320 @@
+<?php 
+
+    $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read');
+
+     $orderId = $this->getRequest()->getParam('order_id'); 
+
+    $quoteitemid =  $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE order_id='.$orderId);
+
+         $orderDetails =  $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE `item_id`='.$quoteitemid); 
+
+        $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+
+        $first_product = Mage::getModel('catalog/product')->load($orderDetails[0]['product_id']);
+
+       $hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $orderDetails[0]['product_id']);
+
+       $hmr_product_shake_1_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=1 AND `flavour_id`=1');
+
+    $hmr_product_shake_1_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=1 AND `flavour_id`=2');
+
+    $hmr_product_shake_2_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=2 AND `flavour_id`=1');
+
+    $hmr_product_shake_2_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=2 AND `flavour_id`=2');
+
+      $second_product = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+
+?>
+<script type="text/javascript">
+function editorder(){
+var jQ=jQuery.noConflict();
+  jQ('#editorderform').submit();
+}
+
+function changeQty(id, val, total){
+	//alert(val);
+	splitId = id.split('_');
+	if(splitId[2] == 'cho'){
+		cat = 'van';
+	} else {
+		cat = 'cho';
+	}
+	other_chk = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_chk");
+	other_qty = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_qty");
+	this_qty = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty");
+	this_chk = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_chk");
+			
+	if(val > 0){
+		// check to see if the qty is valid, not more than the total allowed
+		
+		if(val <= total){
+			// this is valid continue
+			// make sure this check box is checked
+			this_chk.checked = true;
+			
+			if(val == total){
+				// the other text box needs to be 0 and check box unchecked
+				other_chk.checked = false;
+				other_qty.value = 0;
+			} else {
+				// the other text box needs to be reduced by this amount
+				other_qty.value = total - val;
+				other_chk.checked = true;
+			}
+		} else {
+			// qty entered is greater than what is allowed for this category
+			// make this qty = total
+			this_qty.value = total;
+			this_chk.checked = true;
+			// make the other qty = 0 
+			other_qty.value = 0;
+			// make other check box unchecked
+			other_chk.checked = false;
+		}
+	} else {
+		// value is less <= 0
+		// make this qty = 0
+		this_qty.value = 0;
+		// uncheck this checkbox
+		this_chk.checked = false;
+		// make other checkbox checked
+		other_chk.checked = true;
+		// make other qty = total
+		other_qty.value = total;
+	}
+  }
+  
+function changeChk(id, total){
+	thisChk = document.getElementById(id);
+	
+	splitId = id.split('_');
+	
+	if(splitId[2] == 'cho'){
+		cat = 'van';
+	} else {
+		cat = 'cho';
+	}
+	other_qty_field = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_qty");
+	other_qty_field_org = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_qty_org");
+	other_chk = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_chk");
+	
+	if(thisChk.checked){
+		//alert("hello");
+		// this element is now checked
+		// make the qty for this checkbox = 1
+		this_qty = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty");
+		this_qty_org = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty_org");
+		//alert(this_qty_org.value);
+		if(this_qty_org.value == 0){
+			// the original value was zero but they checkedt this box.
+			this_qty.value = 1;
+			other_qty_field.value = other_qty_field_org.value -1;
+			if(other_qty_field.value == 0){
+				other_chk.checked = false;
+			} else {
+				other_chk.checked = true;
+			}
+		} else {
+			this_qty.value = this_qty_org.value;
+			// reduce the other qty by 1
+			other_qty = other_qty_field_org.value;
+			other_qty_field.value = other_qty;
+		// if other qty is now 0 uncheck other check box
+			if(other_qty == 0){
+				
+				other_chk.checked = false;
+			} else {
+				other_chk.checked = true;
+			}
+		}
+		
+	} else {
+		// this checkbox is now NOT checked
+		// make qty for this checkbox = 0
+		this_qty = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty");
+		this_qty.value = 0;
+		// check other check box
+		other_chk = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_chk");
+		other_chk.checked = true;
+		// make other qty = total
+		other_qty_field = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+cat+"_qty");
+		other_qty_field.value = total;
+	}
+}
+
+function entreeChg(id, productTotalEntrees){
+	// the only thing we are concerned with here is the checkbox and qty that match up
+	// we are just going to code if the checkbox is checked or unchecked and the qty changes to or from 0
+	//alert(id);
+	splitId = id.split('_');
+	this_chk = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_chk");
+	this_qty = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty");
+	this_qty_org = document.getElementById(splitId[0]+"_"+splitId[1]+"_"+splitId[2]+"_qty_org");
+	//alert(splitId[3]);
+	if(splitId[3] == 'chk'){
+		// someone just checked or unchecked a box
+		if(this_chk.checked){
+			// it is now checked make qty = 1
+			this_qty.value = 1;
+		} else {
+			// it is now unchecked make qty = 0
+			this_qty.value = 0;
+		}
+	} else if(splitId[3] == 'qty'){
+		// the qty changed
+		if(this_qty.value > 0){
+			// qty is > 0 check the checkbox
+			this_chk.checked = true;	
+		} else if(this_qty.value <= 0){
+			// it is now less than or = to 0
+			// uncheck the box and make the qty 0
+			this_chk.checked = false;
+			this_qty.value = 0;
+		}
+	}
+	tE = document.getElementById('hmr_entree_total_dishes').value;
+	tE = 14;
+	totalEntrees = 0;
+	//alert(tE);
+	for(h=1; h<=tE; h++){
+		//alert(h);
+		totalEntrees += parseInt(document.getElementById('hmr_entree_'+h+'_qty').value);
+		//alert(totalEntrees);
+	}
+	//alert(totalEntrees);
+	Entrees1 = document.getElementById('hmr_entree_counter');
+	Entrees1.value = totalEntrees;
+	Entrees2 = document.getElementById('hmr_entree_counter_2');
+	Entrees2.value = totalEntrees;
+	//alert(totalEntrees);
+	
+	if(28 == totalEntrees){
+		Entrees1.className = 'varietyentree entreeCounter green';
+		Entrees2.className = 'varietyentree entreeCounter green';
+	} else {
+		Entrees1.className = 'varietyentree entreeCounter red';
+		Entrees2.className = 'varietyentree entreeCounter red';
+	}
+}
+</script>
+<?php 
+$secondprodoptions = explode(",", $orderDetails[0]['subscribed_variety_entree']);
+?>
+
+<form method="post" action="<?php echo $this->getUrl()?>hacklehealthmanagement/index/updateorder/" name="editorderform" id="editorderform">
+  <div class='product-shop' style='margin-top: 87px;'>
+    <div class='product-shop-info'>
+      <div class="product-name">
+        <h1><?php echo $second_product->getName(); ?></h1>
+      </div>
+      <input id="hmr_entree_total_dishes" type="hidden" value="28">
+      <input type="hidden" value="<?php echo $this->getRequest()->getParam('order_id');?>" name="order_id">
+      <input type="hidden" value="<?php echo $orderDetails[0]['customer_id'];?>" name="customer_id">
+      <div class="collups_area">
+        <div id="accordion">
+          
+            <h3><span class='kits-step'>
+              <?php
+            	echo ++$step_counter; ?>
+              </span> Choose 4 HMR® 70 Plus Vanilla or Chocolate<span style='color:#9A1212; font-size:14px;'>*</span></h3>
+            <div>
+              <div class='counterWrap'>
+                <div class='disclaimer-wide'>
+                  <p>Below is the selections of the HMR&reg; 70 Plus product that you had choosen. Feel free to edit this to better reflect your tastes.</p>
+                </div>
+              </div>
+              <ul>
+                <div class="kits-item kits-left">
+                  <li> <span>HMR&reg; 70 Plus - Chocolate</span>
+                    <div class="chk">
+                      <?php
+				  	if($orderDetails[0]['subscribed_hmr_70_choco'] > 0){
+						$checked = 'checked="checked"';
+					} else {
+						$checked = '';
+					}
+				  ?>
+                      <input type="checkbox" <?php echo $checked; ?> id="hmr_70_cho_chk" onclick="changeChk(this.id, 4)" />
+                      &nbsp;&nbsp;
+                      Quantity:&nbsp;&nbsp;<span>
+                      <input type="text" name="hmr_70_cho_qty" id="hmr_70_cho_qty" value="<?php echo $orderDetails[0]['subscribed_hmr_70_choco'];?>" size="5" maxlength="1"  onchange="changeQty(this.id, this.value, 4);" class="varietyentree" />
+                      <input type="hidden" name="hmr_70_cho_qty_org" id="hmr_70_cho_qty_org" value="<?php echo $orderDetails[0]['subscribed_hmr_70_choco'];?>" size="5" maxlength="1"  class="varietyentree" />
+                      </span> </div>
+                  </li>
+                </div>
+                <div class="kits-item kits-right">
+                  <li> <span>HMR&reg; 70 Plus - Vanilla</span>
+                    <div class="chk">
+                      <?php
+				  	if($orderDetails[0]['subscribed_hmr_70_vani'] > 0){
+						$checked = 'checked="checked"';
+					} else {
+						$checked = '';
+					}
+				  ?>
+                      <input type="checkbox" <?php echo $checked; ?> id="hmr_70_van_chk" onclick="changeChk(this.id, 4)" />
+                      Quantity: <span>
+                      <input type="text" class="varietyentree" name="hmr_70_van_qty" id="hmr_70_van_qty" onchange="changeQty(this.id, this.value, 4);" value="<?php echo $orderDetails[0]['subscribed_hmr_70_vani'];?>" size="5" maxlength="1" />
+                      <input type="hidden" class="varietyentree" name="hmr_70_van_qty_org" id="hmr_70_van_qty_org" value="<?php echo $orderDetails[0]['subscribed_hmr_70_vani'];?>" />
+                      </span></div>
+                  </li>
+                </div>
+              </ul>
+            </div>
+            <h3> <span class='kits-step'>
+              <?php
+            	echo ++$step_counter; ?>
+              </span> Choose 28 HMR® Entrees<span style='color:#9A1212; font-size:14px;'>*</span></h3>
+            <div>
+              <div class='counterWrap'>
+                <div class='disclaimer'>
+                  <p>Below is the selections of the HMR&reg; Entrees that you had choosen. Feel free to edit this to better reflect your tastes.</p>
+                </div>
+                <div class='myCounter'>
+                  <div>
+                    <p><span>Current #:</span>
+                      <input id='hmr_entree_counter_2' value='28' readonly="readonly" size='5' class='varietyentree entreeCounter green' />
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class='clear'> </div>
+              <ul>
+                <?php foreach($allEntrees_result as $key=>$value){ ?>
+                <div <?php if(($key+1)%2!=0) { ?>class="entrees-left kits-left" <?php } else {?>class="entrees-right kits-right" <?php } ?> >
+                  <li> <span><?php echo $value['entree_name'];?></span>
+                    <div class="chk">
+                      <input type="checkbox" value="hmr_entree_<?php echo $value['entree_id'];?>_chk" onclick="entreeChg(this.id, 28);" id="hmr_entree_<?php echo $value['entree_id'];?>_chk" <?php if($secondprodoptions[$key]!=0) { ?>checked="checked "<?php } ?> />
+                      Quantity: <span>
+                      <input size="5" name="hmr_entree_<?php echo $value['entree_id'];?>_qty" id="hmr_entree_<?php echo $value['entree_id'];?>_qty" type="text" onblur="entreeChg(this.id, 28);" value="<?php echo $secondprodoptions[$key];?>" class="varietyentree">
+                      <input size="5" name="hmr_entree_<?php echo $value['entree_id'];?>_qty_org" id="hmr_entree_<?php echo $value['entree_id'];?>_qty_org" type="hidden" value="<?php echo $secondprodoptions[$key];?>" class="varietyentree">
+                      </span> </div>
+                  </li>
+                </div>
+                <?php } ?>
+              </ul>
+              <div class='counterWrap'>
+                <div class='disclaimer'> * Vegetarian Dishes</div>
+                <div class='myCounter'>
+                  <div>
+                    <p><span>Current #:</span>
+                      <input id='hmr_entree_counter' value='28' readonly="readonly" size='5' class='varietyentree entreeCounter green' />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+      <button id="edit_order_options" type="button" title="Edit Order" class="button button_next" onclick="editorder()"><span><span>Edit Order</span></span></button>
+    </div>
+  </div>
+</form>
+<script>
+jQuery.noConflict();
+jQuery(function() {
+jQuery( "#accordion" ).accordion();
+});
+</script> 

@@ -1,0 +1,404 @@
+<style type="text/css">
+.adminhtml-sales-order-index .expedited {
+	background: #FF3D3D !important;
+	font-weight: bold !important;
+	color: #ffffff !important;
+	text-transform: uppercase !important;
+	vertical-align: middle;
+    text-align: center !important;
+}
+.adminhtml-sales-order-index td.fourDay {
+	background: #18453B !important;
+	color: #ffffff !important;
+	font-weight: bold !important;
+	text-transform: uppercase !important;
+	vertical-align: middle;
+    text-align: center !important;
+}
+.adminhtml-sales-order-index td.michigan {
+	background: #00274C !important;
+	color: #FFCB05 !important;
+	font-weight: bold !important;
+	text-transform: uppercase !important;
+	font-family: "Times New Roman", Times, serif;
+	vertical-align: middle;
+    text-align: center !important;
+}
+.adminhtml-sales-order-index td.shippingFee {
+ 	background: #551A8B !important;
+	color: #ffffff !important;
+	font-weight: bold !important;
+	text-transform: uppercase !important;
+	vertical-align: middle;
+    text-align: center !important;
+}
+
+.adminhtml-sales-order-index td.shippingFeeTwoDay {
+	border: 3px dashed #FF3D3D !important;
+}
+.adminhtml-sales-order-index td.shippingFeeThreeDay {
+	border: 3px dashed #FF3D3D !important;
+}
+.adminhtml-sales-order-index td.shippingFeeStandard {
+ 	border: 3px dashed #ffffff !important;
+}
+.adminhtml-sales-order-index td.shippingFeeStandard {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #fff !important;
+}
+
+.adminhtml-sales-order-index #sales_order_grid_table_key {
+	margin-top: 25px;
+	border-width: 0 !important;
+	width: 100%;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key td {
+	font-weight: bold;
+	color: #000;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .key-red {
+	background:#FF3D3D !important;
+	border: 1px solid #DADFE0 !important;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .key-fee {
+	background:#551A8B !important;
+	border: 1px solid #DADFE0 !important;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .key-4day {
+	background: #18453B !important;
+	border: 1px solid #fff !important;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .key-yellow {
+	background: #FAFF64 !important;
+	border: 1px solid #DADFE0 !important;
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .key-mich {
+	background:#00274C !important;
+	border: 1px solid #FFCB05 !important;	
+}
+.adminhtml-sales-order-index #sales_order_grid_table_key .no-border {
+	border: none !important;
+}
+.adminhtml-sales-order-index tr.progress {
+	background: #e4f0c0 !important;
+	color:#444444;
+}
+.adminhtml-sales-order-index tr.pending {
+	background: #e4f0c0 !important;
+	color:red;
+}
+.adminhtml-sales-order-index .key-printed {
+	background: #e4f0c0 !important;
+}
+.adminhtml-sales-order-index .key-pending {
+	background: #e4f0c0 !important;
+	color: red !important;
+}
+#sales_order_grid_table_key {
+	display: none;
+}
+body.adminhtml-sales-order-index table#sales_order_grid_table_key {
+	display: table !important;
+}
+@media screen and (max-width: 976px) {
+	.adminhtml-sales-order-index div.wrapper {
+		width: 100% !important;
+		min-width: 0 !important;
+	}
+	#sales_order_grid_table_key td {
+		width: 100% !important;
+		display: block;
+		min-height: 20px;
+	}
+}
+</style>
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Template for Mage_Adminhtml_Block_Widget_Grid
+ *
+ *  getId()
+ *  getCollection()
+ *  getColumns()
+ *  getPagerVisibility()
+ *  getVarNamePage()
+ */
+ 
+$numColumns = sizeof($this->getColumns());
+
+?>
+<?php if($this->getCollection()): ?>
+<?php if($this->canDisplayContainer()): ?>
+<?php if($this->getGridHeader()): ?>
+
+<div class="content-header">
+  <table cellspacing="0">
+    <tr>
+      <td style="width:50%;"><h2><?php echo $this->getGridHeader(); ?></h2></td>
+    </tr>
+  </table>
+</div>
+<?php endif ?>
+<div id="<?php echo $this->getId() ?>">
+  <?php else: ?>
+  <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+  <?php endif; ?>
+  <?php if($this->getPagerVisibility() || $this->getExportTypes() || $this->getFilterVisibility()): ?>
+  <table cellspacing="0" class="actions">
+    <tr>
+      <?php if($this->getPagerVisibility()): ?>
+      <td class="pager"><?php echo $this->__('Page') ?>
+        <?php $_curPage  = $this->getCollection()->getCurPage() ?>
+        <?php $_lastPage = $this->getCollection()->getLastPageNumber() ?>
+        <?php if($_curPage>1): ?>
+        <a href="#" title="<?php echo $this->__('Previous page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage-1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_left.gif') ?>" alt="Go to Previous page" class="arrow"/></a>
+        <?php else: ?>
+        <img src="<?php echo $this->getSkinUrl('images/pager_arrow_left_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
+        <?php endif; ?>
+        <input type="text" name="<?php echo $this->getVarNamePage() ?>" value="<?php echo $_curPage ?>" class="input-text page" onkeypress="<?php echo $this->getJsObjectName() ?>.inputPage(event, '<?php echo $_lastPage ?>')"/>
+        <?php if($_curPage < $_lastPage): ?>
+        <a href="#" title="<?php echo $this->__('Next page') ?>" onclick="<?php echo $this->getJsObjectName() ?>.setPage('<?php echo ($_curPage+1) ?>');return false;"><img src="<?php echo $this->getSkinUrl('images/pager_arrow_right.gif') ?>" alt="Go to Next page" class="arrow"/></a>
+        <?php else: ?>
+        <img src="<?php echo $this->getSkinUrl('images/pager_arrow_right_off.gif') ?>" alt="Go to Previous page" class="arrow"/>
+        <?php endif; ?>
+        <?php echo $this->__('of %s pages', $this->getCollection()->getLastPageNumber()) ?> <span class="separator">|</span> <?php echo $this->__('View') ?>
+        <select name="<?php echo $this->getVarNameLimit() ?>" onchange="<?php echo $this->getJsObjectName() ?>.loadByElement(this)">
+          <option value="20"<?php if($this->getCollection()->getPageSize()==20): ?> selected="selected"<?php endif; ?>>20</option>
+          <option value="30"<?php if($this->getCollection()->getPageSize()==30): ?> selected="selected"<?php endif; ?>>30</option>
+          <option value="50"<?php if($this->getCollection()->getPageSize()==50): ?> selected="selected"<?php endif; ?>>50</option>
+          <option value="100"<?php if($this->getCollection()->getPageSize()==100): ?> selected="selected"<?php endif; ?>>100</option>
+          <option value="200"<?php if($this->getCollection()->getPageSize()==200): ?> selected="selected"<?php endif; ?>>200</option>
+        </select>
+        <?php echo $this->__('per page') ?><span class="separator">|</span> <?php echo $this->__('Total %d records found', $this->getCollection()->getSize()) ?> <span id="<?php echo $this->getHtmlId() ?>-total-count" class="no-display"><?php echo $this->getCollection()->getSize() ?></span>
+        <?php if($this->getRssLists()): ?>
+        <?php foreach ($this->getRssLists() as $_rss): ?>
+        <span class="separator">|</span><a href="<?php echo $_rss->getUrl() ?>" class="link-feed"><?php echo $_rss->getLabel() ?></a>
+        <?php endforeach ?>
+        <?php endif; ?></td>
+      <?php endif ?>
+      <?php if($this->getExportTypes()): ?>
+      <td class="export a-right"><img src="<?php echo $this->getSkinUrl('images/icon_export.gif') ?>" alt="" class="v-middle"/>&nbsp; <?php echo $this->__('Export to:') ?>
+        <select name="<?php echo $this->getId() ?>_export" id="<?php echo $this->getId() ?>_export" style="width:8em;">
+          <?php foreach ($this->getExportTypes() as $_type): ?>
+          <option value="<?php echo $_type->getUrl() ?>"><?php echo $_type->getLabel() ?></option>
+          <?php endforeach; ?>
+        </select>
+        <?php echo $this->getExportButtonHtml() ?></td>
+      <?php endif; ?>
+      <td class="filter-actions a-right"><?php echo $this->getMainButtonsHtml() ?></td>
+    </tr>
+  </table>
+  <?php endif; ?>
+  <?php if($this->getMassactionBlock()->isAvailable()): ?>
+  <?php echo $this->getMassactionBlockHtml() ?>
+  <?php endif ?>
+  <div class="grid">
+    <div class="hor-scroll">
+      <table cellspacing="0" class="data" id="<?php echo $this->getId() ?>_table">
+        <?php foreach ($this->getColumns() as $_column): 
+		if($_column->getHeader() != 'Street' && $_column->getHeader() != 'Weight' && $_column->getHeader() != 'City' && $_column->getHeader() != 'Postcode' && $_column->getHeader() != 'Country'){?>
+        <col <?php echo $_column->getHtmlProperty() ?> />
+        <?php } endforeach; ?>
+        <?php if ($this->getHeadersVisibility() || $this->getFilterVisibility()): ?>
+        <thead>
+          <?php if ($this->getHeadersVisibility()): ?>
+          <tr class="headings">
+            <?php
+             foreach ($this->getColumns() as $_column): 
+			if($_column->getHeader() != 'Street' && $_column->getHeader() != 'Weight' && $_column->getHeader() != 'City' && $_column->getHeader() != 'Postcode' && $_column->getHeader() != 'Country'){
+			?>
+            <th<?php 
+				 echo $_column->getHeaderHtmlProperty() ?>><span class="nobr"><?php echo $_column->getHeaderHtml() ?></span>
+				 </th><?php } ?>
+            <?php endforeach; ?>
+          </tr>
+          <?php endif; ?>
+          <?php if ($this->getFilterVisibility()): ?>
+          <tr class="filter">
+            <?php $i=0;foreach ($this->getColumns() as $_column): 
+			if($_column->getHeader() != 'Street' && $_column->getHeader() != 'Weight' && $_column->getHeader() != 'City' && $_column->getHeader() != 'Postcode' && $_column->getHeader() != 'Country'){?>
+            <th<?php 
+				echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?>
+                </th><?php } ?>
+            <?php endforeach; ?>
+          </tr>
+          <?php endif ?>
+        </thead>
+        <?php endif; ?>
+        <?php if ($this->getCountTotals()): ?>
+        <tfoot>
+          <tr class="totals">
+            <?php foreach ($this->getColumns() as $_column): ?>
+            <th class="<?php echo $_column->getCssProperty() ?>"><?php echo ($_column->hasTotalsLabel()) ? $_column->getTotalsLabel() : $_column->getRowField($_column->getGrid()->getTotals()) ?>&nbsp;</th>
+            <?php endforeach; ?>
+          </tr>
+        </tfoot>
+        <?php endif; ?>
+        <tbody>
+          <?php if (($this->getCollection()->getSize()>0) && (!$this->getIsCollapsed())): ?>
+          <?php 
+		  /*echo "<pre>";
+		  print_r($this->getCollection());
+		  echo "</pre>";*/
+		  foreach ($this->getCollection() as $_index=>$_item): ?>
+          <tr title="<?php echo $this->getRowUrl($_item) ?>">
+            <?php $i=0;foreach ($this->getColumns() as $_column): ?>
+            <?php if ($this->shouldRenderCell($_item, $_column)):?>
+            <?php $_rowspan = $this->getRowspan($_item, $_column);?>
+            <?php
+				// FOUR DAY....
+				$fourDay = false;
+				if ($_column->getRowField($_item) == "Washington" || $_column->getRowField($_item) == "California" || $_column->getRowField($_item) == "Oregon" || $_column->getRowField($_item) == "Nevada") {
+					$fourDay = true;
+				} else {
+					$fourDay = false;
+				}
+				
+				// MICHIGAN ORDERS....
+				$michigan = false;
+				if ($_column->getRowField($_item) == "Michigan") {
+					$michigan = true;
+				} else {
+					$michigan = false;
+				}
+				
+				// EXPEDITED ORDERS....
+				$expedited = false;
+				if ($_column->getRowField($_item) == "UPS - 2nd Day Air" || $_column->getRowField($_item) == "UPS - 3 Day Select" || $_column->getRowField($_item) == "UPS - Next Day Air") {
+					$expedited = true;
+				} else {
+					$expedited = false;
+				}
+				
+				// SAME DAY SHIPPING FEE....
+				$shippingFeeTwoDay = false;
+				if ($_column->getRowField($_item) == "UPS - 2nd Day Air + Guaranteed Same Day STANDARD Shipping") {
+					$shippingFeeTwoDay = true;
+				} else {
+					$shippingFee = false;
+				}
+				$shippingFeeThreeDay = false;
+				if ($_column->getRowField($_item) == "UPS - 3 Day Select + Guaranteed Same Day STANDARD Shipping") {
+					$shippingFeeThreeDay = true;
+				} else {
+					$shippingFee = false;
+				}
+				$shippingFeeNextDay = false;
+				if ($_column->getRowField($_item) == "UPS - Next Day Air + Guaranteed Same Day STANDARD Shipping") {
+					$shippingFeeNextDay = true;
+				} else {
+					$shippingFee = false;
+				}
+				$shippingFeeStandard = false;
+				if ($_column->getRowField($_item) == "Standard Shipping - Standard + Guaranteed Same Day STANDARD Shipping"
+                || $_column->getRowField($_item) == "Flat Rate - UPS Ground + Guaranteed Same Day STANDARD Shipping") {
+					$shippingFeeStandard = true;
+				} else {
+					$shippingFee = false;
+				}
+				
+				if($_column->getHeader() != 'Street' && $_column->getHeader() != 'Weight' && $_column->getHeader() != 'City' && $_column->getHeader() != 'Postcode' && $_column->getHeader() != 'Country'){
+		?>
+            <td <?php echo ($_rowspan ? 'rowspan="' . $_rowspan . '" ' : '') ?>class="<?php echo $_column->getCssProperty() ?><?php echo ++$i==$numColumns?'last':'' ?><?php if ($fourDay){?> fourDay<?php } ?><?php if ($michigan){?> michigan<?php } ?><?php if ($expedited) { ?> expedited<?php } ?><?php if ($shippingFeeTwoDay) { ?> shippingFee shippingFeeTwoDay<?php } ?><?php if ($shippingFeeThreeDay) { ?> shippingFee shippingFeeThreeDay<?php } ?><?php if ($shippingFeeNextDay) { ?> shippingFee shippingFeeNextDay<?php } ?><?php if ($shippingFeeStandard) { ?> shippingFee shippingFeeStandard<?php } ?>"><?php echo (($_html = $_column->getRowField($_item)) != '' ? $_html : '&nbsp;') ?></td>
+            <?php if ($this->shouldRenderEmptyCell($_item, $_column)):?>
+            <td colspan="<?php echo $this->getEmptyCellColspan($_item)?>" class="last"><?php echo $this->getEmptyCellLabel()?></td>
+            <?php endif;?>
+            <?php } endif;?>
+            <?php endforeach; ?>
+          </tr>
+          <?php if ($_multipleRows = $this->getMultipleRows($_item)):?>
+          <?php foreach ($_multipleRows as $_i):?>
+          <tr>
+            <?php $i=0;foreach ($this->getMultipleRowColumns($_i) as $_column): ?>
+            <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i==$numColumns-1?'last':'' ?>"><?php echo (($_html = $_column->getRowField($_i)) != '' ? $_html : '&nbsp;') ?></td>
+            <?php endforeach; ?>
+          </tr>
+          <?php endforeach;?>
+          <?php endif;?>
+          <?php if ($this->shouldRenderSubTotal($_item)): ?>
+          <tr class="subtotals">
+            <?php $i = 0; foreach ($this->getSubTotalColumns() as $_column): ?>
+            <td class="<?php echo $_column->getCssProperty() ?> <?php echo ++$i == $numColumns ? 'last' : '' ?>"><?php echo ($_column->hasSubtotalsLabel() ? $_column->getSubtotalsLabel() :
+                                $_column->getRowField($this->getSubTotalItem($_item))
+                            );
+                            ?></td>
+            <?php endforeach; ?>
+          </tr>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          <?php elseif ($this->getEmptyText()): ?>
+          <tr>
+            <td class="empty-text <?php echo $this->getEmptyTextClass() ?>" colspan="<?php echo $numColumns ?>"><?php echo $this->getEmptyText() ?></td>
+          </tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
+    <table cellspacing="5" cellpadding="5" border="0" class="data" id="sales_order_grid_table_key">
+      <tbody>
+      <tr><td class="no-border" colspan="10" style="border-bottom: 1px solid rgba(0,0,0,0.1)!important;font-size: 16px;font-weight: bold;">COLOR KEY:</td></tr>
+        <tr>
+          <td class="key-fee" width="4%"></td>
+       	  <td class="no-border" width="13%">Same Day Shipping Fee</td>
+          <td class="key-red" width="4%"></td>
+          <td class="no-border" width="13%">Expedited</td>
+          <td class="key-4day" width="4%"></td>
+          <td class="no-border" width="13%">4 Day Delivery</td>
+          <td class="key-mich" width="4%"></td>
+          <td class="no-border" width="13%">Michigan Order</td>
+          <td class="key-yellow" width="4%"></td>
+          <td class="no-border" width="13%">Shipment Pending</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <?php if($this->canDisplayContainer()): ?>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    <?php echo $this->getJsObjectName() ?> = new varienGrid('<?php echo $this->getId() ?>', '<?php echo $this->getGridUrl() ?>', '<?php echo $this->getVarNamePage() ?>', '<?php echo $this->getVarNameSort() ?>', '<?php echo $this->getVarNameDir() ?>', '<?php echo $this->getVarNameFilter() ?>');
+    <?php echo $this->getJsObjectName() ?>.useAjax = '<?php echo $this->getUseAjax() ?>';
+    <?php if($this->getRowClickCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.rowClickCallback = <?php echo $this->getRowClickCallback() ?>;
+    <?php endif; ?>
+    <?php if($this->getCheckboxCheckCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.checkboxCheckCallback = <?php echo $this->getCheckboxCheckCallback() ?>;
+    <?php endif; ?>
+    <?php if($this->getRowInitCallback()): ?>
+        <?php echo $this->getJsObjectName() ?>.initRowCallback = <?php echo $this->getRowInitCallback() ?>;
+        <?php echo $this->getJsObjectName() ?>.initGridRows();
+    <?php endif; ?>
+    <?php if($this->getMassactionBlock()->isAvailable()): ?>
+    <?php echo $this->getMassactionBlock()->getJavaScript() ?>
+    <?php endif ?>
+    <?php echo $this->getAdditionalJavaScript(); ?>
+//]]>
+</script>
+<?php endif; ?>
+<?php endif ?>

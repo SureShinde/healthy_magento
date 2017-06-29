@@ -1,0 +1,1 @@
+To add back the HMR link on the Account Navigation uncomment line 46 in the file frontend\base\default\template\customer\account\navigation.phtml

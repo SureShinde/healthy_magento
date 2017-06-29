@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!-- Root node for Magento layout configuration -->
+<layout version="0.1.0">
+    <default>
+        <reference name="underslider">
+            <block type="quickreview/reviewpane" name="quickreview" as="quickreview" template="nextit/quickreview/notification.phtml" />
+        </reference>
+    </default>
+</layout>

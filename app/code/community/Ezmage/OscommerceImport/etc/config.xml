@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Ezmage_OscommerceImport>
+            <version>1.7.5</version>
+        </Ezmage_OscommerceImport>
+    </modules>  
+    
+    <frontend>
+        <routers>
+            <ezmage_oscommerceimport> <!-- name of router. for consistency sake, match this to frontName -->
+                <use>standard</use> <!-- this is a standard router -->
+                <args>
+                    <module>Ezmage_OscommerceImport</module> <!-- what module we should look at for the 'helloworld' router -->
+                    <frontName>oscommerceimport</frontName> <!-- for consistency sake, match this to router name -->
+                </args>
+            </ezmage_oscommerceimport>
+        </routers>
+    </frontend>
+	
+	<global>
+        <helpers>
+            <oscommerceimporthelper1>
+                <class>Ezmage_OscommerceImport_Helper</class>
+            </oscommerceimporthelper1>
+        </helpers>        			
+	</global>
+			
+	<adminhtml>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<oscommerceimportconf translate="title" module="oscommerceimporthelper1">
+											<title>osCommerce Import</title>
+											<sort_order>50</sort_order>
+										</oscommerceimportconf>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+	
+</config>

@@ -1,0 +1,30 @@
+tables:
+  sarp/subscription_flat:
+    - 
+      item_id: 1
+      subscription_id: 1
+      customer_name: Andrei Krupenin
+      customer_email: helpdeskult@yandex.ru
+      flat_last_order_amount: 265
+      flat_last_order_currency_code: USD
+      flat_last_order_status: pending
+      products_text: SARP product (1)
+      products_sku: skusarp
+      flat_date_expire: 2011-11-18
+      has_shipping: 1
+      flat_next_payment_date:
+      flat_next_delivery_date:
+    - 
+      item_id: 2
+      subscription_id: 2
+      customer_name: Andrei Krupenin
+      customer_email: helpdeskult@yandex.ru
+      flat_last_order_amount: 1060
+      flat_last_order_currency_code: USD
+      flat_last_order_status: pending
+      products_text: SARP product (4)
+      products_sku: skusarp
+      flat_date_expire: 2012-01-12
+      has_shipping: 1
+      flat_next_payment_date:
+      flat_next_delivery_date:

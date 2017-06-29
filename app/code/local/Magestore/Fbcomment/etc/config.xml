@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magestore_Fbcomment>
+            <version>0.1.2</version>
+        </Magestore_Fbcomment>
+    </modules>
+    <frontend>
+        <routers>
+            <fbcomment>
+                <use>standard</use>
+                <args>
+                    <module>Magestore_Fbcomment</module>
+                    <frontName>fbcomment</frontName>
+                </args>
+            </fbcomment>
+        </routers>
+        <layout>
+            <updates>
+                <fbcomment>
+                    <file>fbcomment.xml</file>
+                </fbcomment>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<fbcomment>
+				<use>admin</use>
+				<args>
+					<module>Magestore_Fbcomment</module>
+					<frontName>fbcomment</frontName>
+				</args>
+			</fbcomment>
+        </routers>
+    </admin>
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<fbcomment translate="title">
+											<title>Facebook comment</title>
+											<sort_order>50</sort_order>
+										</fbcomment>									
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>	
+		<layout>
+			<updates>
+				<fbcomment>
+					<file>fbcomment.xml</file>
+				</fbcomment>
+			</updates>
+		</layout>
+		<events>
+			<controller_action_predispatch_adminhtml>
+				<observers>
+					<magestore_fbcomment_observer>
+						<type>singleton</type>
+						<class>fbcomment/observer</class>
+						<method>controller_action_predispatch_adminhtml</method>
+					</magestore_fbcomment_observer>
+		       </observers>				
+			</controller_action_predispatch_adminhtml>
+		</events>		
+    </adminhtml>   
+    <global>
+		<events>
+			<admin_system_config_changed_section_fbcomment>
+				<observers>
+		          <magestore_fbcomment_observer>
+		            <type>singleton</type>
+		            <class>fbcomment/observer</class>
+		            <method>saveFbcommentConfig</method>
+		          </magestore_fbcomment_observer>
+		       </observers>			
+			</admin_system_config_changed_section_fbcomment>				
+		</events>
+        <models>
+            <fbcomment>
+                <class>Magestore_Fbcomment_Model</class>
+                <resourceModel>fbcomment_mysql4</resourceModel>
+            </fbcomment>
+            <fbcomment_mysql4>
+                <class>Magestore_Fbcomment_Model_Mysql4</class>
+                <entities>
+                    <fbcomment>
+                        <table>fbcomment</table>
+                    </fbcomment>
+                </entities>
+            </fbcomment_mysql4>
+        </models>
+        <resources>
+            <fbcomment_setup>
+                <setup>
+                    <module>Magestore_Fbcomment</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </fbcomment_setup>
+            <fbcomment_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </fbcomment_write>
+            <fbcomment_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </fbcomment_read>
+        </resources>
+        <blocks>
+            <fbcomment>
+                <class>Magestore_Fbcomment_Block</class>
+            </fbcomment>
+        </blocks>
+        <helpers>
+            <fbcomment>
+                <class>Magestore_Fbcomment_Helper</class>
+            </fbcomment>
+        </helpers>
+    </global>
+	<default>
+		<fbcomment>
+			<general>
+				<show_number_of_comment>10</show_number_of_comment>
+				<width_of_comment_box>642</width_of_comment_box>
+				<language>en_US</language>
+				<reserve_ordering>0</reserve_ordering>
+				<publish_feed>0</publish_feed>
+				<hidden_like>1</hidden_like>
+				<hidden_comment>0</hidden_comment>
+				<rounded_box>0</rounded_box>
+			</general>
+			<like>
+				<custom>0</custom>
+				<css_style>div.like {
+	margin-bottom:5px;
+}
+
+div.like a.connect_widget_like_button{
+	ntebackground: #F18200;
+	border:1px solid #DE5400;
+	display:block;
+	font:bold 12px/19px Arial,Helvetica,sans-serif;
+	height:19px;
+	padding:0 8px;
+	text-align:cer;
+	white-space:nowrap; 
+} 
+
+div.like a.connect_widget_like_button span.liketext {
+	color:#FFFFFF;
+	padding:0;
+	background:transparent;
+}
+
+div.like span.connect_widget_text {
+	color:#2F2F2F;
+}
+ 
+div.like span.connect_widget_text a {
+	color:#C76200;
+}</css_style>
+			</like>
+			<comment>
+				<custom>1</custom>
+				<css_style>div.comment_body { 
+	background:#F4F3F3; 
+	border: 1px solid #C4C6C8;
+}
+
+
+div.comment_body div.composer div.connected {
+ 	color:#2F2F2F;
+} 
+
+div.comment_body div.composer div.connected span.namelink a {
+	color:#C76200;
+} 
+
+div.comment_body div.post_area div.connected label {
+	color:#777777;
+} 
+
+div.comment_body  .uiButtonConfirm {
+	background: #F18200;
+	border:1px solid #DE5400;
+	height:19px;
+	padding:0 8px;
+	text-align:center;
+	white-space:nowrap; 
+	background: #F18200;
+}
+
+.uiButtonConfirm input {
+	font:bold 12px/19px Arial,Helvetica,sans-serif;
+}
+
+.wallkit_frame .inputsubmit-disabled{
+	background-color:transparent; 
+	border:0;color:#2F2F2F;
+}
+
+div.comment_body div.show_connected a.editsettings {
+	color:#C76200;
+} 
+
+div.comment_body div.show_connected div.profile_pic {
+	margin-top:18px; 
+	position:absolute; 
+} 
+div.comment_body div.show_not_connected div.profile_pic {
+	margin-top:6px; 
+	position:absolute; 
+} 
+
+div.comment_body div.wallkit_form div.loading_page {
+	margin-left:19px;
+	padding-top:80px;
+	position:absolute;
+}
+
+div.comment_body div.wallkit_post{ 
+	border-bottom:1px solid #D8DFEA; 
+	margin:5px; 
+	padding-bottom:5px; 
+}
+
+div.comment_body .wallkit_form { 
+	padding:5px ;
+}
+
+div.comment_body div.wallkit_postcontent h4 a {
+	color:#C76200;
+} 
+
+div.comment_body div.wallkit_postcontent h4 span.wall_time {
+	color:#777777;
+} 
+
+div.comment_body div.wallkit_postcontent div {
+	color:#2F2F2F;
+} 
+
+div.comment_body div.wallkit_actionset a {
+ 	color:#1E7EC8!important;
+} 
+
+div.comment_body div.wallkit_subtitle div.post_counter {
+	color:#777777;
+} 
+
+div.comment_body div.wallkit_subtitle div.pager a {
+	color:#1E7EC8;
+} 
+
+div.comment_body div.wallkit_subtitle div.UIImageBlock{ 
+	display:none; 
+} </css_style>
+			</comment>
+		</fbcomment>
+	</default>
+</config>

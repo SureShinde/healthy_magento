@@ -1,0 +1,64 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Sarp2
+ * @version    2.2.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div class="aw-sarp-customer" id="customer_subscription_list">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php $profileCollection = $this->getCollection(); ?>
+    <?php if($profileCollection->getSize()): ?>
+        <table id="subscription_info" class="customer-subscription__list">
+            <tbody>
+            <?php foreach ($profileCollection as $profile): ?>
+                <tr class="customer-subscription__item">
+                    <td class="customer-subscription__profile_link"><a href="<?php echo $this->getProfileLink($profile); ?>" title="<?php echo $this->__('View Subscription'); ?>"><?php echo $profile->getReferenceId(); ?></a></td>
+                    <td class="customer-subscription__profile_status"><?php echo $profile->getStatusLabel(); ?></td>
+                </tr>
+                <tr class="customer-subscription__item">
+                    <td class="customer-subscription__empty"></td>
+                    <td class="customer-subscription__profile_created"><?php echo $this->__('Created At:'); ?>&nbsp;<?php echo $this->formatDate($profile->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true); ?></td>
+                </tr>
+                <tr class="customer-subscription__item">
+                    <td class="customer-subscription__empty"></td>
+                    <td class="customer-subscription__profile_updated"><?php echo $this->__('Updated At:'); ?>&nbsp;<?php echo $this->formatDate($profile->getUpdatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true); ?></td>
+                </tr>
+                <tr class="customer-subscription__item last">
+                    <td class="customer-subscription__empty"></td>
+                    <td class="customer-subscription__profile_engine"><?php echo $this->__('Payment Method:'); ?>&nbsp;<?php echo $profile->getEngineLabel(); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p><?php echo $this->__('There are no recurring profiles yet.'); ?></p>
+    <?php endif ?>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<script type="text/javascript">
+    //<![CDATA[
+    if (typeof pager != 'undefined') {
+        pager.containerId = 'customer_subscription_list';
+        pager.tableId = 'subscription_info';
+    }
+    //]]>
+</script>

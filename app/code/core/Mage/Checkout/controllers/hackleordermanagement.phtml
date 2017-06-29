@@ -1,0 +1,122 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php     $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read'); ?>
+
+<?php $orderId  = $this->getRequest()->getParam('order_id');?>
+<?php 
+    $order      = Mage::getModel('sales/order')->load($orderId); 
+    $_totalData = $order->getData();
+    $items      = $order->getAllItems();
+    $_grand     = $_totalData['grand_total']; 
+    $custname = $order->getCustomerName();
+?>
+
+<?php 
+
+$orderIncrementId = $readConnection->fetchOne('SELECT `increment_id` FROM `sales_flat_order` WHERE entity_id='.$orderId);
+
+$quoteitemid = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE order_id='.$orderId);
+
+$editedProditemdetails = $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE item_id='.$quoteitemid);
+
+$hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $editedProditemdetails[0]['product_id']);
+
+$second_product = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+
+$odercreationdate = $editedProditemdetails[0]['created_at'];
+
+$two_weeks_order_delivery_date = date("Y-m-d", strtotime(date("Y-m-d", strtotime($odercreationdate)) . " + 2 week"));
+
+?>
+
+<?php 
+/*foreach ($items as $itemId => $item)
+{
+    echo $item->getName();
+    echo $item->getPrice();
+    echo $item->getSku();
+    echo $item->getQtyToInvoice();
+
+}*/
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Orders') ?></h1>
+</div>
+<?php //echo $this->getPagerHtml(); ?>
+<?php //if($_order->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+
+    <thead>
+        <tr>
+            <th>Next Ship Date</th>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+
+        <?php 
+		/*echo "<pre>";
+		print_r($items);
+		echo "</pre>";*/
+		
+/*foreach ($items as $itemId => $item): ?>
+        <tr>
+             <td><?php echo $_totalData['increment_id']; ?></td>
+            <td><?php echo $item->getName(); ?></td>
+             <td><?php echo $_totalData['status']; ?></td>
+            <?php if( $_totalData['status']!='processing') { ?>
+            <td class="a-center">
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/editorder/order_id/'.$orderId; ?>">Pause/Resume</a>
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/editorder/order_id/'.$orderId; ?>">Edit Order</a></td>
+            <?php } ?>
+        </tr>
+        <?php endforeach; */?>
+
+<?php if(isset($editedProditemdetails)) { ?>
+<?php $i=0;?>
+        <?php foreach ($editedProditemdetails as $val): ?>
+        <tr>
+             <td><?php echo $two_weeks_order_delivery_date; ?></td>
+            <td><?php echo $second_product->getName(); ?></td>
+             <td><?php echo $_totalData['status']; ?></td>
+           <td class="a-center">
+<?php //if()?>
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/editorder/order_id/'.$orderId; ?>">Pause/Resume</a>
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/editorder/order_id/'.$orderId; ?>">Edit Order</a></td>
+        </tr>
+        <?php endforeach; ?>
+<?php } ?>
+
+    </tbody>
+</table>
+<?php //echo $this->getPagerHtml(); ?>
+
+<?php //endif ?>

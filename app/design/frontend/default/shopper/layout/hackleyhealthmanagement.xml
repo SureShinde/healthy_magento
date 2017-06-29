@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <default></default>
+  <hackleyhealthmanagement_index_index>
+    <reference name="content">
+      <block type="hackleyhealthmanagement/hackleyhealthmanagement" name="hackleyhealthmanagement" template="hackleyhealthmanagement/hackleordermanagement.phtml" />
+    </reference>
+  </hackleyhealthmanagement_index_index>
+  <hackleyhealthmanagement_index_editorder>
+    <reference name="content">
+      <block type="hackleyhealthmanagement/hackleyhealthmanagement" name="hackleyhealthmanagement" template="hackleyhealthmanagement/hackleyhealthmanagement.phtml" />
+    </reference>
+  </hackleyhealthmanagement_index_editorder>
+</layout>

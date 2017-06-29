@@ -1,0 +1,127 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+// NeXt I.T. - 6/10/2014
+// Unset the kit start date flag in the
+// user's session for their next order.
+Mage::getSingleton('core/session')->unsRecurringProfileStartDateFlag();
+
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Your order has been received.') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+<!--<p style="color: #ff0000;font-size:16px;margin: 15px 0;"><strong>Please Note: </strong>Hackley Health Management will be closed on December 25th & 26th to allow our employees time with their families. Any orders placed on those days will be processed upon our return. Thank you for your understanding. We wish a very happy and safe holiday! </p>-->
+<?php if ($this->getOrderId()):?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+<div class="buttons-set">
+    <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+</div>
+
+<?php
+//-------------------------------------------
+// START ADWORDS CONVERSION VALUE TRACKING CODE
+//-------------------------------------------
+$order_details = Mage::getModel('sales/order')->loadByIncrementId(Mage::getSingleton('checkout/session')->getLastRealOrderId());
+$customer_orderID = $order_details->increment_id;
+$customer_email = $order_details->customer_email;
+?>
+<!-- Google Code for Sale - Updated Site Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1072565069;
+var google_conversion_language = "en";
+var google_conversion_format = "1";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "purchase";
+var google_conversion_value = <?php echo number_format($order_details->subtotal, 2); ?>;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1072565069/?value=<?php echo number_format($order_details->subtotal, 2); ?>&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<?php
+//-------------------------------------------
+// END ADWORDS CONVERSION VALUE TRACKING CODE
+//-------------------------------------------
+?>
+
+<script type="text/javascript">if (!window.mstag) mstag = {loadTag : function(){},time : (new Date()).getTime()};</script> 
+<script id="mstag_tops" type="text/javascript" src="//flex.atdmt.com/mstag/site/6267ef0c-c24b-493a-b097-84992126aa58/mstag.js"></script> 
+<script type="text/javascript"> mstag.loadTag("conversion", {cp:"5050",dedup:"1"})</script>
+<noscript>
+<iframe src="//flex.atdmt.com/mstag/tag/6267ef0c-c24b-493a-b097-84992126aa58/conversion.html?cp=5050&dedup=1" frameborder="0" scrolling="no" width="1" height="1" style="visibility:hidden; display:none"> </iframe>
+</noscript>
+
+<!-- Reseller Ratings Exit Survey Popup -->
+<script type="text/javascript">
+	var _rrES = {
+		seller_id: 95543,
+		email: "<?php echo $customer_email ?>",
+		invoice: "<?php echo $customer_orderID ?>",
+		auto: true
+	};
+	(function(w,o) {
+		o=o||{};w.seller_id=o.seller_id||"";w.__rr_email_pass=o.email||"";w.__rr_inv=o.invoice||"";
+		if(o.auto===false)w.__rr_autoEnroll=false;
+		var s=document.createElement('script');s.type='text/javascript';s.async=true;
+		s.src="https://www.resellerratings.com/popup/include/popup.js";var ss=document.getElementsByTagName('script')[0];
+		ss.parentNode.insertBefore(s,ss);
+	})(window, _rrES);
+</script>
+<!-- End of RR Exit Survey Popup -->

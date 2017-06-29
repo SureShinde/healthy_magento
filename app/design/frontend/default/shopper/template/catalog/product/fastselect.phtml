@@ -1,0 +1,353 @@
+<?php
+	$_catalogHelper = $this->helper('catalog/output');
+	$_shopperHelper = $this->helper('shoppersettings/image');
+	$_productImageWidth = '46';
+	$_productImageHeight = '46';
+?>
+
+<div id="fs-top"></div>
+
+<div class="category-description std">
+  <h1>HMR Diet Foods - Fast Select from Hackley Health Management</h1>
+</div>
+
+<div class="block col-main fs-nav">
+<div class="block-title">
+<strong>
+<span>Quick Links</span>
+</strong>
+</div>
+<?php  
+   // TOP NAVIGATION OF CATEGORIES
+   $rootCategoryId = 2;
+   $catlistHtml = Mage::helper('fastselectadd')->getTreeCategoriesForFastSelect($rootCategoryId, false);
+   echo $catlistHtml;
+?>
+</div>
+<div class="clear"></div>
+
+<button id="fastadd" type="button" onclick="fastaddtocart()"><span><span>Add All Items To Cart</span></span></button>
+<div class="clear"></div>
+
+<?php $categoryloop = Mage::helper('fastselectadd')->getCategoriesForFastSelect($rootCategoryId, false); ?>
+
+<?php // Loop each category for product listings.
+$oddeven = 0;
+foreach($categoryloop as $_cate): ?>
+	<div class="category-products categorydiv" id="categoryDiv<?php echo $_cate; ?>">
+	  <ol class="products-list" id="products-list">
+		<?php
+		  // load 'em
+		  $_productCollection=$this->getLoadedProductCollection();
+		  // clear out the collection
+		  $_productCollection->clear();
+		  // set the limit to 1 page, with a max of 99999 results
+		  $_productCollection->setPage(1,99999);
+		  $_productCollection = Mage::getModel('catalog/category')->load($_cate)
+		   ->getProductCollection()
+		   ->addAttributeToSelect('*') // add all attributes - optional
+		   ->addAttributeToFilter('status', 1) // enabled
+		   ->addAttributeToFilter('visibility', 4) //visibility in catalog,search
+		   ->setOrder('name', 'ASC'); //sets the order by price
+		  ?>
+		  <?php foreach ($_productCollection as $_product): ?>
+		  <?php //echo '<pre>'; print_r($_product); echo '</pre>'; ?>
+		  <?php 
+		    //check if product is a configurable type or not
+		    // configurable --------------------------------
+		    // configurable --------------------------------
+		    if ($_product->getData('type_id') == "configurable"):
+		  ?>
+		  <?php $config = $_product->getTypeInstance(true); ?>
+		  <?php foreach($config->getUsedProducts(null, $_product) as $simpleproduct): ?>
+		
+		  <?php if($simpleproduct->getStatus() == 1): ?>
+		  <?php $prod = Mage::getModel('catalog/product')->load($simpleproduct->getId()); ?>
+		  <?php $_prodID = $simpleproduct->getId(); ?>
+		  <?php 
+		      $cat = $_product->getCategoryIds();
+		      if($varset == $cat[0]){
+		      } else {
+			    $_category = Mage::getModel('catalog/category')->load($cat[0]);
+		        echo '<div id="cat'.$cat[0].'_anchor"></div><div class="fs-cat-header"><h2 id="cat'.$cat[0].'" class="fastSelectCat">'.$_category->getName().'</h2>
+		        <a class="fs-anchor" href="#fs-top">To Top</a></div><div class="clear"></div>';
+		        $varset = $cat[0];
+		        array_push($usedcats, $_category->getName());
+		      }
+		    ?>
+		    
+		    
+		    <li class="<?php if($oddeven % 2 == 0){ echo 'even'; }else{ echo 'odd'; } $oddeven++; ?><?php if( $simpleproduct->getData('type_id') == "configurable"){ echo 'configurableclass'; } ?> item<?php if( ++$_iterator == sizeof($simpleproductCollection) ): ?> last<?php endif; ?>" data-product-id="<?php echo $_prodID; ?>">
+		      <?php // Product Image ?>
+		      <div class="f-left"> 
+			      <a href="<?php echo $simpleproduct->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($simpleproduct, 'thumbnail'), null, true) ?>" class="product-image"> <?php echo $this->helper('shoppersettings')->getLabel($simpleproduct);  ?>
+		        <?php
+		                        $back_img = $simpleproduct->getMediaGalleryImages()->getItemByColumnvalue('label', 'back');
+		                        if ( $back_img ) {
+		                            echo '<img class="back_img" src="'. $this->helper('catalog/image')->init($simpleproduct, 'thumbnail', $back_img->getFile())->resize($_productImageWidth, $_productImageHeight).'" data-srcX2="'. $this->helper('catalog/image')->init($simpleproduct, 'thumbnail')->resize($_productImageWidth*2, $_productImageHeight*2) .'" width="'.$_productImageWidth.'" height="'.$_productImageHeight.'" alt="'.$this->htmlEscape($simpleproduct->getName()).'" />';
+		                        }
+		                        ?>
+		        <img src="<?php echo $this->helper('catalog/image')->init($simpleproduct, 'thumbnail')->resize($_productImageWidth, $_productImageHeight); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($simpleproduct, 'thumbnail')->resize($_productImageWidth*2, $_productImageHeight*2); ?>" width="<?php echo $_productImageWidth ?>" height="<?php echo $_productImageHeight ?>" alt="<?php echo $this->stripTags($this->getImageLabel($simpleproduct, 'thumbnail'), null, true) ?>" /> </a> </div>
+		      <?php // Product description ?>
+		      <div class="product-shop">
+		        <div class="f-fix">
+		          <div class="fastselect-content-wrapper">
+			             
+		            <?php $simpleproductNameStripped = $this->stripTags($simpleproduct->getName(), null, true); ?>
+		            <h2 class="product-name"><a href="<?php echo $simpleproduct->getProductUrl() ?>" title="<?php echo $simpleproductNameStripped; ?>"><?php echo $_catalogHelper->productAttribute($simpleproduct, $simpleproduct->getName() , 'name'); ?></a></h2>
+		            <div class="price-container clearfix"> <?php echo $this->getPriceHtml($simpleproduct, true) ?>
+		              <?php if($simpleproduct->getRatingSummary()){ echo $this->getReviewsSummaryHtml($simpleproduct); } ?>
+		            </div>
+		            
+		            <div class="quick-view-container">
+		              <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : //quick view button ?>
+		              <a href='<?php echo $this->getUrl('ajax/index/options',array('product_id'=>$simpleproduct->getId()));?>' data-fancybox-group="gallery" class='fancybox quick-view' id='fancybox<?php echo $simpleproduct->getId()?>'><?php echo $this->__('Quick View >')?></a>
+          <?php endif; ?>
+        </div>
+		  <?php $symbols = $_product->getHealthSymbols();
+			  $symbols = explode(',', $symbols);
+		  ?>
+		  <?php if (isset($symbols)) { ?>
+			  <div class="health-symbols-wrap" style="text-align: center;">
+
+				  <?php foreach($symbols as $symbol){
+					  if (!empty($symbol)) {
+						  if ($symbol == '99') {
+							  $title =  "Kosher";
+						  } elseif ($symbol == '98') {
+							  $title =  "Gluten Free";
+						  } elseif ($symbol == '97') {
+							  $title =  "Vegetarian";
+						  }
+						  echo '<img class="health-symbol-icon" src="/media/health-symbols/'.$symbol.'.png" alt="'.$title.'" title="'.$title.'" />&nbsp;';
+
+					  }
+				  }
+				  ?>
+			  </div>
+		  <?php }?>
+        <span class="ajax_loading" id='ajax_loading<?php echo $simpleproduct->getId()?>'><img src='<?php echo $this->getSkinUrl('images/ajax-loader.gif')?>'/></span> </div>
+
+      <div class="button-container">
+        <?php if($simpleproduct->isSaleable()): ?>
+        <form action="<?php echo Mage::getBaseUrl(); ?>checkout/cart/add/" method="post" id="product_addtocart_form_<?php echo $simpleproduct->getId() ?>"<?php if($simpleproduct->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+          <fieldset class="no-display">
+            <input type="hidden" name="product" value="<?php echo $simpleproduct->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+          </fieldset>
+          <?php // Product options ?>
+          <?php $product = Mage::getModel('catalog/product'); ?>
+          <?php $product->load($simpleproduct->getId()); ?>
+          <?php // Configurable products ?>
+          <?php //print_r($product->getTypeId()); ?>
+          <?php if($product->getTypeId() == "configurable"): ?>
+          <?php $attValConfig = $product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+          <?php foreach($attValConfig as $attValConfigSingle): ?>
+          <fieldset class="product-options" id="product-options-wrapper">
+            <label><?php echo $attValConfigSingle['label']; ?>:</label>
+            <select name="super_attribute[<?php echo $attValConfigSingle['attribute_id'] ?>]" id="attribute<?php echo $simpleproduct->getId() ?>" class="required-entry super-attribute-select">
+              <option  value="">-- Select --</option>
+              <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?>
+              <option value="<?php echo $attValConfigSingleVal['value_index'] ?>"><?php echo $attValConfigSingleVal['label'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </fieldset>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          <?php if($product->getTypeId() == "subscription_configurable"): ?>
+          <?php $attValConfig = $product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+          <?php foreach($attValConfig as $attValConfigSingle): ?>
+          <fieldset class="product-options" id="product-options-wrapper">
+            <label><?php echo $attValConfigSingle['label']; ?>:</label>
+            <select name="super_attribute[<?php echo $attValConfigSingle['attribute_id'] ?>]" id="attribute<?php echo $simpleproduct->getId() ?>" class="required-entry super-attribute-select">
+              <option  value="">-- Select --</option>
+              <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?>
+              <option value="<?php echo $attValConfigSingleVal['value_index'] ?>"><?php echo $attValConfigSingleVal['label'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </fieldset>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          <?php // Product quantity and add  ?>
+          <?php if(!$simpleproduct->isGrouped()): ?>
+          <div class="qty-container clearfix">
+            <label>Qty:</label>
+            <input name="qty" type="number" maxlength="12" data-prodid="<?php echo $simpleproduct->getId(); ?>" class="input-text qty">
+            <div class="clear"></div>
+          </div>
+          <?php endif; ?>
+        </form>
+        <?php else: ?>
+        <div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</li>
+<?php endif; ?>
+<?php endforeach; ?>
+<?php 
+  // check if product is a configurable type or not
+  // Not Configurable --------------------------------
+  // Not Configurable --------------------------------
+else: ?>
+<?php $prod = Mage::getModel('catalog/product')->load($_product->getId()); ?>
+<?php $_prodID = $_product->getId(); ?>
+<?php if($_prodID ==  130 || $_prodID ==  131 || $_prodID ==  136 || $_prodID ==  132 || $_prodID ==  121 || $_prodID ==  122): ?>
+<?php else: ?>
+<?php 
+    $cat = $_product->getCategoryIds();
+    if($varset == $cat[0]){
+    } else {
+	    $_category = Mage::getModel('catalog/category')->load($cat[0]);
+      echo '<div id="cat'.$cat[0].'_anchor"></div><div class="fs-cat-header"><h2 id="cat'.$cat[0].'" class="fastSelectCat">'.$_category->getName().'</h2><a class="fs-anchor" href="#fs-top">To Top</a></div><div class="clear"></div>';
+      $varset = $cat[0];
+    }
+    array_push($usedcats, $_category->getName());
+?>
+<li class="<?php if($oddeven % 2 == 0){ echo 'even'; }else{ echo 'odd'; } $oddeven++; ?><?php if( $_product->getData('type_id') == "configurable"){ echo 'configurableclass'; } ?> item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>" data-product-id="<?php echo $_prodID; ?>">
+  <?php // Product Image ?>
+  <div class="f-left"> <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'thumbnail'), null, true) ?>" class="product-image"> <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+    <?php
+                    $back_img = $_product->getMediaGalleryImages()->getItemByColumnvalue('label', 'back');
+                    if ( $back_img ) {
+                        echo '<img class="back_img" src="'. $this->helper('catalog/image')->init($_product, 'thumbnail', $back_img->getFile())->resize($_productImageWidth, $_productImageHeight).'" data-srcX2="'. $this->helper('catalog/image')->init($_product, 'thumbnail')->resize($_productImageWidth*2, $_productImageHeight*2) .'" width="'.$_productImageWidth.'" height="'.$_productImageHeight.'" alt="'.$this->htmlEscape($_product->getName()).'" />';
+                    }
+                    ?>
+    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize($_productImageWidth, $_productImageHeight); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize($_productImageWidth*2, $_productImageHeight*2); ?>" width="<?php echo $_productImageWidth ?>" height="<?php echo $_productImageHeight ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'thumbnail'), null, true) ?>" /> </a> </div>
+  <?php // Product description ?>
+  <div class="product-shop">
+    <div class="f-fix">
+      <div class="fastselect-content-wrapper">
+        <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+        <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_catalogHelper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+
+        <div class="price-container clearfix"> <?php echo $this->getPriceHtml($_product, true) ?>
+          <?php if($_product->getRatingSummary()){ echo $this->getReviewsSummaryHtml($_product); } ?>
+        </div>
+        <div class="quick-view-container">
+          <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : //quick view button ?>
+          <a href='<?php echo $this->getUrl('ajax/index/options',array('product_id'=>$_product->getId()));?>' data-fancybox-group="gallery" class='fancybox quick-view' id='fancybox<?php echo $_product->getId()?>'><?php echo $this->__('Quick View >')?></a>
+          <?php endif; ?>
+        </div>
+		  <?php $symbols = $_product->getHealthSymbols();
+			  $symbols = explode(',', $symbols);
+		  ?>
+		  <?php if (isset($symbols)) { ?>
+			  <div class="health-symbols-wrap" style="text-align: center;">
+
+				  <?php foreach($symbols as $symbol){
+					  if (!empty($symbol)) {
+						  if ($symbol == '99') {
+							  $title =  "Kosher";
+						  } elseif ($symbol == '98') {
+							  $title =  "Gluten Free";
+						  } elseif ($symbol == '97') {
+							  $title =  "Vegetarian";
+						  }
+						  echo '<img class="health-symbol-icon" src="/media/health-symbols/'.$symbol.'.png" alt="'.$title.'" title="'.$title.'" />&nbsp;';
+
+					  }
+				  }
+				  ?>
+			  </div>
+		  <?php }?>
+        <span class="ajax_loading" id='ajax_loading<?php echo $_product->getId()?>'><img src='<?php echo $this->getSkinUrl('images/ajax-loader.gif')?>'/></span> </div>
+
+      <div class="button-container">
+        <?php if($_product->isSaleable()): ?>
+        <form action="<?php echo Mage::getBaseUrl(); ?>checkout/cart/add/" method="post" id="product_addtocart_form_<?php echo $_product->getId() ?>"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+          <fieldset class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+          </fieldset>
+          <?php // Product options ?>
+          <?php $product = Mage::getModel('catalog/product'); ?>
+          <?php $product->load($_product->getId()); ?>
+          <?php // Configurable products ?>
+          <?php //print_r($product->getTypeId()); ?>
+          <?php if($product->getTypeId() == "configurable"): ?>
+          <?php $attValConfig = $product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+          <?php foreach($attValConfig as $attValConfigSingle): ?>
+          <fieldset class="product-options" id="product-options-wrapper">
+            <label><?php echo $attValConfigSingle['label']; ?>:</label>
+            <select name="super_attribute[<?php echo $attValConfigSingle['attribute_id'] ?>]" id="attribute<?php echo $_product->getId() ?>" class="required-entry super-attribute-select">
+              <option  value="">-- Select --</option>
+              <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?>
+              <option value="<?php echo $attValConfigSingleVal['value_index'] ?>"><?php echo $attValConfigSingleVal['label'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </fieldset>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          <?php if($product->getTypeId() == "subscription_configurable"): ?>
+          <?php $attValConfig = $product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+          <?php foreach($attValConfig as $attValConfigSingle): ?>
+          <fieldset class="product-options" id="product-options-wrapper">
+            <label><?php echo $attValConfigSingle['label']; ?>:</label>
+            <select name="super_attribute[<?php echo $attValConfigSingle['attribute_id'] ?>]" id="attribute<?php echo $_product->getId() ?>" class="required-entry super-attribute-select">
+              <option  value="">-- Select --</option>
+              <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?>
+              <option value="<?php echo $attValConfigSingleVal['value_index'] ?>"><?php echo $attValConfigSingleVal['label'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </fieldset>
+          <?php endforeach; ?>
+          <?php endif; ?>
+          <?php // Product quantity and add  ?>
+          <?php if(!$_product->isGrouped()): ?>
+          <div class="qty-container clearfix">
+            <label>Qty:</label>
+            <input name="qty" type="number" maxlength="12" data-prodid="<?php echo $_product->getId();?>" class="input-text qty">
+            <div class="clear"></div>
+          </div>
+          <?php endif; ?>
+        </form>
+        <?php else: ?>
+        <div class="out-of-stock"><?php echo $this->__('Out of stock') ?></div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</li>
+<?php endif; ?>
+<?php endif; ?>
+<?php endforeach; ?>
+  </ol>
+</div>
+<?php endforeach; ?>
+
+
+
+
+
+<button id="fastadd" type="button" onclick="fastaddtocart()"><span><span>Add All Items To Cart</span></span></button>
+<script type="text/javascript">decorateList('products-list', 'none-recursive')</script> 
+</div>
+<script type="text/javascript">
+// var productAddToCartForm<?php echo $_product->getId() ?> = new VarienForm('product_addtocart_form_<?php echo $_product->getId() ?>');
+// productAddToCartForm<?php echo $_product->getId() ?>.submit = function(){
+//         if (this.validator.validate()) {
+//                 this.form.submit();
+//         }
+// }.bind(productAddToCartForm<?php echo $_product->getId() ?>);
+// ^^^^^^^^ Default Code that was on this page. 11-25-13
+function fastaddtocart(){
+var theurl = '/fastselectadd/?';
+jQuery('.qty').each(function(){
+  var tmpqty = jQuery(this).val();
+  var tmpid = jQuery(this).data('prodid');
+  if(tmpqty > 0){
+    theurl = theurl+'product_id[]='+tmpid+'&qtyy['+tmpid+']='+tmpqty+'&';
+  }
+});
+//    jQuery('.period').each(function(){
+//      var tmpperiod = jQuery(this).val();
+//      var tmpid = jQuery(this).data('prodid');
+//      if(tmpqty > 0){
+//          theurl = theurl+'&period['+tmpid+']='+tmpperiod+'&';
+//      }
+//    });
+window.location.href = theurl;
+}
+</script>

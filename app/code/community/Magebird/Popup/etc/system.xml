@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <magebird translate="label" module="popup">
+            <label>Magebird Extensions</label>
+            <sort_order>195</sort_order>
+        </magebird>
+    </tabs>
+    <sections>
+        <popup translate="label" module="popup">
+            <label>Popup</label>
+            <tab>magebird</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>          
+            <groups>
+                <general translate="label" module="popup">
+                    <label>Extension Licence</label>  
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                     
+                    <fields>    
+                        <licence_key translate="label comment">
+                            <label>Licence Key</label>
+                            <comment>Write your licence key. The key is inside New Order e-mail.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>    
+                            <backend_model>popup/validation</backend_model>                
+                        </licence_key>                                                                                                                                                                                                                                                                                                        
+                    </fields>
+                </general>
+                <settings translate="label" module="popup">
+                    <label>Settings</label>  
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                     
+                    <fields>    
+                        <useajax translate="label comment">
+                            <label>Load popup with ajax?</label>
+                            <comment><![CDATA[Choose ajax if you use full page html caching (e.g Varnish cache). This will prevent popup to be cached. If you don't use full html page caching choose 'No'. This will reduce number of requests and it will display popup faster.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </useajax>
+                        <requesttype translate="label comment">
+                            <label>Use POST or GET request?</label>
+                            <comment><![CDATA[Recommended GET. Also leave GET if you don't know what is that.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>popup/system_requesttype</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                            <depends><useajax>1</useajax></depends>                            
+                        </requesttype>                        
+                        <load_jquery translate="label comment">
+                            <label>Load jQuery?</label>
+                            <comment><![CDATA[Leave 'Yes' if you don't know what is that. ONLY if your site already loads jquery you can disable popup jquery so it won't be loaded again and thus you save 90kb of loading.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </load_jquery>
+                        <asynchronous translate="label comment">
+                            <label>Make JavaScript Asynchronous?</label>
+                            <comment><![CDATA[By default JavaScript blocks page DOM until the script is loaded. To prevent popup JavaScript from blocking the parser we recommend choosing 'Yes'. If you don't want to show page content before popup is loaded, choose 'No'.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </asynchronous>                                                                                                                                                                                                                                                                                                                              
+                    </fields>                    
+                </settings>           
+                <statistics translate="label">
+                  <label>Statistics settings</label>  
+                  <sort_order>3</sort_order>
+                  <show_in_default>1</show_in_default>
+                  <show_in_website>1</show_in_website>
+                  <show_in_store>1</show_in_store>                 
+                  <fields>
+                        <ajax_async translate="label comment">
+                            <label>Ajax async settings on window exit</label>
+                            <comment><![CDATA[User can leave browser window when popup is still opened without any interaction. This event is tracked in statistics as 'Window closed or page left'. Ajax call is created for this purpose. When 'asynchronously' is selected the browser window will be closed without delay, but some browsers may cancel ajax call and statistics will be less accurance. Selecting 'synchronous' statistics will be more accurance, but this will lock browser window when closing it until ajax call is finished. Usually it is not detectable by user and it takes less than half second, but it can be more if server is slow.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <frontend_type>select</frontend_type>
+                            <source_model>popup/system_asyncoption</source_model>                             
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </ajax_async>                                                                                                                                                                                                                                                                                                                                                            
+                        <ga_tracking translate="label comment">
+                            <label>Event tracking with Google analytics?</label>
+                            <comment><![CDATA[You must have Google Analytics javascript code already installed on your website for this to work.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </ga_tracking> 
+                        <mousetracking translate="label comment">
+                            <label>Track user mouse movements?</label>
+                            <comment><![CDATA[Mousetrackings will appear inside CMS->Popup grid.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </mousetracking>  
+                        <delete_mousetracking translate="label comment">
+                            <label>Delete old mousetracking data</label>
+                            <comment><![CDATA[Delete old data to prevent database table oversize.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>popup/system_deletemousetracking</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><mousetracking>1</mousetracking></depends>                    
+                        </delete_mousetracking>                                                
+                        <data_sharing translate="label comment">
+                            <label>Share Popup statistics data with Magebird</label>
+                            <comment><![CDATA[This can be used for troubleshooting and to improve your popups. We can analyze your popups and advise you. ONLY popup data will be shared with us. The code that sends us popup data is not encoded so you can review it inside app/code/community/Magebird/Popup/controllers/DatasharingController.php.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>                                       
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </data_sharing>                                           
+                  </fields>
+                </statistics>     
+                <services translate="label" module="popup">
+                    <label>Newsletter Services</label>  
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>                     
+                    <fields> 
+                        <mailchimp_option translate="label">
+                            <label>Mailchimp Integration settings</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>popup/system_mailchimpoption</source_model> 
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </mailchimp_option>                          
+                        <mailchimp_key translate="label comment">
+                            <label>Mailchimp Api Key</label>
+                            <comment><![CDATA[Write only if you use MailChimp service, otherwise leave empty. Go to <a target="_blank" href="http://admin.mailchimp.com/account/api/">http://admin.mailchimp.com/account/api/</a> to find the key.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                    
+                        </mailchimp_key>   
+                        <mailchimp_double_option translate="label comment">
+                            <label>Mailchimp Double Opt-in</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>      
+                            <comment><![CDATA[If yes, user needs to confirm subscription. Read more about MailChimp The Double Opt-in Process <a target="_blank" href="http://kb.mailchimp.com/lists/signup-forms/the-double-opt-in-process">here</a>.]]></comment>                                          
+                        </mailchimp_double_option>                                                                                                                                                                                                                                                                                                                             
+                    </fields>
+                </services>                                                                              
+            </groups> 
+        </popup>
+    </sections>
+</config>

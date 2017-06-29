@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <magikfees_tab translate="label" module="magikfees">
+            <label>Magikfees Configuration</label>
+            <sort_order>250</sort_order>
+        </magikfees_tab>
+    </tabs>
+    <sections>
+    <magikfees_section translate="label" module="magikfees">
+        <label>Magik Fees Settings</label>
+        <tab>magikfees_tab</tab> 
+        <sort_order>100</sort_order>
+        <show_in_default>1</show_in_default>
+        <show_in_website>1</show_in_website>
+        <show_in_store>1</show_in_store>
+        <groups>
+            <magikfees_group1 translate="label">
+                <label>Settings</label>
+                <frontend_type>text</frontend_type>
+                <sort_order>200</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <fields>                   
+                    <title translate="label">
+                        <label>Customize Fee Title</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </title>
+                    <order_title translate="label">
+                        <label>Customize Title of Order Fee Box</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>2</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </order_title>
+                    <order_text translate="label">
+                        <label>Customize Text in Order Fee Box</label>
+                        <frontend_type>text</frontend_type>
+                        <sort_order>3</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </order_text>                  
+                    <imagefield> 
+                            <label>Upload Add To Total Image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="0">magikuploaddir</upload_dir> 
+                            <base_url type="media" scope_info="0">magikuploaddir</base_url>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                    </imagefield>    
+
+                </fields>
+            </magikfees_group1>
+        </groups>
+    </magikfees_section>
+</sections>  
+</config>

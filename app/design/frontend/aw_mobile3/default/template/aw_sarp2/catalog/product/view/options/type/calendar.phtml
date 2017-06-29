@@ -1,0 +1,50 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Sarp2
+ * @version    2.2.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><script type="text/javascript">
+    // Hide calendar
+    <?php if ($this->getSubscriptionTypeSelectorType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN): ?>
+    var awSarp2SelectPeriodGroup = $('select_<?php echo AW_Sarp2_Helper_Subscription::SUBSCRIPTION_TYPE_SELECTOR_PRODUCT_OPTION_ID ?>');
+    <?php else: ?>
+    var awSarp2SelectPeriodGroup = $('options-<?php echo AW_Sarp2_Helper_Subscription::SUBSCRIPTION_TYPE_SELECTOR_PRODUCT_OPTION_ID ?>-list');
+    <?php endif;?>
+    var awSarp2CalendarContainer = awSarp2SelectPeriodGroup.up().next('div.form__field');
+    var awSarp2TypeChanged = function (option) {
+        if (option.getValue() == <?php echo AW_Sarp2_Helper_Subscription::SUBSCRIPTION_TYPE_SELECTOR_NO_SUBSCRIPTION_OPTION_VALUE ?>) {
+            awSarp2CalendarContainer && awSarp2CalendarContainer.hide();
+        } else {
+            awSarp2CalendarContainer && awSarp2CalendarContainer.show();
+        }
+    };
+    <?php if ($this->getSubscriptionTypeSelectorType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN): ?>
+    awSarp2SelectPeriodGroup.observe('change', function(e){awSarp2TypeChanged(awSarp2SelectPeriodGroup)});
+    awSarp2TypeChanged(awSarp2SelectPeriodGroup);
+    <?php else: ?>
+    awSarp2TypeChanged(awSarp2SelectPeriodGroup.select('input[checked]').first());
+    $$('.product-options input[type=radio][name^=options[<?php echo AW_Sarp2_Helper_Subscription::SUBSCRIPTION_TYPE_SELECTOR_PRODUCT_OPTION_ID ?>]]').each(function (option) {
+        option.observe('click', function(e){awSarp2TypeChanged(option)});
+    });
+    <?php endif;?>
+</script>

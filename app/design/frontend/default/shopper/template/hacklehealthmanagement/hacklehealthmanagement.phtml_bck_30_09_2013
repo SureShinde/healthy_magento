@@ -1,0 +1,80 @@
+<?php 
+
+    $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read');
+
+    $orderId = $this->getRequest()->getParam('order_id'); 
+
+    $quoteitemid =  $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE order_id='.$orderId);
+
+         $orderDetails =  $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE `item_id`='.$quoteitemid); 
+
+        $allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+
+        $first_product = Mage::getModel('catalog/product')->load($orderDetails[0]['product_id']);
+
+       $hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $orderDetails[0]['product_id']);
+
+       $hmr_product_shake_1_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=1 AND `flavour_id`=1');
+
+    $hmr_product_shake_1_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=1 AND `flavour_id`=2');
+
+    $hmr_product_shake_2_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=2 AND `flavour_id`=1');
+
+    $hmr_product_shake_2_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $orderDetails[0]['product_id'].' AND `shake_id`=2 AND `flavour_id`=2');
+
+      $second_product = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+
+?>
+<script type="text/javascript">
+function editorder(){
+var jQ=jQuery.noConflict();
+  jQ('#editorderform').submit();
+}
+</script>
+<?php 
+$firstprodoptions = explode(",", $orderDetails[0]['variety_entrees']);
+$secondprodoptions = explode(",", $orderDetails[0]['subscribed_variety_entree']);
+?>
+<form method="post" action="<?php echo $this->getUrl()?>hacklehealthmanagement/index/updateorder/" name="editorderform" id="editorderform">
+<input type="hidden" value="<?php echo $this->getRequest()->getParam('order_id');?>" name="order_id">   
+<div>
+         <ul>
+
+<li><h3><?php echo $first_product->getName();?></h3></li>
+            <?php foreach($allEntrees_result as $key=>$value){ ?>
+                        <div <?php if(($key+1)%2!=0) { ?>class="entrees-left" <?php } else {?>class="entrees-right" <?php } ?> >   
+                          <li style="overflow:hidden; margin:0 0 10px 0;" id="<?php echo $key;?>">
+                           <div class="" style="float:left;"> 
+                           <input type="checkbox" value="entree_<?php echo $value['entree_id'];?>" onclick="" id="chk_<?php echo $value['entree_id'];?>"<?php if($firstprodoptions[$key]!=0) { ?>checked="checked "<?php } ?> />   Qty: 
+                            <span> <input size="5" name="entree_<?php echo $value['entree_id'];?>" id="entree_<?php echo $value['entree_id'];?>" type="text" onblur="getCountEntrees();" value="<?php echo $firstprodoptions[$key];?>" class="varietyentree"> 
+                            </span>
+                          </div> 
+<span style="float:left;"><?php echo $value['entree_name'];?></span></li>
+                          </div>
+                <?php } ?>
+
+         </ul>
+  </div>
+
+
+<div>
+         <ul>
+
+<li><h3><?php echo $second_product->getName();?></h3></li>
+            <?php foreach($allEntrees_result as $key=>$value){ ?>
+                        <div <?php if(($key+1)%2!=0) { ?>class="entrees-left" <?php } else {?>class="entrees-right" <?php } ?> >   
+                          <li style="overflow:hidden; margin:0 0 10px 0;" id="<?php echo $key;?>"> 
+                          <div class="" style="float:left;"> 
+                          <input type="checkbox" value="subscribed_entree_<?php echo $value['entree_id'];?>" onclick="" id="chk_<?php echo $value['entree_id'];?>" <?php if($secondprodoptions[$key]!=0) { ?>checked="checked "<?php } ?> />  Qty: 
+                            <span> <input size="5" name="subscribed_entree_<?php echo $value['entree_id'];?>" id="entree_<?php echo $value['entree_id'];?>" type="text" onblur="getCountEntrees();" value="<?php echo $secondprodoptions[$key];?>" class="varietyentree"> 
+                            </span>
+                          </div> 
+<span style="float:left;"><?php echo $value['entree_name'];?></span></li>
+                          </div>
+                <?php } ?>
+
+         </ul>
+  </div>
+<button id="edit_order_options" type="button" title="Edit Order" class="button button_next" onclick="editorder()"><span><span>Edit Order</span></span></button>
+</form>

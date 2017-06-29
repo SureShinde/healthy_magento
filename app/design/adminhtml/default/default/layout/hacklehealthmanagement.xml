@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <hacklehealthmanagement_adminhtml_hacklehealthmanagement_index>
+        <reference name="content">
+            <block type="hacklehealthmanagement/adminhtml_hacklehealthmanagement" name="hacklehealthmanagement" />
+        </reference>
+    </hacklehealthmanagement_adminhtml_hacklehealthmanagement_index>
+   <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>my_custom_tab</name>
+                <block>hacklehealthmanagement/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    
+</layout>

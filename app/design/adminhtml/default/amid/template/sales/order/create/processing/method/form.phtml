@@ -1,0 +1,78 @@
+<?php
+/**
+ * @category    design
+ * @package     default_default
+ * @copyright   Perficient India Team
+ */
+?>
+<?php /** @var $this Amid_Magikfees_Block_Adminhtml_Sales_Order_Create_Processing_Method_Form */ ?>
+<?php
+$_shippingRateGroups = $this->getShippingRates();
+$sym = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+$feeList = $this->getfeeList();
+
+/** @var Magik_Magikfees_Helper_Title $_helper Magik Magikfees Title Helper */
+$_helper    = \Mage::helper('magikfees/title');
+$_title     = $_helper->getFeeTitle('shipping');
+?>
+<?php if ($_shippingRateGroups && $this->getShippingMethod()): ?>
+    <div id="order-processing-method-choose">
+        <dl class="processing-methods">
+            <?php
+                $extra = Mage::getModel("magikfees/magikfees")->getShipList();
+                foreach ($extra as $xfee) {
+                    if (in_array($xfee['magikfees_id'], $feeList)) {
+                        continue;
+                    }
+                    $finalFees[] = $xfee;
+                }
+            ?>
+            <?php if (count($finalFees)): ?>
+                <?php if ($_title): ?>
+                    <dt><strong><?php echo $_title; ?></strong></dt>
+                <?php endif; ?>
+                <dd>
+                    <ul>
+                        <?php foreach ($finalFees as $fee): ?>
+                            <?php $desc = $this->getMagikfeeDescription($fee['mandatory'], $fee['feetype'], $fee['number_of_days']); ?>
+                            <?php $_code = $fee['magikfees_id']; ?>
+                            <?php $percentage = (($fee['feetype'] == 'Percentage') ? '%':''); ?>
+                            <li>
+
+                                <?php if($fee['mandatory']=='Yes'){ ?>
+                                    <?php $_elemProperty = 'name="order[processing_method]" type="checkbox" checked disabled' ?>
+                                    <?php $_checked = 'checked'; ?>
+                                <?php } else { ?>
+                                    <?php $_elemProperty = 'name="order[processing_method]" type="radio" onclick="order.setProcessingMethod(this.value)"' ?>
+                                    <?php $_checked = $this->isMethodActive($_code) ? 'checked="checked"' : '' ?>
+                                <?php } ?>
+
+                                <input <?php echo $_elemProperty ?> value="<?php echo $_code ?>" id="s_method_<?php echo $_code ?>" <?php echo $_checked ?>/>
+                                <label class="normal" for="s_method_<?php echo $_code ?>">
+                                    <?php echo $this->escapeHtml($fee['title']) ?> -
+                                    <strong>
+                                        <span class="price"><?php echo ($percentage ? '':$sym).$fee['feeamount'].$percentage ?></span>
+                                    </strong>
+                                    <br/>
+                                    <span class="desc"><?php echo $desc; ?></span>
+                                </label>
+
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </dd>
+            <?php endif; ?>
+        </dl>
+    </div>
+    <div>
+        <dd style="padding-top: 10px">
+            <strong>
+                Estimated Arrival Date: <span><?php echo $this->getEstimatedArrivalDate(); ?></span>
+            </strong>
+        </dd>
+    </div>
+<?php else: ?>
+    <div id="order-processing-method-summary">
+        <label class="normal"><?php echo $this->escapeHtml('Processing options are not available.'); ?></label>
+    </div>
+<?php endif; ?>

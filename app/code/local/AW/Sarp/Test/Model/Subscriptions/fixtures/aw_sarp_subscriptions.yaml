@@ -1,0 +1,22 @@
+tables:
+  sarp/subscription:
+    - 
+      id: 1
+      real_id:
+      real_payment_id:
+      customer_id: 2
+      date_start: 2011-10-29
+      status: 2
+      period_type: 1
+      primary_quote_id: 1
+      store_id: 1
+    - 
+      id: 2
+      real_id:
+      real_payment_id:
+      customer_id: 2
+      date_start: 2011-11-17
+      status: 2
+      period_type: 2
+      primary_quote_id: 2
+      store_id: 1

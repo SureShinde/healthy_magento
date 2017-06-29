@@ -1,0 +1,119 @@
+<?php	
+	$image_status1 = Mage::registry('image_status1');
+	$image_status2 = Mage::registry('image_status2');
+	$image_status3 = Mage::registry('image_status3');
+	$image_status4 = Mage::registry('image_status4');
+	$image_status5 = Mage::registry('image_status5');
+	$image_status6 = Mage::registry('image_status6');
+	$image_status7 = Mage::registry('image_status7');	
+	$image_status8 = Mage::registry('image_status8');						
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><h1><strong>osCommerce Products/Categories/Customers/Orders Import </strong></h1></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status1; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step1/')?>">1. Configuration/Video</a> <br />
+          <br /></td>
+      </tr>
+<?php if ( $image_status1 == 'check-no.jpg') {?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status2; ?>" />&nbsp;&nbsp;2. Create TMP Tables<br /><br /></td>
+      </tr>
+<?php }else{ ?>
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status2; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step2/')?>">2. Create TMP Tables</a><br /><br /></td>
+      </tr>
+<?php } ?>
+
+<?php if ( $image_status2 == 'check-no.jpg') {?>   
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status3; ?>" />&nbsp;&nbsp;3. Preparing TMP Tables<br />
+          <br /></td>
+      </tr>
+<?php }else{ ?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status3; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step3/')?>">3. Preparing TMP Tables</a><br /><br /></td>
+      </tr>
+
+<?php } ?>      
+
+<?php if ( $image_status3 == 'check-no.jpg') {?>       
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status4; ?>" />&nbsp;&nbsp;4. Import Categories<br /><br /></td>
+      </tr>
+<?php }else{ ?>   
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status4; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step4/')?>">4. Import Categories</a><br /><br /></td>
+      </tr>
+<?php } ?>      
+      
+      
+<?php if ( $image_status4 == 'check-no.jpg') {?>       
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status5; ?>" />&nbsp;&nbsp;5. Import Products<br /><br /></td>
+      </tr>
+<?php }else{ ?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status5; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step5/')?>">5. Import Products</a><br /><br /></td>
+      </tr>
+<?php }?> 
+
+<?php if ( $image_status5 == 'check-no.jpg') {?>               
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status6; ?>" />&nbsp;&nbsp;6. Import Customers<br />
+          <br /></td>
+      </tr>
+<?php }else{ ?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status6; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step6/')?>">6. Import Customers</a><br /><br /></td>
+      </tr>
+<?php }?>   
+
+<?php if ( $image_status6 == 'check-no.jpg') {?>               
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status7; ?>" />&nbsp;&nbsp;7. Import Orders<br />
+          <br /></td>
+      </tr>
+<?php }else{ ?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status7; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step7/')?>">7. Import Orders</a><br /><br /></td>
+      </tr>
+<?php }?>   
+
+
+<?php if ( $image_status7 == 'check-no.jpg') {?>               
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status8; ?>" />&nbsp;&nbsp;8. Uninstall and Enjoy<br />
+          <br /></td>
+      </tr>
+<?php }else{ ?>      
+      <tr>
+        <td><img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/<?php echo $image_status8; ?>" />&nbsp;&nbsp;<a href="<?php echo $this->getUrl('oscommerceimport/index/step8/')?>">8. Uninstall and Enjoy</a><br /><br /></td>
+      </tr>
+<?php }?>       
+        
+    </table></td>
+  </tr>
+  
+
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center"><a href="http://www.ezmage.com" target="_blank"><img src="http://ezmage.com/wp-content/uploads/2012/05/logo2.gif" alt="Magento Support" border="0" /></a><br />
+      <br />
+    </div></td>
+  </tr>
+  <tr>
+    <td><div align="center">Powered by <a href="http://www.ezmage.com/" target="_blank">ezMage</a> - We provide Magento Support 702-485-3332</div></td>
+  </tr>
+</table>

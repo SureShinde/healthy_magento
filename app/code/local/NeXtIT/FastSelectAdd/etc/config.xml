@@ -1,0 +1,25 @@
+<config>    
+    <modules>
+        <NeXtIT_FastSelectAdd>
+            <version>0.1.0</version>
+        </NeXtIT_FastSelectAdd>
+    </modules>
+    <frontend>
+        <routers>
+            <fastselectadd>
+                <use>standard</use>
+                <args>
+                    <module>NeXtIT_FastSelectAdd</module>
+                    <frontName>fastselectadd</frontName>
+                </args>
+            </fastselectadd>
+        </routers>  
+    </frontend>
+    <global>
+	    <helpers>
+			  <fastselectadd>
+			      <class>NeXtIT_FastSelectAdd_Helper</class>
+			  </fastselectadd>
+		</helpers>
+    </global>
+</config>

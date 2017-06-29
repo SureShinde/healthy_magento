@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <NeXtIT_Discounting>
+            <version>0.0.1</version>
+        </NeXtIT_Discounting>
+    </modules>
+    <frontend>
+        <routers>
+            <checkout>
+                <use>standard</use>
+                <args>
+                    <modules>
+                        <NeXtIT_Discounting before="Mage_Checkout">NeXtIT_Discounting</NeXtIT_Discounting>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <nextit_discounting>
+                <class>NeXtIT_Discounting_Model</class>
+            </nextit_discounting>
+        </models>
+        <events>
+            <checkout_cart_save_after>
+                <observers>
+                    <nextit_discounting>
+                        <class>nextit_discounting/observer</class>
+                        <method>recurringDiscount</method>
+                        <type>singleton</type>
+                    </nextit_discounting>
+                </observers>
+            </checkout_cart_save_after>
+        </events>
+    </global>
+
+</config>

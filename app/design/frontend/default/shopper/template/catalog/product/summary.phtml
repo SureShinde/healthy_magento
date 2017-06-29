@@ -1,0 +1,458 @@
+<?php
+$resource = Mage::getSingleton('core/resource');
+$readConnection = $resource->getConnection('core_read');    
+$writeConnection = $resource->getConnection('core_write');
+
+if(isset($_SESSION['core']['hmr_product']['firstproduct']))
+{
+	$my_data[0]['firstproduct'] = $_SESSION['core']['hmr_product']['firstproduct'];
+}
+
+if($_POST['subscription']==73 && count($_POST) > 0 )
+{
+	$customproduct['secondproduct'] = $_POST;
+	$_SESSION['something_off_the_wall']['secondproduct'] = $_POST;
+	$_SESSION['something_off_the_wall']['secondproduct']['done'] = true;
+	$combinedsubscription = array(0=>Mage::getSingleton('core/session')->getHmrProduct(), 1=>$customproduct['secondproduct']);
+	Mage::getSingleton('core/session')->setHmr2weekProduct();
+	Mage::getSingleton('core/session')->setHmr2weekProduct($combinedsubscription);
+}
+
+Mage::getSingleton('core/session')->unsRecurringProfileStartDateFlag();
+
+if(isset($_POST['recurring_profile_start_datetime']))
+{
+	$postedDate = $_POST['recurring_profile_start_datetime'];
+	Mage::getSingleton('core/session')->setRecurringProfileStartDateFlag($postedDate);
+}
+
+$my_data = $_SESSION['something_off_the_wall'];
+$allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+
+
+$_product_3_week = Mage::getModel('catalog/product')->load($my_data['firstproduct']['product']);
+$_product_2_week = Mage::getModel('catalog/product')->load($my_data['secondproduct']['product']);
+
+	/**
+	 *
+	 * SHOULD THIS PERSON BE ALLOWED TO CHECKOUT WITH THIS KIT?
+	 * Lets find out...
+	 * mBitson
+	 *
+	 */
+	Mage::log($my_data['firstproduct'], null, 'variety_entrees.log');
+  $entreeTotal = 0;
+	foreach($allEntrees_result as $key=>$value)
+	{
+		$entreeTotal += $my_data['firstproduct']['hmr_entree_'.($key+1).'_qty'];
+	}
+
+    $hmr70ChoQty = 0;
+    $hmr70VanQty = 0;
+    $hmr120ChoQty = 0;
+    $hmr120VanQty = 0;
+
+    if (isset($my_data['firstproduct']['hmr_70_cho_qty']))
+    {
+      $hmr70ChoQty = intval($my_data['firstproduct']['hmr_70_cho_qty']);
+    }
+    if (isset($my_data['firstproduct']['hmr_70_van_qty']))
+    {
+      $hmr70VanQty = intval($my_data['firstproduct']['hmr_70_van_qty']);
+    }
+    if (isset($my_data['firstproduct']['hmr_120_cho_qty']))
+    {
+      $hmr120ChoQty = intval($my_data['firstproduct']['hmr_120_cho_qty']);
+    }
+    if (isset($my_data['firstproduct']['hmr_120_van_qty']))
+    {
+      $hmr120VanQty = intval($my_data['firstproduct']['hmr_120_van_qty']);
+    }
+
+    $shakeTotal = $hmr70ChoQty + $hmr70VanQty + $hmr120ChoQty + $hmr120VanQty;
+
+	if($shakeTotal < 1 || $entreeTotal < 1){
+		Mage::log('No kit details found for this order! Debug info below!\n', null, 'KITDEBUG_brokenkitdetails.log');
+		Mage::log($my_data, null, 'KITDEBUG_brokenkitdetails.log');
+		Mage::log($allEntrees_result, null, 'KITDEBUG_brokenkitdetails.log');
+		Mage::app()->getResponse()
+			->setRedirect(Mage::getBaseUrl(), 301)
+			->sendResponse();
+	}
+?>
+<script type="text/javascript">
+	function continuenext(){
+		var jQ=jQuery.noConflict();
+		if(jQ('#acceptTerms').is(':checked')){
+			jQ('#hError').css("display", "none");
+			jQ('#add_to_cart').submit();
+		} else {
+			jQ('#hError').css("display", "block");
+		}
+	}
+</script>
+<div class="kitProgressContainer kitStage3">
+    <div class="kitStep1 kitStep"></div>
+    <div class="kitStep2 kitStep"></div>
+    <div class="kitStep3 kitStep"></div>
+    <div class="clearfix"></div>
+</div>
+<form method="post" action="<?php echo $this->getUrl('checkout/cart').'add?product='.$my_data['firstproduct']['product'];?>" id='add_to_cart'>
+  <table width="100%" cellspacing="1" cellpadding="3" border="0">
+    <tbody>
+      <tr>
+        <td style="background: #f3f3f3;"><table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody>
+              <tr>
+                <td style="padding:20px 20px 10px 20px;"><h1 class="cloudLGRed">3-Week Enrollment Kit (will process immediately)</h1></td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 20px;">Your 3 week quick start intro kit will be processed upon checkout. You will receive an email confirmation detailing your order.</td></tr><tr><td style="padding: 0px 20px;">HMR&reg; At Home participants receive a 10% discount on this kit, as well as on ongoing orders, PLUS FREE SHIPPING! </td>
+              </tr>
+              <tr>
+                <td><table align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td style="padding: 20px; background: #f3f3f3;"><table width="100%" cellspacing="1" cellpadding="3" border="0" class="entree-table-summary" style="background: #ffffff;">
+                            <tbody>
+                              <tr class="attributes-odd">
+                                <td style="padding:20px 20px 10px 20px;"><h2 class="kit-summary-h2">HMR&reg; at Home: Healthy Solutions Intro Diet Kit (3 Week Supply)</h2></td>
+                              </tr>
+                              <tr>
+                                <td style="padding:0 20px;">
+                                <strong>HMR&reg; ENTREES</strong>
+                                </td></tr>
+                              <?php foreach($allEntrees_result as $key=>$value){
+							  if($my_data['firstproduct']['hmr_entree_'.($key+1).'_qty'] > 0){?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['firstproduct']['hmr_entree_'.($key+1).'_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;&nbsp;</strong></span></span> <font color="#CC0000">
+                                  </font> <?php echo $value['entree_name'];?></td>
+                              </tr>
+                              
+                              <?php }} ?>
+
+                              <?php if (isset($my_data['firstproduct']['product'])): ?>
+                                <?php $_firstProductId = $my_data['firstproduct']['product']; ?>
+                                <?php // Check if first product is 'HMR® at Home: Healthy Solutions Intro Diet Kit (3 Week Supply)' ?>
+                                <?php if ($_firstProductId == '131'): ?>
+                                  <tr><td>&nbsp;</td></tr>
+                                  <tr>
+                                    <td style="padding:0 20px;"><strong>1</strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span>box of HMR Multigrain hot cereal</td>
+                                  </tr>
+                                <?php endif ?>
+                              <?php endif ?>
+
+                              <tr><td>&nbsp;</td></tr>
+                              <tr>
+                                <td style="padding:0 20px;">
+                                <strong>HMR&reg; SHAKES</strong>
+                                </td></tr>
+                              <?php if (isset($my_data['firstproduct']['hmr_120_cho_qty'])) { ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['firstproduct']['hmr_120_cho_qty']; ?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 120 Chocolate </td>
+                              </tr>
+                              <?php } ?>
+                              <?php if (isset($my_data['firstproduct']['hmr_120_van_qty'])) { ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['firstproduct']['hmr_120_van_qty']; ?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 120 Vanilla </td>
+                              </tr>
+                               <?php } ?>
+                              <?php if (isset($my_data['firstproduct']['hmr_70_cho_qty'])) { ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['firstproduct']['hmr_70_cho_qty']; ?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 70 Chocolate</td>
+                              </tr>
+                               <?php } ?>
+                              <?php if (isset($my_data['firstproduct']['hmr_70_van_qty'])) { ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['firstproduct']['hmr_70_van_qty']; ?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 70 Vanilla</td>
+                              </tr>
+                               <?php } ?>
+
+                              <tr><td>&nbsp;</td></tr>
+                              <tr><td><a href='<?php echo $_product_3_week->getUrlPath() . '?edit=true'; ?>' class='Kit_Edit_Button'><span>Edit</span></a></td></tr>
+
+                            </tbody>
+                          </table></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+              <tr>
+                <td align="right" style="padding-bottom:15px;"><table width="100%" cellspacing="0" cellpadding="1" border="0">
+                    <tbody>
+                      <tr>
+                        <td style="background: #f3f3f3;"><table width="300" cellspacing="0" cellpadding="3" border="0" style="float:right;">
+                            <tbody>
+                              <tr>
+                                <td style="padding: 0 20px 20px 0; background: #f3f3f3;"><table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="bottom" nowrap=""><strong> HMR&reg; at Home:<br>
+                                          H.S. Intro Diet Kit (3 Week Supply) </strong></td>
+                                        <td width="100%" valign="bottom" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" valign="bottom" nowrap=""><strong><br />$<?php echo number_format($_product_3_week->getPrice(),2);?> </strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="bottom" nowrap="">10% HMR&reg; At Home Participant Discount:</td>
+                                        <td width="100%" valign="bottom" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" width="9%" valign="bottom" nowrap=""><strong> -32.81 </strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td>Shipping:</td>
+                                        <td width="100%" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" nowrap=""><strong>FREE</strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td>Total:</td>
+                                        <td width="100%" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" nowrap=""><strong> $ <?php echo number_format($_product_3_week->getSpecialPrice(),2);?> </strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table></td>
+                              </tr>
+                            </tbody>
+                          </table></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr><td style="background: #FAFAFA;">&nbsp;</td></tr>
+      <tr>
+        <td style="padding: 20px; background: #F3F3F3;"><table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody>
+              <tr>
+                <td style="padding:20px 0 10px 0;"><h1 class="cloudLGRed">2-Week Ongoing Order (will automatically process in 2-weeks)</h1></td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 0;">Your 2-week recurring order will be automatically processed every 2 weeks and your credit card will be charged. You may make changes to your order from your account area prior to them shipping.</td>
+              </tr>
+              <tr>
+                <td style="padding:0 0 20px;">HMR&reg; At Home Participants receive a 10% discount plus free UPS Ground shipping on recurring orders.</td>
+              </tr>
+              <tr>
+                <td><table align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                      <tr>
+                        <td style="background: #fff;"><table width="100%" cellspacing="1" cellpadding="3" border="0">
+                            <tbody>
+                              <tr class="attributes-odd">
+                                <td style="padding:20px 20px 10px 20px;"><h2 class="kit-summary-h2">HMR&reg; at Home Program Enrollment (Phase 1)</h2></td>
+                              </tr>
+                              <tr>
+                                <td style="padding:0 20px;">
+                                <strong>HMR&reg; ENTREES</strong>
+                                </td></tr>
+                              <?php foreach($allEntrees_result as $key=>$value){ 
+							  if(isset($my_data['secondproduct']['hmr_entree_'.($key+1).'_qty']) && $my_data['secondproduct']['hmr_entree_'.($key+1).'_qty'] > 0){?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['secondproduct']['hmr_entree_'.($key+1).'_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;&nbsp;</strong></span></span> <font color="#CC0000">
+                                  </font> <?php echo $value['entree_name'];?></td>
+                              </tr>
+                              <?php }} ?>
+                              <tr><td>&nbsp;</td></tr>
+                              <tr>
+                                <td style="padding:0 20px;">
+                                <strong>HMR&reg; SHAKES</strong>
+                                </td></tr>
+                                <?php if(isset($my_data['secondproduct']['hmr_120_cho_qty']) && $my_data['secondproduct']['hmr_120_cho_qty'] > 0){ ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['secondproduct']['hmr_120_cho_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 120 Chocolate </td>
+                              </tr>
+                              <?php } ?>
+                              <?php if(isset($my_data['secondproduct']['hmr_120_van_qty']) && $my_data['secondproduct']['hmr_120_van_qty'] > 0){ ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['secondproduct']['hmr_120_van_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 120 Vanilla </td>
+                              </tr>
+                               <?php } ?>
+                              <?php if(isset($my_data['secondproduct']['hmr_70_cho_qty']) && $my_data['secondproduct']['hmr_70_cho_qty'] > 0){ ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['secondproduct']['hmr_70_cho_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 70 Chocolate</td>
+                              </tr>
+                               <?php } ?>
+                              <?php if(isset($my_data['secondproduct']['hmr_70_van_qty']) && $my_data['secondproduct']['hmr_70_van_qty'] > 0){ ?>
+                              <tr>
+                                <td style="padding:0 20px;"><strong><?php echo $my_data['secondproduct']['hmr_70_van_qty'];?></strong> <span class="smallText"><span style="color:#4576A2"><strong>&nbsp;x&nbsp;</strong></span></span> 70 Vanilla</td>
+                              </tr>
+                               <?php } ?>
+                              <tr><td>&nbsp;</td></tr>
+                              <tr><td><a href='<?php echo Mage::getModel('customer/session')->getData('latest_kit_product_url') ?>' class='Kit_Edit_Button'><span>Edit</span></a></td></tr>
+                            </tbody>
+                          </table></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+              <tr>
+                <td align="right"><table width="100%" cellspacing="0" cellpadding="1" border="0">
+                    <tbody>
+                      <tr>
+                        <td style="background: #f3f3f3;"><table width="300" cellspacing="0" cellpadding="3" border="0" style="float:right;">
+                            <tbody>
+                              <tr>
+                                <td style="padding:20px 0 20px 0; background: #f3f3f3;"><table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="bottom" nowrap=""><strong> H.S. Recurring Order Kit - (2 Week Supply)</strong></td>
+                                        <td width="100%" valign="bottom" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" valign="bottom" nowrap=""><strong>$<?php echo number_format($_product_2_week->getPrice(), 2);?> </strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="bottom" nowrap="">10% HMR&reg; At Home Participant Discount:</td>
+                                        <td width="100%" valign="bottom" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" width="9%" valign="bottom" nowrap=""><strong>-$<?php echo number_format($_product_2_week->getPrice()*0.1, 2);?></strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <table width="100%" cellspacing="5" cellpadding="0" border="0">
+                                    <tbody>
+                                      <tr>
+                                        <td>Total:</td>
+                                        <td width="100%" class="xKit_dotline">&nbsp;</td>
+                                        <td align="right" nowrap=""><strong>$<?php echo number_format($_product_2_week->getSpecialPrice(), 2);?> </strong></td>
+                                      </tr>
+                                    </tbody>
+                                  </table></td>
+                              </tr>
+                            </tbody>
+                          </table></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+     
+      <tr>
+        <td style="padding:20px; background: #f3f3f3;"><table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody>
+              <tr>
+                <td style="padding:20px"><strong><span style="color:#A30234">PLEASE NOTE</span>: Your credit card will not be charged <span style="text-decoration: underline;">for the 2 week recurring order</span> until it is processed.</strong> </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+<td style="padding:20px; background: #f3f3f3;">
+<table width="100%" cellspacing="0" cellpadding="10" border="0">
+<tbody>
+<tr>
+<td style="padding:20px 20px 0">
+<h1 class="cloudLGRed">Terms &amp; Conditions (required)</h1>
+</td>
+</tr>
+<tr>
+<td style="padding:20px">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody>
+<tr>
+<td valign="top">
+<input id="acceptTerms" type="checkbox" value="1" name="acceptTerms">
+</td>
+<td valign="top" style="padding-left:3px;">I have read, understand and agree to the terms & conditions of the HMR&reg; at Home Program.</td>
+</tr>
+<tr>
+<td valign="top"> </td>
+<td valign="top" style="padding-left:3px; padding-top:5px;">
+		<div id='basic-modal'>
+			<a href='#' class='basic'>View terms and conditions...</a>
+		</div>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+      <tr>
+        <td style="background: #FAFAFA;"><table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody>
+              <tr>
+              	<td><div class='error kits-error' style='display:none;' id='hError'>You must read and agree to the Terms and Conditions</div></td>
+                <!--<input type="submit" value="Next" name="add_to_cart" id=="add_to_cart">-->
+                <td style="padding:10px 0 20px;">
+                <button onclick="continuenext()" class="button button_next" title="Next" type="button" id="next_subscription_product" style='float:right;'>
+                <span><span>Add to Cart</span></span></button></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+<?php
+// TERMS AND CONDITIONS IN A MODAL WINDOW!
+?>
+<div id="basic-modal-content">
+<div class="hmr-at-home-terms-wrapper">
+<table width="100%" border="0" cellspacing="0" cellpadding="10">
+  <tr>
+    <td><h2><span>Membership and Participation for Mercy Health – Hackley Health Management HMR® at Home®</span><br />Terms and Conditions</h2></td>
+  </tr>
+    <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><h3>Welcome to HMR at Home!</h3></td>
+  </tr>
+  <tr>
+    <td>We are very pleased that you are interested in becoming a new member, or perhaps you are already a member and want to review the terms of membership. Read about the rules for membership below:</td>
+  </tr>
+  <tr>
+    <td> 	<p> 	All persons who want to be members must register as users on this website which includes providing your email address as a User ID and creating a password. Membership is free!
+ 	    <br />
+ 	    <br />
+ 	    The terms and conditions for membership in HMR at Home may change from time to time, and you should review carefully all communications you receive from Hackley Health Management and connect to this link periodically to keep updated.
+ 	    <br />
+ 	    <br />
+ 	    As an HMR at Home member, you will receive all of the following benefits: </p></td>
+  </tr>
+  <tr>
+    <td><ul>
+      <li>10% discount on your first order of the HMR Healthy Solutions  Quick Start™ Diet Kit</li>
+      <li>10% discount on each future HMR at Home reorder (provided the  minimum order amount is met)        </li>
+      <li>10% discount on any additional items chosen for the auto  delivery program.        </li>
+      <li>Coupons and/or other discounts are not applicable to HMR at home  reoccurring orders.        </li>
+      <li>Automatic delivery of your HMR at Home reorder every two weeks        </li>
+      <li>Step-by-step weight-loss materials with first order        </li>
+      <li>Free &quot;Quick Start™&quot; call with an HMR weight management  consultant following first order to help you get the strongest start possible  (optional)        </li>
+      <li>Free unlimited calls to HMR Customer Relations (Monday-Friday,  9:00 a.m.-5:00 p.m. ET) to ask any non-medical, diet-related questions at any  point during your participation in HMR at Home        </li>
+      <li>Free shipping on all regularly scheduled HMR at Home orders and  reorders</li>
+      <li>Each HMR at Home order requires a minimum order $150.00 or more of  HMR weight-loss foods.</li>
+      <li>You authorize us to bill you through a valid credit card and  will provide us with all necessary credit card information.        </li>
+      <li>We will store your credit card information in a secure way and  automatically bill your credit card as each order is processed.        </li>
+      <li>Within five days of order processing and billing, you will  receive an email notification of your next scheduled HMR at Home reorder.        </li>
+      <li>You must keep your account information up-to-date. You can do  this by going to the &quot;My Account&quot; link on this website.        </li>
+      <li>We take steps to keep your personal information secure. However,  you must let us know right away if you feel that there has been any  unauthorized use of your credit card, registration, or order information, or if  there is any other reason you are concerned about use of your credit card or  personally identifiable information.</li>
+    </ul>	<div class="terms-blockquote">
+      <p>Members may change future HMR at Home reorders of weight-loss foods or cancel membership at any time by visiting <a href="#">My HMR® At Home</a> from their online account.<br /><span class="terms-red">Please Note:</span> Orders that have already been processed are unable to be changed or cancelled.</p>
+      <p>You may change your HMR at Home reorder and still be an HMR at Home member as long as you continue to meet the minimum order requirement.</p>
+    </div>    </td>
+  </tr>
+  <tr>
+    <td>By completing your registration for membership in HMR at Home, you agree to these terms and conditions. If you have any questions about the terms and conditions, or have any concerns about your credit card or other personally identifiable information, please contact Hackley Health Management at 800.521.9054</td>
+  </tr>
+</table></div>
+		</div>

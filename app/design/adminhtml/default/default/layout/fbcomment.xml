@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <fbcomment_adminhtml_fbcomment_index>
+        <reference name="content">
+            <block type="fbcomment/adminhtml_fbcomment" name="fbcomment" />
+        </reference>
+    </fbcomment_adminhtml_fbcomment_index>
+</layout>

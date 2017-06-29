@@ -1,0 +1,612 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+?>
+
+<?php 
+
+//Mage::getSingleton('core/session')->setHmrProduct();
+//Mage::getSingleton('core/session')->setHmr2weekProduct();
+$_helper = $this->helper('catalog/output'); 
+$_product = $this->getProduct();?>
+<?php 
+$prod = Mage::getModel('catalog/product')->load($_product->getId());
+echo $_POST['subscription'];
+$customproduct = array();
+$combinedsubscription = array();
+if ( $_SERVER['REMOTE_ADDR'] === '50.202.41.102' )
+{
+    var_dump($_POST);
+    var_dump($myValue);
+}
+if($_POST['subscription']!=10 && !is_array($myValue) && $myValue=='') {
+
+//
+$customproduct['firstproduct'] = $_POST;
+Mage::getSingleton('core/session')->setHmrProduct();
+Mage::getSingleton('core/session')->setHmrProduct($customproduct);
+
+}
+?>
+
+
+
+
+<?php
+$resource = Mage::getSingleton('core/resource');
+$readConnection = $resource->getConnection('core_read');    
+$writeConnection = $resource->getConnection('core_write'); 
+$product_id = $_product->getId();
+
+$hmr_product_kit_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_product_kit WHERE product_id = ' . $product_id);
+if(count($hmr_product_kit_result) > 0 )
+    foreach( $hmr_product_kit_result as $hmr_product_kit) {          
+    $no_of_shakes     = $hmr_product_kit['no_of_shakes'];
+    $shakes_id_array  = explode(",",$hmr_product_kit['shakes_id']);
+    $no_of_entrees    = $hmr_product_kit['no_of_entrees'];
+    $entrees_id_array  = explode(",",$hmr_product_kit['entrees_id']);
+}
+$allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+
+      $hmr_product_choose_variety_result = $readConnection->fetchAll('SELECT * FROM `custom_hmr_product_entrees_values` WHERE product_id = ' . $product_id .' ORDER BY `entree_id` ASC');
+      if(count($hmr_product_choose_variety_result) > 0 ) {
+        foreach( $hmr_product_choose_variety_result as $hmr_product_variety_result) {          
+          $product_variety_result_entree[] = $hmr_product_variety_result['entree_id'];
+          $product_variety_result_qty[] = $hmr_product_variety_result['default_qty'];
+
+        }
+      }
+       $hmr_product_shake_1_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=1 AND `flavour_id`=1');
+    $hmr_product_shake_1_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=1 AND `flavour_id`=2');
+    $hmr_product_shake_2_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=2 AND `flavour_id`=1');
+    $hmr_product_shake_2_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id.' AND `shake_id`=2 AND `flavour_id`=2');
+
+    $hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $product_id);
+  $_product_2_week = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view">
+    <div class="product-essential">
+    <form action="<?php if($hmr_product_2_week_product) { echo $_product_2_week->getProductUrl();} else { echo $this->getUrl('subs_summery');}?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+
+<input type="hidden" value="<?php echo $hmr_product_shake_1_choco_qty + $hmr_product_shake_1_valina_qty ;?>" id="tot_flavour1" name="shake1_tot_value">
+<input type="hidden" name="subscription" value="<?php echo $prod->getSubscriptionOccurance();?>">
+      
+        <div class="no-display">
+            <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+        </div>
+
+        <div class="product-shop">
+            <div class="product-name">
+                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+            </div>
+
+            <?php if ($this->canEmailToFriend()): ?>
+                <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
+            <?php endif; ?>
+
+            
+
+                <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+                <?php echo $this->getChildHtml('alert_urls') ?>
+                <?php echo $this->getChildHtml('product_type_data') ?>
+                <?php echo $this->getTierPriceHtml() ?>
+                <?php echo $this->getChildHtml('extrahint') ?>
+
+                 <?php if ($_product->getShortDescription()):?>
+                    <div class="short-description">
+                        <h2><?php echo $this->__('Quick Overview') ?></h2>
+                        <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                    </div>
+                <?php endif;?>
+
+
+
+            <?php if($_product->getHmrProduct() != '1'){ ?>
+                <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                            <?php echo $this->getChildHtml('addtocart') ?>
+                            <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+                                <span class="or"><?php echo $this->__('OR') ?></span>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php echo $this->getChildHtml('addto') ?>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php elseif (!$_product->isSaleable()): ?>
+                    <div class="add-to-box">
+                        <?php echo $this->getChildHtml('addto') ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                <?php endif;?>
+
+            <?php } ?>
+
+        </div>
+
+        <div class="product-img-box">
+            <?php echo $this->getChildHtml('media') ?>
+        </div>
+
+        <div class="clearer"></div>
+        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+        <?php endif;?>
+    
+
+    <script type="text/javascript">
+    //<![CDATA[
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+
+
+  function getCount120(){
+    //alert("chocho: "+document.getElementById("hmr_120_cho_qty").value);
+    //alert("vanilla: "+document.getElementById("hmr_120_van_qty").value);
+    needed_total_120_qty = document.getElementById("hmr_120_qty").value;
+    cho_120_qty = document.getElementById("hmr_120_cho_qty").value;
+    van_120_qty = document.getElementById("hmr_120_van_qty").value;
+
+    total_120 = parseInt(cho_120_qty) + parseInt(van_120_qty);
+    document.getElementById("updateDiv120_qty").innerHTML = "Total : " + total_120;
+    document.getElementById("hmr_120_qty").value = total_120;
+    document.getElementById("hmr_120_qty").readOnly = true;
+    //alert(document.getElementById("updateDiv120_qty").innerHTML);
+
+  }
+
+  function getCount70(){
+    //alert("chocho: "+document.getElementById("hmr_70_cho_qty").value);
+    //alert("vanilla: "+document.getElementById("hmr_70_van_qty").value);
+
+    needed_total_70_qty = document.getElementById("hmr_70_qty").value;
+    cho_70_qty = document.getElementById("hmr_70_cho_qty").value;
+    van_70_qty = document.getElementById("hmr_70_van_qty").value;
+
+    if(/^\d+$/.test(cho_70_qty) && /^\d+$/.test(van_70_qty)) {
+    
+        total_70 = parseInt(cho_70_qty) + parseInt(van_70_qty);
+        document.getElementById("updateDiv70_qty").innerHTML = "Total : " + total_70;
+        document.getElementById("hmr_70_qty").value = total_70;
+        document.getElementById("hmr_70_qty").readOnly = true;
+    
+    }else {
+      alert('Please provide only numerical values');
+
+    }
+  }
+
+
+
+    function getCountEntrees(){
+
+    //needed_total_entrees_qty = document.getElementById("hmr_tot_entrees_qty").value;
+    if(document.getElementById("entree_1").value!=0){
+      entrees1_qty = document.getElementById("entree_1").value;
+      document.getElementById("chk_entree_1").checked=true;
+    }
+    else if(document.getElementById("entree_1").value == 0){
+      entrees1_qty =0;
+      document.getElementById("chk_entree_1").checked = false;
+    }
+
+    if(document.getElementById("entree_2").value!=0){
+
+      entrees2_qty = document.getElementById("entree_2").value;
+      document.getElementById("chk_entree_2").checked=true;
+   
+    }else if(document.getElementById("entree_2").value==0){
+     
+      entrees2_qty =0;
+      document.getElementById("chk_entree_2").checked = false;
+    }
+
+    if(document.getElementById("entree_3").value!=0){
+
+      entrees3_qty = document.getElementById("entree_3").value;
+      document.getElementById("chk_entree_3").checked=true;
+     
+    }
+    else if(document.getElementById("entree_3").value==0){
+      entrees3_qty =0;
+       document.getElementById("chk_entree_3").checked=false;
+    }
+
+    if(document.getElementById("entree_4").value!=0){
+      entrees4_qty = document.getElementById("entree_4").value;
+      document.getElementById("chk_entree_4").checked=true;
+     
+    }else if(document.getElementById("entree_4").value==0) {
+     
+      entrees4_qty =0;
+      document.getElementById("chk_entree_4").checked=false;
+
+    }
+    if(document.getElementById("entree_5").value!=0){
+      entrees5_qty = document.getElementById("entree_5").value;
+      document.getElementById("chk_entree_5").checked=true;
+      
+    }else if(document.getElementById("entree_5").value==0) {
+
+      entrees5_qty =0;
+      document.getElementById("chk_entree_5").checked=false;
+    }
+
+    if(document.getElementById("entree_6").value!=0){
+      entrees6_qty = document.getElementById("entree_6").value;
+      document.getElementById("chk_entree_6").checked=true;
+     
+    }else if(document.getElementById("entree_6").value==0) {
+      
+      entrees6_qty =0;
+      document.getElementById("chk_entree_6").checked=false;
+    }
+    if(document.getElementById("entree_7").value!=0){
+      entrees7_qty = document.getElementById("entree_7").value;
+      document.getElementById("chk_entree_7").checked=true;
+      
+    }else if(document.getElementById("entree_7").value==0) {
+      
+      entrees7_qty =0;
+      document.getElementById("chk_entree_7").checked=false;
+    }
+    if(document.getElementById("entree_8").value!=0){
+     entrees8_qty = document.getElementById("entree_8").value;
+     document.getElementById("chk_entree_8").checked=true;
+    
+    }else if(document.getElementById("entree_8").value==0){
+     
+      entrees8_qty =0;
+      document.getElementById("chk_entree_8").checked=false;
+    }
+    if(document.getElementById("entree_9").value!=0){
+       entrees9_qty = document.getElementById("entree_9").value;
+       document.getElementById("chk_entree_9").checked=true;
+      
+    }else if(document.getElementById("entree_9").value==0) {
+     
+      entrees9_qty =0;
+      document.getElementById("chk_entree_9").checked=false;
+    }
+    if(document.getElementById("entree_10").value!=0){
+       entrees10_qty = document.getElementById("entree_10").value;
+       document.getElementById("chk_entree_10").checked=true;
+      
+    }else if(document.getElementById("entree_10").value==0) {
+     
+      entrees10_qty =0;
+      document.getElementById("chk_entree_10").checked=false;
+    }
+    if(document.getElementById("entree_11").value!=0){
+        entrees11_qty = document.getElementById("entree_11").value;
+        document.getElementById("chk_entree_11").checked=true;
+       
+    }else if(document.getElementById("entree_11").value==0) {
+    
+      entrees11_qty =0;
+      document.getElementById("chk_entree_11").checked=false;
+    }
+    if(document.getElementById("entree_12").value!=0){
+        entrees12_qty = document.getElementById("entree_12").value;
+        document.getElementById("chk_entree_12").checked=true;
+        
+    }else if(document.getElementById("entree_12").value==0) {
+      
+      entrees12_qty =0;
+      document.getElementById("chk_entree_12").checked=false;
+    }
+    if(document.getElementById("entree_13").value!=0){
+      entrees13_qty = document.getElementById("entree_13").value;
+      document.getElementById("chk_entree_13").checked=true;
+     
+    }else if(document.getElementById("entree_13").value==0) {
+      
+      entrees13_qty =0;
+      document.getElementById("chk_entree_13").checked=false;
+    }
+    if(document.getElementById("entree_14").value!=0){
+      entrees14_qty = document.getElementById("entree_14").value;
+      document.getElementById("chk_entree_14").checked=true;
+     
+    }else if(document.getElementById("entree_14").value==0) {
+      
+      entrees14_qty =0;
+      document.getElementById("chk_entree_5").checked=false;
+    }
+    
+      total_variety = parseInt(entrees1_qty) + parseInt(entrees2_qty) + parseInt(entrees3_qty) + parseInt(entrees4_qty) + parseInt(entrees5_qty) + parseInt(entrees6_qty) + parseInt(entrees7_qty) + parseInt(entrees8_qty) + parseInt(entrees9_qty) + parseInt(entrees10_qty) + parseInt(entrees11_qty) + parseInt(entrees12_qty) + parseInt(entrees13_qty) + parseInt(entrees14_qty);
+      if(total_variety>44){
+        alert('Variety total should not exceed 44');
+        
+      }
+      //document.getElementById("hmr_tot_entrees_qty").value = total_variety;
+    
+
+  }
+
+  function custom(){
+    jQuery.noConflict();
+    jQuery('.varietyentree').each(function(i){
+    jQuery(this).removeAttr('readonly');
+    });
+
+  }
+
+  function sampler(){
+    jQuery.noConflict();
+    jQuery('.varietyentree').each(function(i){
+    jQuery(this).attr('readonly','readonly');
+    });
+
+  }
+    //]]>
+    </script>
+   
+<?php if($_product->getHmrProduct() == 1){ ?>
+<table cellspacing="1" cellpadding="4" width="100%">      
+      <tr>
+        <td bgcolor="#FFFFCC" style="padding-left:3px;" class="cloudLGRed" colspan="4">
+          <strong>Step 1: Choose Your Shakes</strong>
+        </td>
+      </tr>
+      <tr>
+        <td class="shopHeader" colspan="4">
+          <div id="shakes_configuaration">
+            <table cellspacing="0" cellpadding="0" width="100%">
+              <tbody>
+                <tr>
+                <td class="infoBox">
+                  <table cellspacing="1" cellpadding="4" width="100%">
+                    <tbody>
+                      
+                      <tr><td>
+                      <table cellspacing="1" cellpadding="4" width="100%" border="1">
+                      <tbody>
+                        <tr>
+                          
+                          <td> 
+                            <div id="shake_1" style="display: <?php echo (in_array(1, $shakes_id_array)) ? "block" : "none" ?>;">
+                            <table cellspacing="1" cellpadding="4" width="100%">
+                            <tbody>
+                            <tr>
+                              <td class="faqLine1">
+                                <span class="at-home-green">
+                                  Choose <?php echo $hmr_product_shake_1_choco_qty + $hmr_product_shake_1_valina_qty ;?> HMR<sup>&reg;</sup> 120
+                                </span>
+                              </td>
+                              <td class="faqLine1"><span class="bodyText">Chocolate</span></td>
+                              <td class="faqLine1">
+                                <input type="text" onblur="getCount120();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_1_choco_qty;?>" id="hmr_120_cho_qty" name="hmr_120_cho_qty">
+                              </td>
+                              
+                            </tr>
+                            <tr> 
+                              <td class="faqLineBlu">&nbsp;</td> 
+                              <td class="faqLine1"><span class="bodyText">Vanilla</span></td>
+                              <td class="faqLine1">
+                                <input type="text" onblur="getCount120();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_1_valina_qty;?>" id="hmr_120_van_qty" name="hmr_120_van_qty">
+                              </td>  
+                                  
+                            </tr>
+                            </tbody></table>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody></table>
+                      </td></tr>
+
+                      <tr><td></td></tr>
+
+                      <tr><td>
+                      <table cellspacing="1" cellpadding="4" width="100%" border="1">
+                      <tbody>
+                      <tr>              
+
+                      <td>
+                      <div id="shake_2" style="display: <?php echo (in_array(2, $shakes_id_array)) ? "block" : "none" ?>;">
+                      <table cellspacing="1" cellpadding="4" width="100%">
+                      <tbody>
+                      <tr>
+                        <td class="faqLineBlu">
+                          <span class="at-home-green">
+                            Choose <?php echo $hmr_product_shake_2_choco_qty + $hmr_product_shake_2_valina_qty ;?> HMR<sup>&reg;</sup> 70+
+                          </span>
+                        </td>
+                        <td class="faqLineBlu"><span class="bodyText">Chocolate</span></td>
+                        <td class="faqLineBlu">
+                          <input type="text" onblur="getCount70();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_2_choco_qty;?>" id="hmr_70_cho_qty" name="hmr_70_cho_qty"></td>
+                                                    
+                       </tr>
+                      <tr> 
+                        <td class="faqLineBlu">&nbsp;</td>
+                        <td class="faqLineBlu"><span class="bodyText">Vanilla</span></td>
+                        <td class="faqLineBlu"><input type="text" onblur="getCount70();" maxlength="1" size="5" value="<?php echo $hmr_product_shake_2_valina_qty;?>" id="hmr_70_van_qty" name="hmr_70_van_qty"></td>
+                       
+                      </tr>
+                      </tbody></table>
+                      </div>
+
+                      </td></tr></tbody></table>
+                      </td></tr>
+
+                </tbody></table>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </td> 
+      </tr>
+      <tr bgcolor="#FFFFFF">
+            <td bgcolor="#FFFFCC" class="productHeading" colspan="4"><table cellpadding="5" width="100%">
+                <tbody><tr>
+                  <td bgcolor="#FFFFCC" class="at-home-green" colspan="2"> Our most popular entree combination is shown below, however, you can customize with your preferences! </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#FFFFCC" width="5%" nowrap=""><label>
+                    <input type="radio" onclick="sampler();" checked="" value="1" name="entree">
+                  </label></td>
+                  <td bgcolor="#FFFFCC" width="95%" class="at-home-green"> sampler send me a variety pack of the most popular entree selections (see list below) </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#FFFFCC"><label>
+                    <input type="radio" onclick="custom();" value="2" name="entree">
+                  </label></td>
+                  <td bgcolor="#FFFFCC" class="at-home-green"> custom select desired quantity of each entree below (must add to <?php echo $no_of_entrees;?> total) </td>
+                </tr>
+            </tbody></table></td>
+          </tr>
+
+      <tr>
+        <td class="shopHeader" colspan="4">
+          <table cellspacing="0" cellpadding="0" width="100%">
+            <tbody>
+                <tr>
+                  <td bgcolor="#FFFFCC" style="padding-left:3px;" class="cloudLGRed" colspan="4">
+                    <strong>Step 2: Total Entrees: <?php echo $no_of_entrees;?> </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                <div class="entrees">
+                   <?php foreach($allEntrees_result as $key=>$value){ ?>
+                          <div <?php if(($key+1)%2!=0) { ?>class="entrees-left" <?php } else {?>class="entrees-right" <?php } ?> >
+                            <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                              <tr class="faqLineBlu">
+                            <td width="80%"><font color="#CC0000"><?php if($key<=2) { ?><b>New!</b><?php } ?></font> <?php echo $value['entree_name'];?></td>
+                            <td width="20%"><input size="5" name="entree_<?php echo $value['entree_id'];?>" id="entree_<?php echo $value['entree_id'];?>" type="text" value="<?php echo $product_variety_result_qty[$key];?>" class="varietyentree" readonly="readonly"></td>
+                                </tr>
+                             </table>
+                            </div>
+                  <?php } ?>
+                           
+                        </div>
+                </td></tr>
+
+              </tbody>
+            </table>
+          </td>
+        </tr>      </table>
+
+
+
+       <?php /*?> <div id="updateDivButton" style="float:right;">               
+            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tbody><tr>
+            <!-- <td align="right" onmouseover="getCountButton();"> -->
+            <td align="right">
+              <?php if($hmr_product_2_week_product) { ?>
+              <?php $_product_2_week = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);?>
+          <a href="<?php echo $_product_2_week->getProductUrl();?>">
+              <input type="button" value="Next" name="next_subscription_product" id=="next_subscription_product">           
+          </a>
+              <?php } else { ?>
+                 <input type="button" value="Next" name="next_subscription_product" id=="next_subscription_product">    
+              <?php } ?>
+            </td></tr></tbody>
+            </table>
+        </div><?php */?>
+
+    
+<?php } ?>
+
+
+    <div class="product-collateral">
+<?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
+        <div class="box-collateral <?php echo "box-{$alias}"?>">
+            <?php if ($title = $this->getChildData($alias, 'title')):?>
+            <h2><?php //echo $this->escapeHtml($title); ?></h2>
+            <?php endif;?>
+            <?php //cho $html; ?>
+        </div>
+<?php endforeach;?>
+        <?php //echo $this->getChildHtml('upsell_products') ?>
+        <?php //echo $this->getChildHtml('product_additional_data') ?>
+        <?php echo $this->getChildHtml('related'); ?>
+    </div>
+</form>
+</div>
+</div>

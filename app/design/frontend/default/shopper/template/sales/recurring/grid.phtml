@@ -1,0 +1,232 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+function getProfileInformation($referenceID){
+    $resource = Mage::getSingleton('core/resource');
+    $sales_recurring_profile = $resource->getTableName('sales_recurring_profile');
+    $readConnection = $resource->getConnection('core_read');
+    $query = "SELECT * FROM " . $sales_recurring_profile . " WHERE reference_id = '" . $referenceID . "'";
+    $results = $readConnection->fetchRow($query);
+    return $results;
+}
+function getKitInfo($itemID){
+    $resource = Mage::getSingleton('core/resource');
+    $sales_custom_flat_quote_item = $resource->getTableName('sales_custom_flat_quote_item');
+    $readConnection = $resource->getConnection('core_read');
+    $query = "SELECT * FROM " . $sales_custom_flat_quote_item . " WHERE item_id = '".$itemID."'";
+    $results = $readConnection->fetchRow($query);
+    return $results;
+}
+function getAllEntrees(){
+    $resource = Mage::getSingleton('core/resource');
+    $sales_recurring_profile = $resource->getTableName('custom_hmr_entrees');
+    $readConnection = $resource->getConnection('core_read');
+    $query = "SELECT * FROM " . $sales_recurring_profile;
+    $results = $readConnection->fetchAll($query);
+    return $results;
+}
+$allEntrees = getAllEntrees();
+?>
+<div <?php echo $this->getGridHtmlClass() ? ' class="' . $this->getGridHtmlClass() . '"' : ''?><?php echo $this->getGridHtmlCss() ? ' style="' . $this->getGridHtmlCss() . '"' : ''?>>
+<?php if ($caption = $this->getGridCaption()): ?>
+<h2 class="table-caption"><?php echo $this->escapeHtml($caption) ?></h2>
+<?php endif; ?>
+<?php $gridElements = $this->getGridElements(); ?>
+<?php if ($gridElements): ?>
+    <?php echo $this->getChildHtml('pager'); ?>
+    <?php $kitcp = $_SERVER['REQUEST_URI']=='/sales/recurring_profile/'; ?>
+    <?php if(!$kitcp){ $kitcp = $_SERVER['REQUEST_URI']=='/sales/recurring_profile/index/'; } ?>
+    <table id="<?php if($kitcp): ?><?php else: ?><?php echo $this->getGridHtmlId() ?><?php endif; ?>" class="data-table" style="<?php if($kitcp): ?><?php echo "display: none"; ?><?php else: ?><?php endif; ?>">
+<?php foreach ($this->getGridColumns() as $column):?>
+        <col <?php $width = $this->getObjectData($column, 'width'); echo $width ? ' width="' . $width . '"' : '' ?>/>
+<?php endforeach; ?>
+        <thead>
+            <tr>
+<?php foreach ($this->getGridColumns() as $column):
+$nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';
+$title = $this->getObjectData($column, 'title');
+?>
+                <th><?php echo $title ? sprintf($nobr, $this->escapeHtml($title)) : '&nbsp;' ?></th>
+<?php endforeach; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $kitcount = 0;
+            foreach($gridElements as $row): ?>
+            <tr>
+                <?php $cellcount = 0; ?>
+                <?php 
+                    foreach ($this->getGridColumns() as $column):
+                    $nobr = $this->getObjectData($column, 'is_nobr') ? '<span class="nobr">%s</span>' : '%s';
+                    $index = $this->getObjectData($column, 'index');
+                    $value = $this->getObjectData($row, $index);
+                    $linkUrl = $this->getObjectData($row, "{$index}_link_url");
+                    $linkAnchorText = $this->getObjectData($row, "{$index}_link_text");
+                    $linkText = $linkUrl ? ($linkAnchorText ? $linkAnchorText : $value) : '';
+                    $linkFormat = $linkUrl ? '<a href="%s">%s</a>' : '';
+                    if($cellcount == 0){
+                        $kitInfo[$kitcount] = getProfileInformation($value);
+                    }
+                    ?>
+                    <td<?php $this->getObjectData($row, 'is_amount') ? ' class="a-right"' : '' ?>>
+                        <?php
+                            if ($linkFormat) {
+                                echo sprintf($nobr, sprintf($linkFormat, $this->escapeHtml($linkUrl), $this->escapeHtml($linkText)));
+                            } else {
+                                echo sprintf($nobr, $this->escapeHtml($value));
+                            }
+                        ?>
+                    </td>
+                <?php $cellcount++; 
+                endforeach; ?>
+            </tr>
+            <?php $kitcount++;
+            endforeach; ?>
+        </tbody>
+    </table>
+
+    <table id="<?php if($kitcp): ?><?php echo $this->getGridHtmlId() ?><?php else: ?><?php endif; ?>" class="data-table" style="table-layout:fixed;<?php if($kitcp): ?><?php else: ?><?php echo "display: none"; ?><?php endif; ?>">
+        <thead>
+            <tr>
+                <th>Kit</th>
+                <th style="width:170px;">Next Ship Date</th>
+                <th style="width:175px;">Modify Your Kit</th>
+                <th style="width:70px;">Suspend Kit</th>
+                <th style="width:70px;">Cancel Kit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($kitInfo as $kit):
+                $order_item_info = unserialize($kit['order_item_info']);
+            ?>
+            <tr>
+                <td>
+                	<div class="kitcont">
+	                	<a href="/sales/recurring_profile/view/profile/<?php echo $kit['profile_id']; ?>"><h2><?php echo $kit['schedule_description']; ?></h2></a>
+	                    <?php 
+                            if($order_item_info['item_id']): 
+                                $freshKitInfo = getKitInfo($order_item_info['item_id']);
+                        ?>
+	                    <div class="kitcontentsd">
+	                    	<span class="phase_1_title_1" style="display: block;"><strong>Recurring Kit Contents:</strong></span>
+	                        <ul>
+	                        <?php $chosenEntrees = explode(",", $freshKitInfo['subscribed_variety_entree']); ?>
+	                        <?php $counter = 0; ?>
+	                        <?php if($freshKitInfo['subscribed_hmr_120_choco'] > 0){
+		                        echo "<li>".$freshKitInfo['subscribed_hmr_120_choco']."<span class='smallText'>&nbsp;X&nbsp;</span><span>HMR&#174; 120 Plus - Chocolate</span></li> ";
+	                        } ?>
+	                        <?php if($freshKitInfo['subscribed_hmr_120_vani'] > 0){
+		                        echo "<li>".$freshKitInfo['subscribed_hmr_120_vani']."<span class='smallText'>&nbsp;X&nbsp;</span><span>HMR&#174; 120 Plus - Vanilla</span></li>";
+	                        } ?>
+	                        <?php if($freshKitInfo['subscribed_hmr_70_choco'] > 0){
+		                        echo "<li>".$freshKitInfo['subscribed_hmr_70_choco']."<span class='smallText'>&nbsp;X&nbsp;</span><span>HMR&#174; 70 Plus - Chocolate</span></li> ";
+	                        } ?>
+	                        <?php if($freshKitInfo['subscribed_hmr_70_vani'] > 0){
+		                        echo "<li>".$freshKitInfo['subscribed_hmr_70_vani']."<span class='smallText'>&nbsp;X&nbsp;</span><span>HMR&#174; 70 Plus - Vanilla</span></li>";
+	                        } ?>
+	                        <?php foreach($allEntrees as $key=>$entree): ?>
+		                        <?php if($chosenEntrees[$key] > 0): ?>
+		                          <li> 
+		                            <?php echo $chosenEntrees[$key];?><span class="smallText">&nbsp;X&nbsp;</span><span><?php echo $entree['entree_name'];?></span>
+		                          </li>
+		                          <?php $counter++; ?>
+		                        <?php endif; ?>
+	                        <?php endforeach; ?>
+	                        </ul>
+	                    </div>
+	                    <?php endif; ?>
+                    </div>
+                </td>
+                <td class="valmid">
+                    <?php if($kit['state'] == 'active' || $kit['state'] == 'pending'): ?>
+                        <?php
+						$additionalInfo = unserialize($kit['additional_info']);
+						if(isset($additionalInfo['next_cycle']) && $additionalInfo['next_cycle'] != ''): ?>
+                        <?php echo $start_datetime; //Print that ship date! ?>
+                        <form action="/hacklehealthmanagement/index/editRecurringProfile/" style="display: block; width: 100%; text-align: center;">
+                            <input type="hidden" name="profile" value="<?php echo $kit['profile_id']; ?>" />
+                            <input
+                                type="text"
+                                name="next_billed"
+                                id="kit-date-control"
+                                class="jquery-ui-datepicker form-control"
+                                value="<?php echo date('d-F Y', $additionalInfo['next_cycle']); ?>"
+                                data-original="<?php echo date('d-F Y', $additionalInfo['next_cycle']); ?>"
+                            "/>
+							<button type="submit" title="Modify Future Shipments" class="littleButton modactive kit-date-toggler" disabled="disabled" style="width: 91%;display:block;margin-top: 15px;">
+								<span>
+									<span>
+										Change Ship Date
+									</span>
+								</span>
+							</button>
+                        </form>
+						<?php endif; ?>
+                    <?php endif; ?>
+                </td>
+                <td class="valmid">
+                    <?php $additionalInfo = unserialize($kit['additional_info']); ?>
+                    <?php $shipDateAt8AM = date('Y-m-d', $additionalInfo['next_cycle']) . ' 08:00:00'; ?>
+                    <?php if($kit['state'] == 'active'): ?>
+                        <button <?php if (strtotime($shipDateAt8AM) < time() + 86400): ?>disabled="disabled"<?php endif ?> type="button" title="Modify Future Shipments" class="littleButton modactive" onclick="window.location.href = '/hacklehealthmanagement/index/editorder/item_id/<?php echo $order_item_info['item_id']; ?>';"><span><span>Edit Program</span></span></button>
+                    <?php elseif($kit['state'] == 'suspended'): ?>
+                        <button type="button" title="Modify Next Shipment" class="littleButton inactivo modinactive"><span><span style="background: #eee !important;">Kit Suspended</span></span></button>
+                    <?php elseif($kit['state'] == 'pending'): ?>
+                        <button <?php if (strtotime($shipDateAt8AM) < time() + 86400): ?>disabled="disabled"<?php endif ?> type="button" title="Modify Future Shipments" class="littleButton modactive" onclick="window.location.href = '/hacklehealthmanagement/index/editorder/item_id/<?php echo $order_item_info['item_id']; ?>';"><span><span>Edit Program</span></span></button><br />
+                        <a href="#" class="kiticon" title="Click here to activate. Activating will allow you to suspend or cancel your kit. Your kit will activate itself the first time it bills you." onclick="window.location.href = '/sales/recurring_profile/updateState/profile/<?php echo $kit['profile_id']; ?>/action/activate/'; return false;"><img src="/skin/frontend/default/shopper/images/kupdate.png" alt="" /></a>
+                    <?php else : ?>
+                        <button type="button" title="Modify Next Shipment" class="littleButton inactivo modinactive"><span><span style="background: #eee !important;">Kit Cancelled</span></span></button>
+                    <?php endif; ?>
+                </td>
+                <td class="valmid">
+                    <?php if($kit['state'] == 'active'): ?>
+                    	<a href="#" class="kiticon" onclick="if( confirm('This will suspend your kit. Are you sure you want to do this?') ) { window.location.href = '/sales/recurring_profile/updateState/profile/<?php echo $kit['profile_id']; ?>/action/suspend/'; } return false;"><img src="/skin/frontend/default/shopper/images/ksuspend.png" alt="" /></a>
+                    <?php elseif($kit['state'] == 'suspended'): ?>
+                        <a href="#" class="kiticon" onclick="window.location.href = '/sales/recurring_profile/updateState/profile/<?php echo $kit['profile_id']; ?>/action/activate/'; return false;"><img src="/skin/frontend/default/shopper/images/kupdate.png" alt="" /></a>
+                    <?php endif; ?>
+                </td>
+                <td class="valmid">
+                    <?php if($kit['state'] == 'active'): ?>
+                    	<a href="#" class="kiticon" onclick="if( confirm('This will suspend your kit indefinitely. Are you sure you would like to do this?') ) { window.location.href = '/sales/recurring_profile/updateState/profile/<?php echo $kit['profile_id']; ?>/action/suspend/'; } return false;"><img src="/skin/frontend/default/shopper/images/kcancel.png" alt="" /></a>
+                    <?php elseif($kit['state'] == 'suspended' || $kit['state'] == 'pending'): ?>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php echo $this->getChildHtml('pager'); ?>
+    <script type="text/javascript">decorateTable('<?php echo $this->getGridHtmlId() ?>')</script>
+<?php else: ?>
+    <p><?php echo $this->escapeHtml($this->getEmptyGridMessage()); ?></p>
+<?php endif; ?>
+</div>
+<script type="text/javascript">
+jQuery('document').ready(function(){
+	jQuery('.kitcontentsd ul').columnize();
+});
+</script>

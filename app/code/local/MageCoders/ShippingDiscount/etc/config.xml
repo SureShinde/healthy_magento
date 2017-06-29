@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MageCoders_ShippingDiscount>
+            <version>1.0.0</version>
+        </MageCoders_ShippingDiscount>
+    </modules>
+	<frontend>
+      <routers>
+		<shippingdiscount>
+			<use>standard</use>
+			<args>
+				<module>MageCoders_ShippingDiscount</module>
+				<frontName>shippingdiscount</frontName>
+			</args>
+		</shippingdiscount>
+      </routers>
+	   <layout>
+            <updates>
+                <shippingdiscount>
+                    <file>shippingdiscount.xml</file>
+                </shippingdiscount>
+            </updates>
+        </layout>
+   </frontend>
+	
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<MageCoders_ShippingDiscount>
+							<title>ShippingDiscount Module</title>
+							<sort_order>10</sort_order>
+						</MageCoders_ShippingDiscount>
+						<system>
+							<children>
+								<config>
+									<children>
+										<shippingdiscount translate="title" module="shippingdiscount"> 
+											<title>ShippingDiscount Settings</title>
+											<sort_order>50</sort_order>
+										</shippingdiscount>
+									</children>							
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>   
+    <global>
+	  	<blocks>
+            <shippingdiscount>
+                <class>MageCoders_ShippingDiscount_Block</class>
+            </shippingdiscount>
+			<adminhtml>
+				<rewrite>
+					<promo_quote_edit_tab_actions>MageCoders_ShippingDiscount_Block_Adminhtml_Edit_Tab_Actions</promo_quote_edit_tab_actions>
+				</rewrite>
+			</adminhtml>
+		</blocks>				
+	  	<models>
+            <shippingdiscount>
+                <class>MageCoders_ShippingDiscount_Model</class>
+				 <resourceModel>shippingdiscount_resource</resourceModel>
+            </shippingdiscount>
+			<shippingdiscount_resource>
+                <class>MageCoders_ShippingDiscount_Model_Resource</class>
+            </shippingdiscount_resource>
+			
+			<salesrule>
+				<rewrite>
+					<validator>MageCoders_ShippingDiscount_Model_Rule_Validator</validator>
+				</rewrite>
+			</salesrule>
+			
+		</models>	
+		
+		<resources>
+            <shippingdiscount_setup>
+                <setup>
+                    <module>MageCoders_ShippingDiscount</module>
+                </setup>
+            </shippingdiscount_setup>
+        </resources>
+			
+        <helpers>
+            <shippingdiscount>
+                <class>MageCoders_ShippingDiscount_Helper</class>
+            </shippingdiscount>
+        </helpers>
+    </global>
+	<global>
+		<events>
+			<salesrule_validator_process>
+				<observers>
+					<shipping_discount_apply>
+						<type>singleton</type>
+						<class>shippingdiscount/observer</class>
+						<method>processDiscount</method>
+					</shipping_discount_apply>
+				</observers>
+			</salesrule_validator_process>
+		</events>
+	</global>
+	
+</config>

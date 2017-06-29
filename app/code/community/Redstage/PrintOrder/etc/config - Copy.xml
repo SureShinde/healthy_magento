@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Redstage_PrintOrder>
+            <version>1.0.0</version>
+        </Redstage_PrintOrder>
+    </modules>
+    <global>
+        <models>
+            <printorder>
+                <class>Redstage_PrintOrder_Model</class>
+            </printorder>
+        </models>
+        <blocks>
+            <printorder>
+                <class>Redstage_CCG_Block</class>
+            </printorder>
+<!--            <adminhtml>-->
+<!--                <rewrite>-->
+<!--                    <sales_order_grid>Redstage_PrintOrder_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>-->
+<!--                </rewrite>-->
+<!--            </adminhtml>-->
+        </blocks>
+        <pdf>
+            <order>
+                <default>printorder/sales_order_pdf_items_order_default</default>
+                <grouped>printorder/sales_order_pdf_items_order_grouped</grouped>
+                <bundle>printorder/sales_order_pdf_items_order_bundled</bundle>
+            </order>
+        </pdf>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <printorder before="Mage_Adminhtml">Redstage_PrintOrder_Adminhtml</printorder>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

@@ -1,0 +1,25 @@
+<script type="text/javascript">
+function addElement() {
+	  var ni = document.getElementById('ingredient_fields');
+	  var newdiv = document.createElement('div');
+	  var divIdName = 'newDiv';
+	  newdiv.setAttribute('id',divIdName);
+	  newdiv.innerHTML = "<label>Measure</label> <input name='ingredients[measure][]' type='text' size='10' /> <label>Ingredient</label> <input name='ingredients[ingredient][]' type='text' size='40' /><input type='hidden' name='ingredients[ingredient_id][]' value='' /><br />";
+	  ni.appendChild(newdiv);
+}
+</script> 
+
+<div style="float:right;"><input type="button" id="addNewIngredient" onclick="addElement();" value="Add Ingredient" /></div>
+
+<div id="ingredient_fields">
+<?php $fields = $this->getIngredients() ?>
+<?php foreach($fields as $key => $field): ?>
+	<label>Measure</label> <input name="ingredients[measure][]" type="text" size="10" value="<?= $field->getMeasure() ?>" />
+	<label>Ingredient</label> <input name="ingredients[ingredient][]" type="text" size="40" value="<?= $field->getIngredient() ?>" />
+	<!--<label>Delete</label> <input name="ingredients[remove][<?= $field->getIngredientId() ?>]" type="checkbox" />-->
+	<input type="hidden" name="ingredients[ingredient_id][]" value="<?= $field->getIngredientId() ?>" />
+	<br />
+<?php endforeach ?>
+	<br/>
+	<span style="font-size: 10px; color: #666666;">* Leave the measure and the ingredient blank and save to delete an ingredient.</span>
+</div>

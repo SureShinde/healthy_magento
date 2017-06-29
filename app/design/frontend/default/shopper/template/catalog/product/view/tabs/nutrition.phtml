@@ -1,0 +1,149 @@
+<?php
+/**
+ * Product view nutrition tab file
+ *
+ * LICENSE: This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category  Mage
+ * @package   Mage_Catalog
+ * @copyright Copyright (c) 2014 Next I.T. (http://www.next-it.net/)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * Product view nutrition template
+ *
+ * @see Mage_Catalog_Block_Product_View_Nutrition
+ */
+?>
+<?php /* @var $this Mage_Catalog_Block_Product_View_Nutrition */ ?>
+<?php $_product = $this->getProduct(); ?>
+<?php if ($this->hasNutritionFacts($_product)): ?>
+
+<section id="nutrition-facts">
+  <header>
+    <h1><?php echo $this->__('Nutrition Facts'); ?></h1>
+    <?php if ($_product->getData('serving_size') !== NULL): ?>
+    <p><?php echo $this->__('Serving Size'); ?> <?php echo $_product->getData('serving_size'); ?>
+      <?php endif; ?>
+      <?php if ($_product->getData('servings_per_container') !== NULL): ?>
+    <p><?php echo $this->__('Servings Per Container'); ?> <?php echo $_product->getData('servings_per_container'); ?></p>
+    <?php endif; ?>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3" class="info"><?php echo $this->__('Amount Per Serving'); ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if ($_product->getData('calories') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Calories'); ?></strong> <?php echo $_product->getData('calories'); ?></th>
+        <td><?php echo ($_product->getData('calories_from_fat') ? $this->__('Calories from Fat') . ' ' . $_product->getData('calories_from_fat') : ''); ?></td>
+      </tr>
+      <?php endif; ?>
+      <tr class="divider-large">
+        <td colspan="3" class="info"><strong><?php echo $this->__('% Daily Value*'); ?></strong></td>
+      </tr>
+      <?php if ($_product->getData('total_fat') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Total Fat'); ?></strong> <?php echo $this->formatGrams($_product->getData('total_fat')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('total_fat', $_product->getData('total_fat'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('saturated_fat') !== NULL): ?>
+      <tr>
+        <td class="empty-cell">&nbsp;</td>
+        <th><?php echo $this->__('Saturated Fat'); ?> <?php echo $this->formatGrams($_product->getData('saturated_fat')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('saturated_fat', $_product->getData('saturated_fat'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('trans_fat') !== NULL): ?>
+      <tr>
+        <td class="empty-cell">&nbsp;</td>
+        <th><?php echo $this->__('Trans Fat'); ?> <?php echo $this->formatGrams($_product->getData('trans_fat')); ?></th>
+        <td>&nbsp;</td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('cholesterol') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Cholesterol'); ?></strong> <?php echo $this->formatMilliGrams($_product->getData('cholesterol')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('cholesterol', $_product->getData('cholesterol'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('sodium') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Sodium'); ?></strong> <?php echo $this->formatMilliGrams($_product->getData('sodium')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('sodium', $_product->getData('sodium'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('total_carbohydrate') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Total Carbohydrate'); ?></strong> <?php echo $this->formatGrams($_product->getData('total_carbohydrate')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('total_carbohydrate', $_product->getData('total_carbohydrate'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('dietary_fiber') !== NULL): ?>
+      <tr>
+        <td class="empty-cell">&nbsp;</td>
+        <th><?php echo $this->__('Dietary Fiber'); ?> <?php echo $this->formatGrams($_product->getData('dietary_fiber')); ?></th>
+        <td><strong><?php echo $this->formatPercent($this->getPercentDailyValue('dietary_fiber', $_product->getData('dietary_fiber'))); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('sugars') !== NULL): ?>
+      <tr>
+        <td class="empty-cell">&nbsp;</td>
+        <th><?php echo $this->__('Sugars'); ?> <?php echo $this->formatGrams($_product->getData('sugars')); ?></th>
+        <td>&nbsp;</td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('protein') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Protein'); ?></strong> <?php echo $this->formatGrams($_product->getData('protein')); ?></th>
+        <td>&nbsp;</td>
+      </tr>
+      <?php endif; ?>
+      <tr class="divider-large">
+        <td  height="0" colspan="3" style="height: 0px !important;"></td>
+      </tr>
+      <?php if ($_product->getData('vitamin_k') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Vitamin K'); ?></strong> </th>
+        <td><strong><?php echo $this->formatPercent($_product->getData('vitamin_k')); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('iron') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Iron'); ?></strong> </th>
+        <td><strong><?php echo $this->formatPercent($_product->getData('iron')); ?></strong></td>
+      </tr>
+      <?php endif; ?>
+      <?php if ($_product->getData('potassium') !== NULL): ?>
+      <tr>
+        <th colspan="2"><strong><?php echo $this->__('Potassium'); ?></strong> <?php echo $this->formatMilliGrams($_product->getData('potassium')); ?></th>
+        <td>&nbsp;</td>
+      </tr>
+      <?php endif; ?>
+    </tbody>
+  </table>
+  <p class="info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs.</p>
+</section>
+<?php else: ?>
+    <?php if ( $this->isKitOrShake() === 'kit' ): ?>
+      <p class="text-center">To view the nutritional info for an at-home kit, please view the individual entree product pages.<br/><a
+            href="/shop/hmr-diet-entrees" target="_blank">You may click here to view the Entree category.</a></p>
+    <?php elseif ( $this->isKitOrShake() === 'shake' ): ?>
+      <p class="text-center">To view the nutritional info for a shake kit, please view the individual shake product pages.<br/><a
+            href="/shop/hmr-diet-shakes-puddings" target="_blank">You may click here to view the Shake category.</a></p>
+    <?php else: ?>
+		<section id="nutrition-facts">
+		  <header>
+			<h1><?php echo $this->__('Coming Soon'); ?></h1>
+		  </header>
+		</section>
+	<?php endif; ?>
+<?php endif; ?>

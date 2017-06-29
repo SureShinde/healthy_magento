@@ -1,0 +1,22 @@
+<script type="text/javascript">
+function extraFee(chkname){
+if(document.getElementById(chkname).checked==false)
+    chkval=0;
+else 
+    chkval=document.getElementById(chkname).value;
+var request = new Ajax.Request(      
+            '<?php echo $this->getUrl("magikfees/adminhtml_magikfees/callme") ?>',
+            {
+                method: 'post',                
+                onLoading: function() {     
+        //document.getElementById('loader').style.display='inline';     
+        },
+                onComplete: function(transport){ // Defining Complete Callback Function                     
+                     window.location.reload();         
+                },
+                parameters: {cname: chkname,cval:chkval}    // Seriallizing the form input values
+            }
+        );
+    return false;
+}
+</script>

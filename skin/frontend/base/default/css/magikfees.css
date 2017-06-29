@@ -1,0 +1,13 @@
+.magikfees-total { cursor:pointer; }
+.magikfees-total td { line-height:13px; padding-top:5px !important; padding-bottom:5px !important; border-top:0 !important; }
+.magikfees-total .magikfees-collapse { background-image: url(../images/add.png);
+    background-repeat:no-repeat;
+    background-position:0 1px;
+    cursor: pointer;
+    display: block;
+    float: right;
+    line-height:15px;
+    padding-left: 20px;
+    text-align: right; }
+.show-details .magikfees-collapse { background-position:0 -20px; }
+.magikfees-details-view td { background-color:#dae1e4; border-top:1px solid #d2d8db; border-bottom:1px solid #d2d8db !important; }

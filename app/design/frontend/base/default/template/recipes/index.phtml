@@ -1,0 +1,183 @@
+<div ng-app="recipesApp" md-theme="HMR">
+    <div ng-controller="MainCtrl" ng-cloak>
+
+
+        <md-toolbar>
+            <div class="md-toolbar-tools recipe-main-toolbar">
+                <span class="title">HMR<sup>&reg;</sup> Recipes</span>
+                <!-- fill up the space between left and right area -->
+                <span flex></span>
+                <md-button aria-label="Reset All Search Filters" class="recipe-reset-button">Reset All Search Filters
+                </md-button>
+            </div>
+        </md-toolbar>
+
+
+        <!-- THIS IS THE TYPE OF MEAL SIDEBAR -->
+        <section layout="row" flex>
+            <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="typeOfMeal">
+
+                <md-toolbar class="md-theme-light">
+                    <span class="md-toolbar-tools">Type of Meal</span>
+                </md-toolbar>
+
+                <md-list md-autofocus ng-model="filter.dishType" ng-controller="TypeOfMealController" layout-padding>
+                    <md-list-item ng-repeat="type in types" ng-click="DOSOMETHING">
+
+                        <p>{{ type }}</p>
+
+                    </md-list-item>
+                </md-list>
+
+            </md-sidenav>
+        </section>
+
+
+        <!-- THIS IS THE INGREDIENTS SIDEBAR -->
+        <section layout="row" flex>
+            <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="ingredients">
+                <md-toolbar class="md-theme-light">
+                    <span class="md-toolbar-tools">Ingredients</span>
+                </md-toolbar>
+                <md-content ng-controller="IngredientsController" layout-padding>
+                    <form>
+                        <md-input-container>
+                            <label for="testInput">Test input</label>
+                            <input type="text" id="testInput"
+                                   ng-model="data" md-autofocus>
+                        </md-input-container>
+                    </form>
+                    <md-button ng-click="close()" class="md-primary">
+                        Close Sidenav Right
+                    </md-button>
+                </md-content>
+            </md-sidenav>
+        </section>
+
+
+        <!-- THIS IS THE MAIN TOOLBAR -->
+        <md-toolbar class="md-accent" default>
+            <div class="md-toolbar-tools recipe-secondary-toolbar">
+                <md-input-container flex>
+                    <label>Filter By Title</label>
+                    <input name="title" ng-model="filter.title"/>
+                </md-input-container>
+                <!-- fill up the space between left and right area -->
+                <md-button ng-click="TypeOfMeal()"
+                           aria-label="Type of Meal">
+                    Type of Meal
+                </md-button>
+                <md-button ng-click="Ingredients()"
+                           aria-label="Ingredients">
+                    Ingredients
+                </md-button>
+                <md-button aria-label="Difficulty">Difficulty</md-button>
+                <md-button aria-label="Steps">Steps</md-button>
+                <md-button aria-label="Time">Time</md-button>
+            </div>
+        </md-toolbar>
+
+
+        <!-- THIS IS THE PAGINATION TOOLBAR -->
+        <md-toolbar class="md-accent lt-grey-bg">
+            <div class="md-toolbar-tools">
+                Pagination
+            </div>
+        </md-toolbar>
+
+
+        <md-content layout="row" layout-wrap>
+            <div flex-xs="100" flex-sm="50" flex-md="50" flex="33"
+                ng-repeat="recipe in recipes | filterTitles: filter.title | filterPrepTimes: filter.prepTime | filterTypes: filter.dishType">
+                <md-card>
+                    <img ng-src="/media/recipe/tn/{{recipe.lrg_path}}" class="md-card-image" alt="Recipe Thumbnail">
+
+                    <md-card-title>
+                        <md-card-title-text>
+                            <a href="{{recipe.url}}" layout-padding layout-margin>
+                                <span class="recipe-card-title" ng-bind-html="recipe.title | unsafe"></span>
+                            </a>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <div layout="row">
+                            <div flex>
+                                <ng-md-icon icon="alarm" style="fill: #333" size="18"></ng-md-icon>
+                                Prep Time: {{recipe.prep_time}}
+                            </div>
+                            <div flex>
+                                <ng-md-icon icon="equalizer" style="fill: #333" size="18"></ng-md-icon>
+                                Difficulty:
+                                <span ng-if="recipe.difficulty > 0 && recipe.difficulty < 3">Easy</span>
+                                <span ng-if="recipe.difficulty == 3">Moderate</span>
+                                <span ng-if="recipe.difficulty > 3">Difficult</span>
+                            </div>
+                        </div>
+                        <p>
+                            {{recipe.desc}}
+                        </p>
+                    </md-card-content>
+                    <md-card-actions>
+                        <md-button href="{{recipe.url}}">View Recipe</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </md-content>
+
+
+        <div class="category-description std recipe-categories">
+        <h1 ng-bind="title" ng-cloak></h1>
+    </div>
+    <div class="recipe-toolbar" layout="row">
+        <md-input-container flex>
+            <label>Filter By Title</label>
+            <input name="title" ng-model="filter.title"/>
+        </md-input-container>
+        <md-select flex ng-model="filter.prepTime">
+            <md-option value="" selected="selected">All</md-option>
+            <md-option ng-repeat="time in prepTimes" value="{{time}}">{{time}}</md-option>
+        </md-select>
+        <md-select flex ng-model="filter.dishType">
+            <md-option value="" selected="selected">All</md-option>
+            <md-option ng-repeat="type in types" value="{{type}}">{{type}}</md-option>
+        </md-select>
+    </div>
+    <div>
+        <md-card
+            ng-repeat="recipe in recipes | filterTitles: filter.title | filterPrepTimes: filter.prepTime | filterTypes: filter.dishType"
+            layout-margin  layout="column" style="float: left; width: 47%;">
+            <img ng-src="/media/recipe/tn/{{recipe.lrg_path}}" class="md-card-image" alt="Recipe Thumbnail"
+                 style="margin-bottom: 20px;">
+            <md-card-title>
+                <md-card-title-text>
+                    <div style="height: 60px;">
+                    <a href="{{recipe.url}}" layout-padding layout-margin><span class="md-headline"
+                                                                                ng-bind-html="recipe.title | unsafe"></span></a>
+                    </div>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div layout="row" height="150px;">
+                    <div flex>
+                        <ng-md-icon icon="alarm" style="fill: #333" size="18"></ng-md-icon>
+                        Prep Time: {{recipe.prep_time}}
+                    </div>
+                    <div flex>
+                        <ng-md-icon icon="equalizer" style="fill: #333" size="18"></ng-md-icon>
+                        Difficulty:
+                        <span ng-if="recipe.difficulty > 0 && recipe.difficulty < 3">Easy</span>
+                        <span ng-if="recipe.difficulty == 3">Moderate</span>
+                        <span ng-if="recipe.difficulty > 3">Difficult</span>
+                    </div>
+                <p>
+                    {{recipe.desc}}
+                </p>
+                </div>    
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button href="{{recipe.url}}">View Recipe</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div> <!-- ng-controller MainCtrl -->
+</div><!-- ng-app recipesApp -->

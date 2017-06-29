@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <global>
+        <modules>
+            <NeXtIT_QuickReview>
+                <version>0.0.1</version>
+            </NeXtIT_QuickReview>
+        </modules>
+        <blocks>
+            <quickreview>
+                <class>NeXtIT_QuickReview_Block</class>
+            </quickreview>
+        </blocks>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <NeXtIT_QuickReview>
+                    <file>quickreview.xml</file>
+                </NeXtIT_QuickReview>
+            </updates>
+        </layout>
+        <routers>
+            <ajaxrating>
+                <use>standard</use>
+                <args>
+                    <module>NeXtIT_QuickReview</module>
+                    <frontName>ajaxrating</frontName>
+                </args>
+            </ajaxrating>
+        </routers>
+    </frontend>
+</config>

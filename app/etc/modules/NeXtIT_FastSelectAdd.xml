@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <NeXtIT_FastSelectAdd>
+            <active>true</active>
+            <codePool>local</codePool>
+        </NeXtIT_FastSelectAdd>
+    </modules>
+</config>

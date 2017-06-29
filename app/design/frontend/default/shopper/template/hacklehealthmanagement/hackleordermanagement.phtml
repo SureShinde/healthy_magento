@@ -1,0 +1,190 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+    $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read'); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Orders') ?></h1>
+</div>
+<?php //echo $this->getPagerHtml(); ?>
+<?php //if($_order->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+
+    <thead>
+        <tr>
+            <th>Next Ship Date</th>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+<?php $customerId  = $this->getRequest()->getParam('order_id');
+
+$getallOrderetails = $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE `customer_id` ='.$customerId);
+
+$i=0;
+foreach($getallOrderetails as $row){
+
+    $orderId = $readConnection->fetchOne('SELECT `order_id` FROM `sales_flat_order_item` WHERE `quote_item_id` ='.$row['item_id']);
+
+?>
+<?php 
+    $order      = Mage::getModel('sales/order')->load($orderId); 
+    $_totalData = $order->getData();
+    $items      = $order->getAllItems();
+    $_grand     = $_totalData['grand_total']; 
+    $custname = $order->getCustomerName();
+?>
+
+<?php 
+
+$orderIncrementId = $readConnection->fetchOne('SELECT `increment_id` FROM `sales_flat_order` WHERE entity_id='.$orderId);
+
+//$quoteitemid = $readConnection->fetchOne('SELECT `quote_item_id` FROM `sales_flat_order_item` WHERE order_id='.$orderId); 
+//print_r(unserialize($quoteitemid[0]['product_options']));exit;
+
+//$editedProditemdetails = $readConnection->fetchAll('SELECT * FROM `custom_sales_flat_quote_item` WHERE item_id='.$quoteitemid);
+    //print_r($editedProditemdetails);
+
+$hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $row['product_id']);
+
+$second_product = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+
+$odercreationdate = $row['created_at'];
+
+$two_weeks_order_delivery_date = date("Y-m-d", strtotime(date("Y-m-d", strtotime($odercreationdate)) . " + 2 week"));
+
+//echo $two_weeks_order_delivery_date;exit;
+
+?>
+
+<?php 
+/*foreach ($items as $itemId => $item)
+{
+    echo $item->getName();
+    echo $item->getPrice();
+    echo $item->getSku();
+    echo $item->getQtyToInvoice();
+
+}*/
+?>
+
+        <?php $_odd = ''; ?>
+
+
+
+        <tr>
+             <td><?php if($row['action'] == 1) {
+				 	echo date('F d, Y', strtotime($row['nextshipdate']));
+					//echo $two_weeks_order_delivery_date;
+			 } else {
+				 echo "On Hold";
+			 }?></td>
+            <td><?php echo $second_product->getName(); ?></td>
+<?php if($row['action'] == 1) { ?>
+             <td><?php echo 'Active'; ?></td>
+<?php } else { ?>
+           <td><?php echo 'On Hold'; ?></td>
+<?php } ?>
+           <td class="a-center">
+<?php if($row['action'] == 1) { ?>
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/updatestatuspause/order_id/'.$orderId; ?>" class="actionname">Pause | </a>
+<?php } else { ?>
+<a href="#" class="actionname" onclick="datePresent(<?php echo $orderId; ?>)" id="resume<?php echo $orderId; ?>">Resume | </a>
+<?php } ?>
+<a href="<?php echo $this->getUrl().'hacklehealthmanagement/index/editorder/order_id/'.$orderId; ?>">Edit Order</a>
+<div class="field">
+<?php
+if($row['action'] != 1){ ?>
+    <div class="input-box">
+     <?php
+} else {
+	echo '<div class="input-box" style="display:none">';
+}
+?>
+<input type="text" style="width:110px !important;" class=" input-text" value="" id="news_from_date_<?php echo $orderId;?>" name="news_from_date">
+
+        <img title="Select date" id="news_from_date_trig_<?php echo $orderId;?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'adminhtml/default/default/images/grid-cal.gif'; ?>" class="v-middle">
+        <div id='next_ship_date' class='error' style='display: none'>Select next ship date</div>
+    </div>
+   
+ </div>
+
+</td>
+        </tr>
+
+
+
+
+<?php //echo $this->getPagerHtml(); ?>
+
+<?php //endif ?>
+
+<script type="text/javascript">
+//<![CDATA[
+ Calendar.setup({
+        inputField : 'news_from_date_'+<?php echo $orderId ?>,
+        ifFormat : '%Y-%m-%e',
+        showsTime : false,
+        button : 'news_from_date_trig_'+<?php echo $orderId ?>,
+        align : 'Bl',
+        singleClick : true
+    });
+//]]>
+
+function changestatus(){
+
+    var pausedate = $('#news_from_date_'+<?php echo $orderId ?>).val();
+    alert(pausedate);
+}
+</script>
+<script type="text/javascript">
+
+function datePresent(orderId){
+	//alert('help');
+	date = 'something';
+	date = document.getElementById("news_from_date_"+orderId).value;
+	//alert('help'+date);
+	if(date != ''){
+		window.location = "<?php echo '/hacklehealthmanagement/index/updatestatusresume/order_id/'.$orderId.'/date/'; ?>"+date;
+	} else {
+		nsd = document.getElementById("next_ship_date");
+		nsd.style.display = 'block';
+	}
+	
+};
+</script>
+
+<?php   
+$i++;
+}
+?>
+
+    </tbody>
+</table>

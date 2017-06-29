@@ -1,0 +1,61 @@
+.aw-sarp-customer, .customer-subscription__view, .customer-subscription__orders {
+    margin:15px;
+    display:block;
+}
+table.customer-subscription__list {
+    width:100%;
+    margin-bottom: 15px;
+}
+table.customer-subscription__list td{
+    text-align: right;
+}
+.customer-subscription__item.last {
+    border-bottom: 1px solid #b2b2b2;
+}
+.customer-subscription__view_title {
+    float:left;
+    width:50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+.info-table {
+    text-align: left;
+    width:100%;
+}
+.info-table td.title {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width:50%;
+}
+.info-table td.content {
+    padding-left:2px;
+}
+.customer-subscription__view h3, .customer-subscription__orders h3 {
+    font-size:16px;
+    padding:25px 0 10px;
+}
+.total-details {
+    font-size:12px;
+}
+.customer-subscription__view_title_link {
+    float:right;
+    width:50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.customer-subscription__view_breadcrumbs {
+    height: 100%;
+}
+.customer-subscription__view_buttons button {
+    margin-top: 5px;
+}
+.customer-subscription__view_breadcrumbs h1 {
+    border-bottom: 1px solid #b2b2b2;
+}

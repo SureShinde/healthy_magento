@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Amid E-Mail Marketing Module Configuration file
+ *
+ * @category  Amid
+ * @package   Amid_EmailMarketing
+ * @copyright Copyright (c) 2015 Perficient, Inc. (http://commerce.perficient.com/)
+ * @author    Andrew Versalle <andrew.versalle@perficient.com>
+ */
+-->
+<config>
+    <modules>
+        <Amid_EmailMarketing>
+            <version>0.0.2</version>
+        </Amid_EmailMarketing>
+    </modules>
+    <global>
+        <helpers>
+            <amid_emailmarketing>
+                <class>Amid_EmailMarketing_Helper</class>
+            </amid_emailmarketing>
+        </helpers>
+        <models>
+            <amid_emailmarketing>
+                <class>Amid_EmailMarketing_Model</class>
+            </amid_emailmarketing>
+            <newsletter>
+                <rewrite>
+                    <subscriber>Amid_EmailMarketing_Model_Subscriber</subscriber>
+                </rewrite>
+            </newsletter>
+        </models>
+        <resources>
+            <amid_emailmarketing_setup>
+                <setup>
+                    <module>Amid_EmailMarketing</module>
+                </setup>
+            </amid_emailmarketing_setup>
+        </resources>
+        <events>
+            <newsletter_subscriber_save_before>
+                <observers>
+                    <amid_emailmarketing>
+                        <type>model</type>
+                        <class>amid_emailmarketing/observer</class>
+                        <method>newsletterSubscriberSaveBefore</method>
+                    </amid_emailmarketing>
+                </observers>
+            </newsletter_subscriber_save_before>
+        </events>
+    </global>
+    <frontend>
+        <routers>
+            <newsletter>
+                <args>
+                    <modules>
+                        <Amid_EmailMarketing before="Mage_Newsletter">Amid_EmailMarketing</Amid_EmailMarketing>
+                    </modules>
+                </args>
+            </newsletter>
+        </routers>
+    </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amid_emailmarketing_options>
+                                            <title>Amid E-Mail Marketing Module Section</title>
+                                        </amid_emailmarketing_options>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+</config>

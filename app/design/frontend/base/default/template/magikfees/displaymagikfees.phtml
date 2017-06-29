@@ -1,0 +1,64 @@
+<?php 
+$productId=Mage::registry('product')->getId();
+$productFull = Mage::getModel('catalog/product')->load($productId);
+$attributes = $productFull->getAttributes();
+$overwrite=$attributes['magik_catoverride']->getFrontend()->getValue($productFull);
+//$feedata = Mage::getModel('magikfees/magikfeestype')->getDefaultval();
+if($overwrite==Mage::helper('magikfees')->__('No'))
+{
+	$categoryIds = $productFull->getCategoryIds();	
+	foreach($categoryIds as $km=>$vm) {
+		$parentId=Mage::getModel('catalog/category')->load($vm)->getParentId();
+		if(!in_array($parentId,$categoryIds))
+			array_push($categoryIds,$parentId);
+	}
+	$fetchcatlist = Mage::getModel('magikfees/magikfees')->getcatFeeList('Category');	
+	$k=0;		
+	foreach($fetchcatlist as $key=>$val)
+	{	
+		$catArr1=array();
+		$catArr1=explode(",",$val['cat']);
+		foreach($catArr1 as $catId)
+		{
+			if(in_array($catId,$categoryIds)){
+				if($val['mandatory']=='Yes')	
+					$strExtra.=$val['title']." [Mandatory]<br>";							
+				else
+					$strExtra.=$val['title']."<br>";
+			}
+		}
+	}
+	if($strExtra!='') {
+		if(Mage::getStoreConfig('magikfees_section/magikfees_group1/title')!='')	
+			echo "<strong>".Mage::getStoreConfig('magikfees_section/magikfees_group1/title').":</strong><br/>".$strExtra;
+		else
+			echo $strExtra;
+
+	}
+}
+else
+{
+	$ekarr=$productFull->getMagikExtrafee();
+	$arr=Mage::getModel('magikfees/magikfees')->getFeeList('Product');
+   
+	foreach($arr as $key1=>$val1)
+	{		
+	    foreach($ekarr as $ekey) {	    
+			if($ekey==$key1)
+			{	
+				if($val1['mandatory']=='Yes')	
+					$strExtra.=$val1['title']." [Mandatory]<br>";			
+				else
+					$strExtra.=$val1['title']."<br>";	
+			}
+			
+		}	
+	}
+	if($strExtra!='') {
+		if(Mage::getStoreConfig('magikfees_section/magikfees_group1/title')!='')			
+			echo "<strong>".Mage::getStoreConfig('magikfees_section/magikfees_group1/title').":</strong><br/>".$strExtra;
+		else
+			echo $strExtra;
+	}
+}
+?>

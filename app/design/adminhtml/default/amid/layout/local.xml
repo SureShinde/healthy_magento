@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <adminhtml_sales_order_create_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>amid/js/sales.js</name>
+            </action>
+            <action method="addJs"><script>lib/jquery/jquery-1.10.2.min.js</script></action>
+            <action method="addJs"><script>lib/jquery/noconflict.js</script></action>
+            <action method="removeItem"><type>js</type><name>pektsekye/optionbundle/images.js</name></action>
+            <action method="removeItem"><type>js</type><name>pektsekye/optionbundle/main.js</name></action>
+            <action method="addJs"><script>amid/optionbundle/images.js</script></action>
+            <action method="addJs"><script>amid/optionbundle/main.js</script></action>
+            <action method="addJs"><script>amid/admin_engraving.js</script></action>
+        </reference>
+        <reference name="data">
+            <block type="amid_magikfees/adminhtml_sales_order_create_processing_method" template="sales/order/create/abstract.phtml" name="processing_method">
+                <block type="amid_magikfees/adminhtml_sales_order_create_processing_method_form" template="sales/order/create/processing/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_index>
+
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="data">
+            <block type="amid_magikfees/adminhtml_sales_order_create_processing_method" template="sales/order/create/abstract.phtml" name="processing_method">
+                <block type="amid_magikfees/adminhtml_sales_order_create_processing_method_form" template="sales/order/create/processing/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+
+    <adminhtml_sales_order_create_load_block_processing_method>
+        <reference name="content">
+            <block type="amid_magikfees/adminhtml_sales_order_create_processing_method" template="sales/order/create/abstract.phtml" name="processing_method">
+                <block type="amid_magikfees/adminhtml_sales_order_create_processing_method_form" template="sales/order/create/processing/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_load_block_processing_method>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_view_items_renderer</block>
+                <template>magikfees/bundle/sales/order/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_items">
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/adminhtml_sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/creditmemo/view/items/renderer.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+    <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+        <reference name="root">
+            <action method="addJs"><script>js/amid/admin_engraving.js</script></action>
+        </reference>
+        <reference name="product.composite.fieldset.options">
+            <action method="addOptionRenderer"><type>amid</type><block>amid_customoptions/catalog_product_view_options_type_amid</block><template>amid_customoptions/catalog/product/view/options/type/amid.phtml</template></action>
+            <action method="setTemplate"><template>amid_customoptions/catalog/product/composite/fieldset/options.phtml</template></action>
+        </reference>
+    </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+
+    <PRODUCT_TYPE_bundle>
+        <reference name="product.composite.fieldset">
+            <action method="unsetChild"><alias>product.composite.fieldset.bundle</alias></action>
+
+            <block type="bundle/adminhtml_catalog_product_composite_fieldset_bundle" after="product.composite.fieldset.options" name="product.composite.fieldset.bundle" template="bundle/product/composite/fieldset/options/bundle.phtml">
+                <action method="addRenderer"><type>select</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_select</block></action>
+                <action method="addRenderer"><type>multi</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_multi</block></action>
+                <action method="addRenderer"><type>radio</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_radio</block></action>
+                <action method="addRenderer"><type>checkbox</type><block>bundle/adminhtml_catalog_product_composite_fieldset_options_type_checkbox</block></action>
+            </block>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+
+
+</layout>

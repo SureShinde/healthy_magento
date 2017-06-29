@@ -1,0 +1,63 @@
+[12-Mar-2015 14:00:43 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [Client] Function ("shippingInfoTest") is not a valid method for this service in /home/hackleyhhm/public_html/nextit/soaptest.php:23
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->__call('shippingInfoTes...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->shippingInfoTest('3c52e0f494b0feb...')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 23
+[12-Mar-2015 14:05:47 America/New_York] PHP Notice:  Undefined variable: proxy in /home/hackleyhhm/public_html/nextit/soaptest.php on line 27
+[12-Mar-2015 14:05:47 America/New_York] PHP Fatal error:  Call to a member function __getLastRequest() on a non-object in /home/hackleyhhm/public_html/nextit/soaptest.php on line 27
+[12-Mar-2015 14:09:19 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [1] Invalid method NeXtIT_Shipping_Model_Api_V2::info(Array
+(
+)
+) in /home/hackleyhhm/public_html/nextit/soaptest.php:23
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->__call('shipping_infoTe...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->shipping_infoTest('4da193259fef289...')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 23
+[12-Mar-2015 14:37:49 America/New_York] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://www.hackleyhealthmanagement.com/api/v2_soap/?wsdl=1' : Start tag expected, '<' not found
+ in /home/hackleyhhm/public_html/nextit/soaptest.php on line 17
+[12-Mar-2015 14:37:49 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://www.hackleyhealthmanagement.com/api/v2_soap/?wsdl=1' : Start tag expected, '<' not found
+ in /home/hackleyhhm/public_html/nextit/soaptest.php:17
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(17): SoapClient->SoapClient('http://www.hack...')
+#1 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 17
+[12-Mar-2015 14:38:09 America/New_York] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://www.hackleyhealthmanagement.com/api/v2_soap/?wsdl=1' : Start tag expected, '<' not found
+ in /home/hackleyhhm/public_html/nextit/soaptest.php on line 17
+[12-Mar-2015 14:38:09 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://www.hackleyhealthmanagement.com/api/v2_soap/?wsdl=1' : Start tag expected, '<' not found
+ in /home/hackleyhhm/public_html/nextit/soaptest.php:17
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(17): SoapClient->SoapClient('http://www.hack...')
+#1 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 17
+[12-Mar-2015 14:38:58 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [SOAP-ENV:Server] Call to a member function getAllItems() on a non-object in /home/hackleyhhm/public_html/nextit/soaptest.php:24
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(24): SoapClient->__call('nitShipmentAddT...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(24): SoapClient->nitShipmentAddTrackingTo('ae32fa0d8cb55ef...', '100015578', '12345671234567')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 24
+[26-Mar-2015 15:06:05 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [1] The Order State "complete" must not be set manually. in /home/hackleyhhm/public_html/nextit/soaptest.php:21
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(21): SoapClient->__call('nitShipmentAddT...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(21): SoapClient->nitShipmentAddTrackingTo('8ce20810e4a3ec8...', '100015741', '12345671234567')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 21
+[21-Apr-2015 15:54:59 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [1] DateInterval::__construct(): Unknown or bad format (P5H) in /home/hackleyhhm/public_html/nextit/soaptest.php:21
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(21): SoapClient->__call('nitShipmentAddT...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(21): SoapClient->nitShipmentAddTrackingTo('42a7786b9beaf94...', '100016710', '12345671234567', '2015-07-19 01:0...')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 21
+[21-Apr-2015 15:55:30 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [1] DateInterval::__construct(): Unknown or bad format (P5H) in /home/hackleyhhm/public_html/nextit/soaptest.php:23
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->__call('nitShipmentAddT...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->nitShipmentAddTrackingTo('766f724e0bfcc2f...', '100016710', '12345671234567', '2015-07-19 01:0...')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 23
+[21-Apr-2015 15:56:09 America/New_York] PHP Fatal error:  Uncaught SoapFault exception: [1] DateInterval::__construct(): Unknown or bad format (P5H) in /home/hackleyhhm/public_html/nextit/soaptest.php:23
+Stack trace:
+#0 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->__call('nitShipmentAddT...', Array)
+#1 /home/hackleyhhm/public_html/nextit/soaptest.php(23): SoapClient->nitShipmentAddTrackingTo('360846fdc184c8c...', '100016710', '12345671234567', '2015-07-19 01:0...')
+#2 {main}
+  thrown in /home/hackleyhhm/public_html/nextit/soaptest.php on line 23

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <HHM_Hhmreports>
+            <active>false</active>
+            <codePool>local</codePool>
+        </HHM_Hhmreports>
+    </modules>
+</config>

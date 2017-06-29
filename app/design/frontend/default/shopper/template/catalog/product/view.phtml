@@ -1,0 +1,919 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ * @see Mage_Review_Block_Product_View
+ */
+$kitIds = array(131, 132);
+$recurringKitIds = array(130, 136);
+$request_uri = explode('/', $_SERVER['REQUEST_URI']);
+$http_referer = explode('/', $_SESSION['core']['visitor_data']['http_referer']);
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+$prod = Mage::getModel('catalog/product')->load($_product->getId());
+
+// Initialize variables
+$no_of_entrees = 0;
+$hmr_120_cho_qty = 0;
+$hmr_120_van_qty = 0;
+$hmr_70_cho_qty = 0;
+$hmr_70_van_qty = 0;
+$hmr_120_cho_qty_org = 0;
+$hmr_120_van_qty_org = 0;
+$hmr_70_cho_qty_org = 0;
+$hmr_70_van_qty_org = 0;
+$entrees_output = array();
+$product_variety_result_qty = array();
+?>
+<?php
+$categoryIds = $_product->getCategoryIds();
+if (count($categoryIds)) {
+    $kitCategory = 26;
+    $isKitCategory = false;
+    foreach ($categoryIds as $categoryId) {
+        if ($categoryId == $kitCategory) {
+            unset($_SESSION['something_off_the_wall']);
+        }
+    }
+}
+Mage::getModel('customer/session')->setData('latest_kit_product_url', Mage::helper('core/url')->getCurrentUrl());
+?>
+<?php
+$customproduct = array();
+$combinedsubscription = array();
+
+if (isset($_POST['subscription']))
+{
+    if ($_POST['subscription'] != 73)
+    {
+        $customproduct['firstproduct'] = $_POST;
+        Mage::getSingleton('core/session')->setHmrProduct();
+        Mage::getSingleton('core/session')->setHmrProduct($customproduct);
+        $_SESSION['something_off_the_wall']['firstproduct'] = $_POST;
+        $_SESSION['something_off_the_wall']['firstproduct']['done'] = true;
+    }
+}
+
+?>
+
+<?php
+if ($_SERVER['REMOTE_ADDR'] == '50.202.41.102') { ?>
+    <style>
+        .subscription-wrapper {
+            display: block !important;
+        }
+    </style>
+<?php } ?>
+<?php
+$resource = Mage::getSingleton('core/resource');
+$readConnection = $resource->getConnection('core_read');
+$writeConnection = $resource->getConnection('core_write');
+$product_id = $_product->getId();
+$hmr_product_kit_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_product_kit WHERE product_id = ' . $product_id);
+if (count($hmr_product_kit_result) > 0) {
+    foreach ($hmr_product_kit_result as $hmr_product_kit) {
+        $no_of_shakes = $hmr_product_kit['no_of_shakes'];
+        $shakes_id_array = explode(",", $hmr_product_kit['shakes_id']);
+        $no_of_entrees = $hmr_product_kit['no_of_entrees'];
+        $entrees_id_array = explode(",", $hmr_product_kit['entrees_id']);
+    }
+}
+
+$allEntrees_result = $readConnection->fetchAll('SELECT * FROM custom_hmr_entrees');
+$hmr_product_choose_variety_result = $readConnection->fetchAll('SELECT * FROM `custom_hmr_product_entrees_values` WHERE product_id = ' . $product_id . ' ORDER BY `entree_id` ASC');
+if (count($hmr_product_choose_variety_result) > 0) {
+    foreach ($hmr_product_choose_variety_result as $hmr_product_variety_result) {
+        $product_variety_result_entree[] = $hmr_product_variety_result['entree_id'];
+        $product_variety_result_qty[] = $hmr_product_variety_result['default_qty'];
+    }
+}
+
+$hmr_product_shake_1_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id . ' AND `shake_id`=1 AND `flavour_id`=1');
+$hmr_product_shake_1_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id . ' AND `shake_id`=1 AND `flavour_id`=2');
+$hmr_product_shake_2_choco_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id . ' AND `shake_id`=2 AND `flavour_id`=1');
+$hmr_product_shake_2_valina_qty = $readConnection->fetchOne('SELECT `default_qty` FROM `custom_hmr_product_shakes_values` WHERE product_id = ' . $product_id . ' AND `shake_id`=2 AND `flavour_id`=2');
+$hmr_product_2_week_product = $readConnection->fetchOne('SELECT `second_week_product_id` FROM `custom_hmr_product_2_week_product` WHERE product_id = ' . $product_id);
+$_product_2_week = Mage::getModel('catalog/product')->load($hmr_product_2_week_product);
+
+$defaultKitConfiguration = false;
+
+if (isset($_SESSION['something_off_the_wall']))
+{
+    if ($_SESSION['something_off_the_wall']['firstproduct']['done']
+        && ($request_uri[count($request_uri) - 1] == 'healthy-solutions-quick-starttm-intro-diet-kit-3-week'
+        || $request_uri[count($request_uri) - 1] == 'healthy-solutions-quick-starttm-intro-diet-kit-3-week-lactose-free'))
+        {
+        $hmr_120_cho_qty = $_SESSION['something_off_the_wall']['firstproduct']['hmr_120_cho_qty'];
+        $hmr_120_van_qty = $_SESSION['something_off_the_wall']['firstproduct']['hmr_120_van_qty'];
+        $hmr_120_cho_qty_org = $hmr_product_shake_1_choco_qty;
+        $hmr_120_van_qty_org = $hmr_product_shake_1_valina_qty;
+        $hmr_70_cho_qty = $_SESSION['something_off_the_wall']['firstproduct']['hmr_70_cho_qty'];
+        $hmr_70_van_qty = $_SESSION['something_off_the_wall']['firstproduct']['hmr_70_van_qty'];
+        $hmr_70_cho_qty_org = $hmr_product_shake_2_choco_qty;
+        $hmr_70_van_qty_org = $hmr_product_shake_2_valina_qty;
+        foreach ($allEntrees_result as $key => $value) {
+            if ($_SESSION['something_off_the_wall']['firstproduct']['hmr_entree_' . ($key + 1) . '_qty'] > 0) {
+                $entrees_output[$key]['checked'] = 'checked="checked"';
+            } else {
+                $entrees_output[$key]['checked'] = '';
+            }
+            $entrees_output[$key]['qty'] = $_SESSION['something_off_the_wall']['firstproduct']['hmr_entree_' . ($key + 1) . '_qty'];
+            $entrees_output[$key]['org'] = $product_variety_result_qty[$key];
+        }
+    } else {
+        if (isset($_SESSION['something_off_the_wall']['secondproduct']))
+        {
+            if ($_SESSION['something_off_the_wall']['secondproduct']['done'])
+            {
+                $hmr_120_cho_qty = $_SESSION['something_off_the_wall']['secondproduct']['hmr_120_cho_qty'];
+                $hmr_120_van_qty = $_SESSION['something_off_the_wall']['secondproduct']['hmr_120_van_qty'];
+                $hmr_120_cho_qty_org = $hmr_product_shake_1_choco_qty;
+                $hmr_120_van_qty_org = $hmr_product_shake_1_valina_qty;
+                $hmr_70_cho_qty = $_SESSION['something_off_the_wall']['secondproduct']['hmr_70_cho_qty'];
+                $hmr_70_van_qty = $_SESSION['something_off_the_wall']['secondproduct']['hmr_70_van_qty'];
+                $hmr_70_cho_qty_org = $hmr_product_shake_2_choco_qty;
+                $hmr_70_van_qty_org = $hmr_product_shake_2_valina_qty;
+                foreach ($allEntrees_result as $key => $value) {
+                    if ($_SESSION['something_off_the_wall']['secondproduct']['hmr_entree_' . ($key + 1) . '_qty'] > 0) {
+                        $entrees_output[$key]['checked'] = 'checked="checked"';
+                    } else {
+                        $entrees_output[$key]['checked'] = '';
+                    }
+                    $entrees_output[$key]['qty'] = $_SESSION['something_off_the_wall']['secondproduct']['hmr_entree_' . ($key + 1) . '_qty'];
+                    $entrees_output[$key]['org'] = $product_variety_result_qty[$key];
+                }
+            } else
+            {
+                $defaultKitConfiguration = true;
+            }
+        } else
+        {
+            $defaultKitConfiguration = true;
+        }
+    }
+} else {
+    $defaultKitConfiguration = true;
+}
+
+if ($defaultKitConfiguration)
+{
+    $hmr_120_cho_qty = $hmr_product_shake_1_choco_qty;
+    $hmr_120_van_qty = $hmr_product_shake_1_valina_qty;
+    $hmr_120_cho_qty_org = $hmr_product_shake_1_choco_qty;
+    $hmr_120_van_qty_org = $hmr_product_shake_1_valina_qty;
+    $hmr_70_cho_qty = $hmr_product_shake_2_choco_qty;
+    $hmr_70_van_qty = $hmr_product_shake_2_valina_qty;
+    $hmr_70_cho_qty_org = $hmr_product_shake_2_choco_qty;
+    $hmr_70_van_qty_org = $hmr_product_shake_2_valina_qty;
+    foreach ($allEntrees_result as $key => $value) {
+
+        $entrees_output[$key]['checked'] = 'checked="checked"';
+
+        if (isset($product_variety_result_qty[$key]))
+        {
+            $entrees_output[$key]['qty'] = $product_variety_result_qty[$key];
+            $entrees_output[$key]['org'] = $product_variety_result_qty[$key];
+        } else {
+            $entrees_output[$key]['qty'] = 0;
+            $entrees_output[$key]['org'] = 0;
+        }
+    }
+}
+
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+$enable_upsell = Mage::getStoreConfig('shoppersettings/labels/enable_upsell');
+$replace_upsell = Mage::getStoreConfig('shoppersettings/labels/replace_upsell');
+$helper = $this->helper('shoppersettings/image');
+list($defaultImgX, $defaultImgY) = $helper->getDefaultSize();
+list($imgX, $imgY) = $helper->getMainSize();
+if ($imgX > 800) {
+    $imgX = 800;
+    $imgY = $helper->calculateHeight($imgX);
+}
+$product_img_box_width = $defaultImgX;
+if ($defaultImgX != $imgX) {
+    $product_img_box_width = $imgX;
+}
+$product_img_box_width += 18;
+?>
+<?php
+if (!$_category = Mage::registry('current_category')) {
+    $_product = Mage::getSingleton('catalog/product')->load($_product->getId());
+    $categories = $_product->getCategoryIds();
+    if (isset($categories[0]))
+    {
+        $_category = Mage::getModel('catalog/category')->load($categories[0]);
+    }
+}
+if ($_category) {
+    echo '<div class="product-category-title">' . $_category->getName() . '</div>';
+}
+?>
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    //]]>
+    function changeQty(id, val, total) {
+        //alert(val);
+        splitId = id.split('_');
+        if (splitId[2] == 'cho') {
+            cat = 'van';
+        } else {
+            cat = 'cho';
+        }
+        other_chk = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_chk");
+        other_qty = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_qty");
+        this_qty = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty");
+        this_chk = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_chk");
+
+        if (val > 0) {
+            // check to see if the qty is valid, not more than the total allowed
+
+            if (val <= total) {
+                // this is valid continue
+                // make sure this check box is checked
+                this_chk.checked = true;
+
+                if (val == total) {
+                    // the other text box needs to be 0 and check box unchecked
+                    other_chk.checked = false;
+                    other_qty.value = 0;
+                } else {
+                    // the other text box needs to be reduced by this amount
+                    other_qty.value = total - val;
+                    other_chk.checked = true;
+                }
+            } else {
+                // qty entered is greater than what is allowed for this category
+                // make this qty = total
+                this_qty.value = total;
+                this_chk.checked = true;
+                // make the other qty = 0
+                other_qty.value = 0;
+                // make other check box unchecked
+                other_chk.checked = false;
+            }
+        } else {
+            // value is less <= 0
+            // make this qty = 0
+            this_qty.value = 0;
+            // uncheck this checkbox
+            this_chk.checked = false;
+            // make other checkbox checked
+            other_chk.checked = true;
+            // make other qty = total
+            other_qty.value = total;
+        }
+    }
+    function changeChk(id, total) {
+        thisChk = document.getElementById(id);
+
+        splitId = id.split('_');
+        if (splitId[2] == 'cho') {
+            cat = 'van';
+        } else {
+            cat = 'cho';
+        }
+        other_qty_field = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_qty");
+        other_qty_field_org = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_qty_org");
+        other_chk = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_chk");
+        if (thisChk.checked) {
+            // this element is now checked
+            // make the qty for this checkbox = 1
+            this_qty = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty");
+            this_qty_org = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty_org");
+            if (this_qty_org.value == 0) {
+                // the original value was zero but they checkedt this box.
+                this_qty.value = 1;
+                other_qty_field.value = other_qty_field_org.value - 1;
+                if (other_qty_field.value == 0) {
+                    other_chk.checked = false;
+                } else {
+                    other_chk.checked = true;
+                }
+            } else {
+                this_qty.value = this_qty_org.value;
+                // reduce the other qty by 1
+                other_qty = other_qty_field_org.value;
+                other_qty_field.value = other_qty;
+                // if other qty is now 0 uncheck other check box
+                if (other_qty == 0) {
+
+                    other_chk.checked = false;
+                } else {
+                    other_chk.checked = true;
+                }
+            }
+
+        } else {
+            // this checkbox is now NOT checked
+            // make qty for this checkbox = 0
+            this_qty = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty");
+            this_qty.value = 0;
+            // check other check box
+            other_chk = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_chk");
+            other_chk.checked = true;
+            // make other qty = total
+            other_qty_field = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + cat + "_qty");
+            other_qty_field.value = total;
+        }
+    }
+
+    function entreeChg(id, productTotalEntrees) {
+        // the only thing we are concerned with here is the checkbox and qty that match up
+        // we are just going to code if the checkbox is checked or unchecked and the qty changes to or from 0
+        splitId = id.split('_');
+        this_chk = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_chk");
+        this_qty = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty");
+        this_qty_org = document.getElementById(splitId[0] + "_" + splitId[1] + "_" + splitId[2] + "_qty_org");
+        if (splitId[3] == 'chk') {
+            // someone just checked or unchecked a box
+            if (this_chk.checked) {
+                // it is now checked make qty = 1
+                this_qty.value = this_qty_org.value;
+            } else {
+                // it is now unchecked make qty = 0
+                this_qty.value = 0;
+            }
+        } else if (splitId[3] == 'qty') {
+            // the qty changed
+            if (this_qty.value > 0) {
+                // qty is > 0 check the checkbox
+                this_chk.checked = true;
+            } else if (this_qty.value <= 0) {
+                // it is now less than or = to 0
+                // uncheck the box and make the qty 0
+                this_chk.checked = false;
+                this_qty.value = 0;
+            }
+        }
+        tE = document.getElementById('hmr_entree_total_dishes').value;
+        totalEntrees = 0;
+        for (h = 1; h <= tE; h++) {
+            totalEntrees += parseInt(document.getElementById('hmr_entree_' + h + '_qty').value);
+        }
+        Entrees1 = document.getElementById('hmr_entree_counter');
+        Entrees1.value = totalEntrees;
+        Entrees2 = document.getElementById('hmr_entree_counter_2');
+        Entrees2.value = totalEntrees;
+
+        if (productTotalEntrees == totalEntrees) {
+            Entrees1.className = 'varietyentree entreeCounter green';
+            Entrees2.className = 'varietyentree entreeCounter green';
+        } else {
+            Entrees1.className = 'varietyentree entreeCounter red';
+            Entrees2.className = 'varietyentree entreeCounter red';
+        }
+    }
+    function custom() {
+        jQuery.noConflict();
+        jQuery('.varietyentree').each(function (i) {
+            jQuery(this).removeAttr('readonly');
+        });
+    }
+    function sampler() {
+        jQuery.noConflict();
+        jQuery('.varietyentree').each(function (i) {
+            jQuery(this).attr('readonly', 'readonly');
+        });
+    }
+    function showvalue(textinputvalue, inputboxid) {
+        var jQ = jQuery.noConflict();
+        jQ('#entree_' + inputboxid).removeAttr('readonly');
+        if (jQ('#chk_' + inputboxid).is(':checked')) {
+            jQ('#entree_' + inputboxid).val(textinputvalue);
+        } else {
+            jQ('#entree_' + inputboxid).val(0);
+        }
+    }
+    function continuenext(productTotalEntrees) {
+        var jQ = jQuery.noConflict();
+        tE = document.getElementById('hmr_entree_total_dishes').value;
+        totalEntrees = 0;
+        for (h = 1; h <= tE; h++) {
+            totalEntrees += parseInt(document.getElementById('hmr_entree_' + h + '_qty').value);
+        }
+        if (totalEntrees == productTotalEntrees) {
+            jQ('#hError').css("display", "none");
+            jQ('#product_addtocart_form').submit();
+        } else {
+            jQ('#hError').css("display", "block");
+        }
+    }
+    //]]>
+</script>
+<script>
+    jQuery.noConflict();
+    jQuery(function () {
+        jQuery("#accordion").accordion();
+    });
+</script>
+<?php echo $this->getChildHtml('global_messages') ?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<div class="product-view">
+    <?php if ( 1 )://$_SERVER['REMOTE_ADDR'] == '50.202.41.102'): ?> <?php if ( $_product->getHmrProduct() == 1 ): //Is this a kit page at all? ?> <?php $classes = ''; ?> <?php if ( $hmr_product_2_week_product ): //Need to go to 2 week next, This means it is the first product ?> <?php $classes = 'kitStage1'; ?> <?php else: ?> <?php $classes = 'kitStage2'; ?> <?php endif; ?>
+    <div class="kitProgressContainer <?php if (isset($classes)) {
+        echo $classes;
+    } ?>">
+        <div class="kitStep1 kitStep"></div>
+        <div class="kitStep2 kitStep"></div>
+        <div class="kitStep3 kitStep"></div>
+        <div class="clearfix"></div>
+    </div>
+    <?php endif; ?> <?php endif; ?>
+    <div class="product-essential">
+        <?php if ($_product->getHmrProduct() == 1)
+        { ?>
+        <form action="<?php
+        if ($hmr_product_2_week_product) {
+            echo $_product_2_week->getProductUrl();
+        } else {
+            echo str_replace('http://', '//', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)) . 'index.php/shop/hmr-at-home/hmr-programs/summary-review';
+        } ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <?php } else
+            { ?>
+            <form action="<?php echo str_replace('http://', '//', $this->getSubmitUrl($_product)); ?>" method="post" id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                <?php } ?>
+                <input type="hidden" value="<?php echo $hmr_product_shake_1_choco_qty + $hmr_product_shake_1_valina_qty; ?>" id="tot_flavour1" name="shake1_tot_value">
+                <input type="hidden" name="subscription" value="<?php echo $prod->getSubscriptionOccurance(); ?>">
+                <div class="no-display">
+                    <input type="hidden" name="product" value="<?php echo $_product->getId() ?>"/>
+                    <input type="hidden" name="related_product" id="related-products-field" value=""/>
+                </div>
+                <div class="product-img-box" style="width:<?php echo $product_img_box_width; ?>px"> <?php echo $this->helper('shoppersettings')->getLabel($_product); ?><?php echo $this->getChildHtml('media') ?>
+                </div>
+                <div class="product-shop">
+                    <?php
+                    $output = '';
+                    switch ($replace_upsell) {
+                        case 'always':
+                            break;
+                        case 'never':
+                            if ($enable_upsell) {
+                                $output = '';
+                            }
+                            break;
+                        case 'only':
+                            if ($enable_upsell) {
+                                $output = $this->getChildHtml('upsell_products');
+                            }
+                            break;
+                    }
+                    if (!empty($output)) {
+                        echo '<div class="product-additional">' . $output . '</div>';
+                    }
+                    ?>
+                    <div class="product-shop-info">
+                        <div class="product-name">
+                            <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                        </div><?php $qAttribute = $_product->getResource()->getAttribute('quantity_of_servings'); ?>
+                        <?php if ($qAttribute) : ?>
+                            <div class="numServings"><?php echo $attribute_value = $qAttribute->getFrontend()->getValue($_product); ?></div>
+                        <?php endif; ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product, false, true); ?> <?php echo $this->getChildHtml('alert_urls'); ?>
+
+                        <?php echo $this->getPriceHtml($_product); ?>
+                        <?php if ($_product->isSaleable()): ?>
+                            <p class="availability"><?php echo $this->__('In stock') ?></p>
+                        <?php else: ?>
+                            <p class="availability"><?php echo $this->__('Out of stock') ?></p>
+                        <?php endif; ?>
+                        <?php echo $this->getTierPriceHtml(); ?> <?php echo $this->getChildHtml('extrahint'); ?>
+                        <?php if ($_product['subscription_occurance'] == 73) { ?>
+                            <div class="order-change-notice">Update your recurring
+                                <strong>HMR&reg; at Home</strong> order before it ships from inside your customer account at any time!
+                            </div>
+                        <?php } ?>
+                        <?php if ($_product->getShortDescription()): ?>
+                            <div class="short-description">
+                                <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?>
+                                    <br/>
+                                    <?php $symbols = $_product->getHealthSymbols();
+                                    $symbols = explode(',', $symbols);
+                                    foreach ($symbols as $symbol) {
+                                        if (!empty($symbol)) {
+                                            if ($symbol == '99') {
+                                                $title = "Kosher";
+                                            } elseif ($symbol == '98') {
+                                                $title = "Gluten Free";
+                                            } elseif ($symbol == '97') {
+                                                $title = "Vegetarian";
+                                            }
+                                            echo '<img class="health-symbol-icon test" src="/media/health-symbols/' . $symbol . '.png" alt="' . $title . '" title="' . $title . '" />&nbsp;';
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($_product->getHmrProduct() == 1): ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+                <?php echo $this->getChildHtml('other'); ?>
+                <?php if ($_product->getHmrProduct() == 1)
+                { ?>
+                <div class="collups_area">
+                    <input type="hidden" value="<?php echo $no_of_entrees; ?>" id="tot_variety_entrees">
+                    <input type="hidden" value="<?php echo $hmr_product_shake_2_choco_qty + $hmr_product_shake_2_valina_qty; ?>" id="tot_70_shakes_value">
+                    <input type="hidden" value="<?php echo $hmr_product_shake_1_choco_qty + $hmr_product_shake_1_valina_qty; ?>" id="tot_120_shakes_value">
+                    <div id="accordion">
+                        <?php
+                        $hmr_120_total = $hmr_120_cho_qty + $hmr_120_van_qty;
+                        $hmr_70_total = $hmr_70_cho_qty + $hmr_70_van_qty;
+                        $step_counter = 1;
+                        ?> 
+                            
+                            <?php if ($hmr_120_total > 0) { ?>
+                                <h3><span class='kits-step'>
+	                <?php echo $step_counter++; ?>
+	                
+	                </span> Choose <?php echo $hmr_120_total; ?> 
+	                        cans HMR® 120 Shake
+	                    
+	                	<span style='color:#9A1212; font-size:14px;'>*</span>
+                                </h3>
+                                <div>
+                                    <div class='counterWrap'>
+                                        <div class='disclaimer-wide'>
+                                            <p>Below is a sampler of the most popular HMR&reg; 120 selection. Feel free to customize your selections to your tastes.</p>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <div class="kits-item kits-left">
+                                            <li><span>HMR® 120 - Chocolate</span>
+                                                <div class="chk">
+                                                    <?php if ($hmr_120_cho_qty > 0) {
+                                                        $checked = "checked = 'checked'";
+                                                    } else {
+                                                        $checked = "";
+                                                    } ?>
+                                                    <input type="checkbox" id="hmr_120_cho_chk" onclick="changeChk(this.id, <?php echo $hmr_120_total; ?>)" <?php echo $checked; ?> /> &nbsp;&nbsp; Quantity:&nbsp;&nbsp;<span>
+	                        <input type="text" class="varietyentree" onchange="changeQty(this.id, this.value, <?php echo $hmr_120_total; ?>);" maxlength="1" size="5" value="<?php echo $hmr_120_cho_qty; ?>" id="hmr_120_cho_qty" name="hmr_120_cho_qty"/>
+	                        <input type="hidden" value="<?php echo $hmr_120_cho_qty_org; ?>" id="hmr_120_cho_qty_org"/>
+	                        </span></div>
+                                            </li>
+                                        </div>
+                                        <div class="kits-item kits-right">
+                                            <li><span>HMR® 120 - Vanilla</span>
+                                                <div class="chk">
+                                                    <?php if ($hmr_120_van_qty > 0) {
+                                                        $checked = "checked = 'checked'";
+                                                    } else {
+                                                        $checked = "";
+                                                    } ?>
+                                                    <input type="checkbox" id="hmr_120_van_chk" onclick="changeChk(this.id, <?php echo $hmr_120_total; ?>)" <?php echo $checked; ?> /> Quantity: <span>
+	                        <input type="text" class="varietyentree" onchange="changeQty(this.id, this.value, <?php echo $hmr_120_total; ?>);" maxlength="1" size="5" value="<?php echo $hmr_120_van_qty; ?>" id="hmr_120_van_qty" name="hmr_120_van_qty"/>
+	                        <input type="hidden" value="<?php echo $hmr_120_van_qty_org; ?>" id="hmr_120_van_qty_org"/>
+	                        </span></div>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            <?php }
+                            if ($hmr_70_total > 0) { ?>
+                                <h3><span class='kits-step'>
+                <?php
+                echo $step_counter++; ?>
+                </span> Choose <?php echo $hmr_70_total; ?> HMR® 70 Plus Vanilla or Chocolate<span style='color:#9A1212; font-size:14px;'>*</span>
+                                </h3>
+                                <div>
+                                    <div class='counterWrap'>
+                                        <div class='disclaimer-wide'>
+                                            <p>Below is a sampler of the most popular HMR&reg; 70 plus selection. Feel free to customize your selections to your tastes.</p>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <div class="kits-item kits-left">
+                                            <li><span>HMR® 70 Plus - Chocolate</span>
+                                                <div class="chk">
+                                                    <?php if ($hmr_70_cho_qty > 0) {
+                                                        $checked = "checked = 'checked'";
+                                                    } else {
+                                                        $checked = "";
+                                                    } ?>
+                                                    <input type="checkbox" onclick="changeChk(this.id, <?php echo $hmr_70_total; ?>)" id="hmr_70_cho_chk" <?php echo $checked; ?> /> &nbsp;&nbsp; Quantity:&nbsp;&nbsp;<span>
+                        <input type="text" class="varietyentree" onchange="changeQty(this.id, this.value, <?php echo $hmr_70_total; ?>);" maxlength="1" size="5" value="<?php echo $hmr_70_cho_qty; ?>" id="hmr_70_cho_qty" name="hmr_70_cho_qty">
+                        <input type="hidden" value="<?php echo $hmr_70_cho_qty_org; ?>" id="hmr_70_cho_qty_org"/>
+                        </span></div>
+                                            </li>
+                                        </div>
+                                        <div class="kits-item kits-right">
+                                            <li><span>HMR® 70 Plus - Vanilla</span>
+                                                <div class="chk">
+                                                    <?php if ($hmr_product_shake_2_valina_qty > 0) {
+                                                        $checked = "checked = 'checked'";
+                                                    } else {
+                                                        $checked = "";
+                                                    } ?>
+                                                    <input type="checkbox" onclick="changeChk(this.id, <?php echo $hmr_70_total; ?>)" id="hmr_70_van_chk" <?php echo $checked; ?> /> Quantity: <span>
+                        <input type="text" onchange="changeQty(this.id, this.value, <?php echo $hmr_70_total; ?>);" maxlength="1" size="5" value="<?php echo $hmr_70_van_qty; ?>" id="hmr_70_van_qty" name="hmr_70_van_qty" class="varietyentree"/>
+                        <input type="hidden" value="<?php echo $hmr_70_van_qty_org; ?>" id="hmr_70_van_qty_org"/>
+                        </span></div>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            <?php } ?>
+                            <h3> <span class='kits-step'>
+                <?php
+                echo $step_counter; ?>
+                </span> Choose <?php echo $no_of_entrees; ?> HMR® Entrees<span style='color:#9A1212; font-size:14px;'>*</span>
+                            </h3>
+                            <div>
+                                <div class='counterWrap'>
+                                    <div class='disclaimer'>
+                                        <p>Below is a sampler of the most popular entree selection. Feel free to customize your selections to your tastes.</p>
+                                    </div>
+                                    <div class='myCounter'>
+                                        <div>
+                                            <p><span>Current #:</span>
+                                                <input id='hmr_entree_counter_2' value='<?php echo $no_of_entrees; ?>' readonly size='5' class='varietyentree entreeCounter green'/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='clear'></div>
+                                <ul>
+                                    <?php
+                                    $no_dishes = 0;
+                                    foreach ($allEntrees_result as $key => $value) {
+                                        $no_dishes++;
+                                        ?>
+                                        <div <?php if (($key + 1) % 2 != 0)
+                                             { ?>class="kits-item kits-left" <?php } else
+                                             { ?>class="kits-item kits-right" <?php } ?> >
+                                            <li><span><?php echo $value['entree_name']; ?></span>
+                                                <div class="chk">
+                                                    <input type="checkbox" value="entree_<?php echo $value['entree_id']; ?>" onclick="entreeChg(this.id, <?php echo $no_of_entrees; ?>)" id="hmr_entree_<?php echo $value['entree_id']; ?>_chk" <?php if (isset($entrees_output[$key])): echo $entrees_output[$key]['checked']; endif; ?> /> &nbsp;&nbsp; Quantity:&nbsp;&nbsp;<span>
+                        <input type="text" class="varietyentree" onblur="entreeChg(this.id, <?php echo $no_of_entrees; ?>);" size="5" value="<?php if (isset($entrees_output[$key])): echo $entrees_output[$key]['qty']; endif; ?>" id="hmr_entree_<?php echo $value['entree_id']; ?>_qty" name="hmr_entree_<?php echo $value['entree_id']; ?>_qty"/>
+                        <input id="hmr_entree_<?php echo $value['entree_id']; ?>_qty_org" type="hidden" value="<?php if (isset($entrees_output[$key])): echo $entrees_output[$key]['org']; endif; ?>"/>
+                        </span></div>
+                                            </li>
+                                        </div>
+                                    <?php }
+                                    ?>
+                                    <input id="hmr_entree_total_dishes" type="hidden" value="<?php echo $no_dishes; ?>">
+                                </ul>
+                                <div class='counterWrap'>
+                                    <div class='disclaimer'> * Vegetarian Dishes</div>
+                                    <div class='myCounter'>
+                                        <div>
+                                            <p><span>Current #:</span>
+                                                <input id='hmr_entree_counter' value='<?php echo $no_of_entrees; ?>' readonly size='5' class='varietyentree entreeCounter green'/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="updateDivButton" style="float:right;">
+                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tbody>
+                            <tr>
+                                <td><?php if ($hmr_product_2_week_product): //Need to go to 2 week next, This means it is the first product ?><?php else: //Is 2 week product ?>
+                                        <a href="<?php
+                                        $initialKitId = $_SESSION['something_off_the_wall']['firstproduct']['product'];
+                                        $myProduct = Mage::getModel('catalog/product')->load($initialKitId);
+                                        echo $myProduct->getProductUrl(); ?>" class="Kit_Back_Button"><span>Back</span></a>
+                                    <?php endif; ?>
+                                    <div class='error kits-error' style='display:none;' id='hError'>ERROR: Entrees must equal <?php echo $no_of_entrees; ?></div>
+                                </td>
+                                <td align="right"><?php if ($hmr_product_2_week_product) { ?><?php $_product_2_week = Mage::getModel('catalog/product')->load($hmr_product_2_week_product); ?><?php $nextProdUrl = $_product_2_week->getProductUrl(); ?>
+                                        <button onclick="continuenext(<?php echo $no_of_entrees; ?>)" class="button button_next" title="Next" type="button" id="next_subscription_product">
+                                            <span><span>NEXT</span></span></button>
+                                    <?php } else { ?>
+                                        <button onclick="continuenext(<?php echo $no_of_entrees; ?>)" class="button button_next" title="Next" type="button" id="next_subscription_product">
+                                            <span><span>NEXT</span></span></button>
+                                    <?php } ?></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <?php } ?>
+                    <?php if (!in_array($_product->getId(), array_merge($kitIds, $recurringKitIds))){ ?>
+                    <?php if ($_product['subscription'] == 0) { ?><?php if (!$_product->isGrouped()): ?>
+                        <div class="qty-container clearfix">
+                            <label for="qty"><?php echo $this->__('Qty') ?>:</label>
+                            <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty"/>
+                            <?php echo $this->getChildHtml('product_type_data'); ?> </div>
+                    <?php endif; ?><?php if (!$this->hasOptions()): ?>
+                        <div class="add-to-box">
+                            <?php if ($_product->isSaleable()): ?><?php echo $this->getChildHtml('addtocart') ?><?php endif; ?>
+                        </div>
+                        <?php echo $this->getChildHtml('extra_buttons') ?><?php endif; ?><?php } ?>
+                    <?php if ($_product->isSaleable() && $this->hasOptions()): ?><?php echo $this->getChildChildHtml('container1', '', true, true) ?><?php endif; ?>
+                    <?php if ($_product->isSaleable() && $this->hasOptions()): ?><?php echo $this->getChildChildHtml('container2', '', true, true) ?><?php endif; ?>
+                    <div class="clear"></div>
+                    <?php echo $this->getChildHtml('shopper_product_addthis') ?> </div>
+                <!--START PIN BUTTON-->
+                <?php
+                $_pinlink['url'] = $_product->getProductUrl();
+                $_pinlink['media'] = $this->helper('catalog/image')->init($_product, 'image')->__toString();
+                $_pinlink['description'] = $_helper->productAttribute($_product, $_product->getName(), 'name') . " - " . strip_tags($_product->getDescription());
+                ?>
+                <a href="http://pinterest.com/pin/create/button/?<?php echo http_build_query($_pinlink) ?>" class="pin-it-button" count-layout="horizontal"></a>
+                <!--END PIN BUTTON-->
+    </div>
+    <?php if ( !$this->hasOptions() ): ?>
+    <div class="add-to-box"></div>
+    <?php echo $this->getChildHtml('extra_buttons') ?> <?php elseif ( !$_product->isSaleable() ): ?>
+    <div class="add-to-box"> <?php echo $this->getChildHtml('addto') ?> </div>
+    <?php endif; ?> <?php if ( $_product->isSaleable() && $this->hasOptions() ): ?> <?php echo $this->getChildChildHtml('container1', '', true, true) ?> <?php endif; ?> <?php }
+    else {
+        if ($_product->isSaleable() && $this->hasOptions()) {
+            if (!in_array($_product->getId(), array_merge($kitIds, $recurringKitIds))) {
+                echo $this->getChildChildHtml('container2', '', true, true);
+            }
+        }
+        echo "<p>&nbsp;</p>";
+    } ?>
+    </form>
+    <script type="text/javascript">
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function (button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function (button, url) {
+            if (this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+
+        <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : ?>
+
+        function setAjaxData(data, iframe) {
+            //showMessage(data.message);
+            if (data.status != 'ERROR' && jQuery('.cart-top-container').length) {
+                jQuery('.cart-top-container').replaceWith(data.cart_top);
+            }
+        }
+
+        function showMessage(message) {
+            jQuery('body').append('<div class="alert"></div>');
+            var $alert = jQuery('.alert');
+            $alert.slideDown(400);
+            $alert.html(message).append('<button></button>');
+            jQuery('button').click(function () {
+                $alert.slideUp(400);
+            });
+            $alert.slideDown('400', function () {
+                setTimeout(function () {
+                    $alert.slideUp('400', function () {
+                        jQuery(this).slideUp(400, function () {
+                            jQuery(this).detach();
+                        })
+                    });
+                }, 7000)
+            });
+        }
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function (button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+                if (url) {
+                    form.action = url;
+                }
+                var e = null;
+                // Start of our new ajax code
+                if (!url) {
+                    url = jQuery('#product_addtocart_form').attr('action');
+                }
+                url = url.replace("checkout/cart", "ajax/index"); // New Code
+                var data = jQuery('#product_addtocart_form').serialize();
+                data += '&isAjax=1';
+                jQuery('#ajax_loading' + jQuery('#product_addtocart_form').find("[name='product']").val()).css('display', 'block');
+                try {
+                    jQuery.ajax({
+                        url: url,
+                        dataType: 'json',
+                        type: 'post',
+                        data: data,
+                        success: function (data) {
+                            jQuery('#ajax_loading' + jQuery('#product_addtocart_form').find("[name='product']").val()).css('display', 'none');
+                            setAjaxData(data, true);
+                            showMessage(data.message);
+                            jQuery('.cart-top-container').addClass('item-in-cart');
+                        }
+                    });
+                } catch (e) {
+                }
+                // End of our new ajax code
+                this.form.action = oldUrl;
+
+                if (e) {
+                    throw e;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        <?php endif; ?>
+    </script>
+    <!-- ADDITIONAL -->
+    <?php echo $this->getChildHtml('product_additional_data') ?>
+    <!-- ADDITIONAL -->
+</div>
+<?php
+$output = '';
+switch ($replace_upsell) {
+    case 'always':
+        break;
+    case 'never':
+        if ($enable_upsell) {
+            $output = $this->getChildHtml('upsell_products2');
+        }
+        break;
+    case 'only':
+        if ($enable_upsell) {
+            $output = '';
+        }
+        break;
+}
+if (!empty($output)) {
+    echo $output;
+}
+?>
+<?php
+$after_tabs_block = Mage::getModel('cms/block')->load('shopper_after_tabs');
+if ($after_tabs_block->getIsActive()) {
+    echo '<div class="after-tabs-block additional-block">' . $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_after_tabs')->toHtml() . '</div>';
+}
+?>
+<!-- RELATED -->
+<?php echo $this->getChildHtml('content_related') ?>
+<!-- RELATED --></div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var d = new Date();
+        d.setDate(d.getDate() + 14);
+        var curr_date = d.getDate();
+        var curr_date = ("0" + curr_date).slice(-2);
+        var curr_month = parseInt(d.getMonth()) + 1; //Months are zero based
+        var curr_month = ("0" + curr_month).slice(-2);
+        var curr_year = d.getFullYear();
+        var formattedString = curr_month + '/' + curr_date + '/' + curr_year + ' 8:00 AM';
+        jQuery('#recurring_start_date').attr('value', formattedString);
+    })
+</script>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

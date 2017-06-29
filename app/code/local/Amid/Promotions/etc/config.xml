@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @category    Amid
+* @package     Amid_Promotions
+* @copyright   (C) 2015 Perficient
+* @author      Dan Joseph <dan.joseph@perficient.com>
+*/
+-->
+<config>
+    <modules>
+        <Amid_Promotions>
+            <version>1.1.0</version>
+        </Amid_Promotions>
+    </modules>
+    <global>
+        <models>
+            <amid_promotions>
+                <class>Amid_Promotions_Model</class>
+            </amid_promotions>
+            <salesrule>
+                <rewrite>
+                    <rule>Amid_Promotions_Model_SalesRule_Rule</rule>
+                    <rule_condition_product>Amid_Promotions_Model_SalesRule_Rule_Condition_Product</rule_condition_product>
+                    <rule_condition_address>Amid_Promotions_Model_SalesRule_Rule_Condition_Address</rule_condition_address>
+                </rewrite>
+            </salesrule>
+            <enterprise_reminder>
+                <rewrite>
+                    <rule>Amid_Promotions_Model_Rule</rule>
+                </rewrite>
+            </enterprise_reminder>
+            <enterprise_reminder_resource>
+                <rewrite>
+                    <rule>Amid_Promotions_Model_Resource_Rule</rule>
+                </rewrite>
+            </enterprise_reminder_resource>
+        </models>
+        <blocks>
+            <enterprise_reminder>
+                <rewrite>
+                    <adminhtml_reminder_edit_tab_general>Amid_Promotions_Block_Adminhtml_Reminder_Edit_Tab_General</adminhtml_reminder_edit_tab_general>
+                </rewrite>
+            </enterprise_reminder>
+        </blocks>
+        <helpers>
+            <amid_promotions>
+                <class>Amid_Promotions_Helper</class>
+            </amid_promotions>
+        </helpers>
+        <resources>
+            <amid_promotions_setup>
+                <setup>
+                    <module>Amid_Promotions</module>
+                    <class>Mage_Sales_Model_Resource_Setup</class>
+                </setup>
+            </amid_promotions_setup>
+        </resources>
+        <events>
+            <sales_quote_product_add_after>
+                <observers>
+                    <amid_promotions_observer>
+                        <type>singleton</type>
+                        <class>Amid_Promotions_Model_Observer</class>
+                        <method>saveIsEngraving</method>
+                    </amid_promotions_observer>
+                </observers>
+            </sales_quote_product_add_after>
+        </events>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <amid_promotions>
+                                            <title>Export Destinations</title>
+                                        </amid_promotions>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+        <amid_promotions>
+            <local>
+                <directory>/export/abandoned_cart/</directory>
+            </local>
+        </amid_promotions>
+    </default>
+</config>

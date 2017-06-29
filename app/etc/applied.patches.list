@@ -1,0 +1,4 @@
+2013-12-16 17:56:38 UTC | SUPEE-2518 | CE_1.7.0.2 | v1 | e6f2d2354843b1ca69988a44de1761ce180e746c | Thu Nov 21 12:44:53 2013 +0200 | v1.7.0.2..SUPEE-2518
+patching file app/code/core/Mage/Cms/Helper/Wysiwyg/Images.php
+
+

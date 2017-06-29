@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<layout>      
+	<adminhtml_mousetracking_index>
+		<!--
+    <reference name="head">    
+			<action method="addItem"><type>skin_css</type><name>popup/styles.css</name></action>
+      <action method="addItem"><type>skin_js</type><name>popup/jquery.js</name></action>
+      <action method="addItem"><type>skin_js</type><name>popup/script.js</name></action>
+		</reference>
+    -->   
+    <reference name="content">    
+        <block  type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+             <action method="setUseConfirm"><params>0</params></action>
+        </block>
+    </reference>    
+	</adminhtml_mousetracking_index>  
+	<adminhtml_popup_mousetracking>
+    <!--
+    <reference name="content">    
+        <block type="core/template" template="magebird/popup/example.phtml" name="popup.example" />
+    </reference>
+    --> 
+	</adminhtml_popup_mousetracking>  
+	<adminhtml_popup_index>
+    <reference name="content">
+        <block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+             <action method="setUseConfirm"><params>0</params></action>
+        </block>
+    </reference>  
+		<reference name="head">    
+			<action method="addItem"><type>skin_css</type><name>popup/styles.css</name></action>
+      <action method="addItem"><type>skin_js</type><name>popup/jquery.js</name></action>
+      <action method="addItem"><type>skin_js</type><name>popup/script.js</name></action>
+		</reference>
+	</adminhtml_popup_index>  
+	<adminhtml_popup_template>
+		<reference name="head">    
+			<action method="addItem"><type>skin_css</type><name>popup/styles.css</name></action>
+		</reference>
+	</adminhtml_popup_template>    
+  <adminhtml_popup_edit>
+	    <update handle="editor"/>
+    	<reference name="head">  
+        <action method="addItem"><type>skin_js</type><name>popup/jquery.js</name></action>
+    		<action method="addItem"><type>skin_js</type><name>popup/script.js</name></action>
+    	</reference>
+      <reference name="js">
+          <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+      </reference>      
+  </adminhtml_popup_edit>
+  <adminhtml_popup_duplicate>
+	    <update handle="editor"/>
+    	<reference name="head">
+        <action method="addItem"><type>skin_js</type><name>popup/jquery.js</name></action>    		                                                      
+    		<action method="addItem"><type>skin_js</type><name>popup/script.js</name></action>
+    	</reference>
+      <reference name="js">
+          <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+      </reference>      
+  </adminhtml_popup_duplicate> 
+  <adminhtml_popup_copy>
+	    <update handle="editor"/>
+    	<reference name="head">
+        <action method="addItem"><type>skin_js</type><name>popup/jquery.js</name></action>    		                                                      
+    		<action method="addItem"><type>skin_js</type><name>popup/script.js</name></action>
+    	</reference>
+      <reference name="js">
+          <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+      </reference>      
+  </adminhtml_popup_copy>      
+</layout>

@@ -1,0 +1,154 @@
+[16-Sep-2014 13:56:30 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 13:57:44 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 13:58:51 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 13:59:11 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:00:08 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:00:36 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:02:33 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:03:52 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:11:00 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:12:46 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:43:20 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:43:20 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:43:20 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:43:20 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:46:47 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:46:47 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:46:47 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:46:47 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:47:32 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:47:32 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:47:32 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:47:32 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:47:32 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:49:52 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:49:52 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:49:52 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:49:52 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:49:52 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:51:05 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:51:05 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:51:05 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:51:05 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:51:05 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:52:17 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:52:17 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:52:17 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:52:17 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:52:17 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:53:00 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:53:00 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:53:00 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:53:00 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:53:00 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:53:58 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:53:58 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:53:58 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:53:58 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:53:58 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:54:14 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:54:14 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:54:14 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:54:14 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:54:14 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:54:36 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:54:36 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:54:36 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:54:36 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:54:36 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:55:07 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 14:55:07 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:55:07 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:55:07 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 14:55:07 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 14:55:25 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:55:50 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 14:56:02 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:00:54 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:00:54 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:02:07 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:02:07 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:02:24 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:02:24 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:03:43 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:03:43 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:03:43 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:05:21 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:05:21 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:05:21 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:07:33 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:07:33 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:07:33 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:07:33 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:07:33 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:08:14 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:08:14 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:08:14 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:08:14 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:08:14 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:08:23 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:08:23 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:08:23 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:08:23 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:08:23 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:09:38 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:09:38 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:09:38 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:09:38 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:09:38 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:10:09 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:10:09 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:10:09 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:10:09 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:10:09 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:11:11 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:11:11 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:11:11 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:11:11 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:11:11 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:21:32 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:21:32 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:21:32 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:26:01 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:26:01 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:26:01 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:27:43 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:27:43 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:27:43 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:29:32 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:29:32 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:29:32 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:31:32 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:31:32 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:31:32 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[16-Sep-2014 15:31:56 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:31:56 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:31:56 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:32:48 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:32:48 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:32:48 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:33:17 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:33:17 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:33:17 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:33:34 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:33:34 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:33:34 UTC] PHP Notice:  Undefined index: usedforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[16-Sep-2014 15:34:26 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:34:26 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:55:50 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:55:50 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 15:56:10 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 15:56:10 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[16-Sep-2014 17:01:00 UTC] PHP Warning:  DateTime::createFromFormat(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[16-Sep-2014 17:01:00 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[17-Sep-2014 12:12:03 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[17-Sep-2014 12:12:03 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[17-Sep-2014 12:12:03 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[17-Sep-2014 12:12:03 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[17-Sep-2014 12:12:03 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14
+[17-Sep-2014 12:15:26 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[18-Sep-2014 13:53:02 UTC] PHP Notice:  Undefined index: fromdate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 11
+[18-Sep-2014 13:53:02 UTC] PHP Notice:  Undefined index: todate in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[18-Sep-2014 13:53:02 UTC] PHP Warning:  date(): Invalid date.timezone value 'America/New York', we selected the timezone 'UTC' for now. in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 12
+[18-Sep-2014 13:53:02 UTC] PHP Notice:  Undefined index: usdforpoint in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 13
+[18-Sep-2014 13:53:02 UTC] PHP Notice:  Undefined index: pointsforreward in /home/hackleyhhm/public_html/nextit/scripts/rewardsreports.php on line 14

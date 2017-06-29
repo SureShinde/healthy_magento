@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Amid Custom Options Module Configuration file
+ *
+ * @category  Amid
+ * @package   Amid_CustomOptions
+ * @copyright Copyright (c) 2015 Perficient, Inc. (http://commerce.perficient.com/)
+ * @author    Andrew Versalle <andrew.versalle@perficient.com>
+ */
+-->
+<config>
+    <modules>
+        <Amid_CustomOptions>
+            <version>0.0.1</version>
+        </Amid_CustomOptions>
+    </modules>
+    <global>
+        <blocks>
+            <amid_customoptions>
+                <class>Amid_CustomOptions_Block</class>
+            </amid_customoptions>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_edit_tab_options_option>Amid_CustomOptions_Block_Adminhtml_Catalog_Product_Edit_Tab_Options_Option</catalog_product_edit_tab_options_option>
+                </rewrite>
+                <rewrite>
+                    <catalog_product_composite_fieldset_options>Amid_CustomOptions_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options</catalog_product_composite_fieldset_options>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <amid_customoptions>
+                <class>Amid_CustomOptions_Helper</class>
+            </amid_customoptions>
+        </helpers>
+        <models>
+            <amid_customoptions>
+                <class>Amid_CustomOptions_Model</class>
+            </amid_customoptions>
+            <catalog>
+                <rewrite>
+                    <product_option>Amid_CustomOptions_Model_Catalog_Product_Option</product_option>
+                </rewrite>
+            </catalog>
+        </models>
+        <catalog>
+            <product>
+                <options>
+                    <custom>
+                        <groups>
+                            <amid translate="label" module="amid_customoptions">
+                                <label>AMID</label>
+                                <render>amid_customoptions/adminhtml_catalog_product_edit_tab_options_type_amid</render>
+                                <types>
+                                    <engraving translate="label" module="amid_customoptions">
+                                        <label>Engraving</label>
+                                    </engraving>
+                                </types>
+                            </amid>
+                        </groups>
+                    </custom>
+                </options>
+            </product>
+        </catalog>
+    </global>
+</config>

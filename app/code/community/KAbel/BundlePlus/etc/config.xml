@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * KAbel_BundlePlus
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to a BSD 3-Clause License
+ * that is bundled with this package in the file LICENSE_BSD_NU.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www1.unl.edu/wdn/wiki/Software_License
+ *
+ * @category    KAbel
+ * @package     KAbel_BundlePlus
+ * @copyright   Copyright (c) 2012 Regents of the University of Nebraska (http://www.nebraska.edu/)
+ * @license     http://www1.unl.edu/wdn/wiki/Software_License  BSD 3-Clause License
+ */ 
+-->
+<config>
+    <modules>
+        <KAbel_BundlePlus>
+            <version>0.2.2</version>
+        </KAbel_BundlePlus>
+    </modules>
+    
+    <global>
+        <blocks>
+            <bundle>
+                <rewrite>
+                    <!-- Unobtrusive Templates -->
+                    <adminhtml_catalog_product_composite_fieldset_options_type_checkbox>KAbel_BundlePlus_Block_Adminhtml_Catalog_Product_Composite_Fieldset_Options_Type_Checkbox</adminhtml_catalog_product_composite_fieldset_options_type_checkbox>
+                    <adminhtml_catalog_product_edit_tab_bundle_option>KAbel_BundlePlus_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option</adminhtml_catalog_product_edit_tab_bundle_option>
+                    <adminhtml_catalog_product_edit_tab_bundle_option_selection>KAbel_BundlePlus_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection</adminhtml_catalog_product_edit_tab_bundle_option_selection>
+                    <catalog_product_view_type_bundle_option_checkbox>KAbel_BundlePlus_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox</catalog_product_view_type_bundle_option_checkbox>
+                </rewrite>
+            </bundle>
+        </blocks>
+        <models>
+            <bundle>
+                <rewrite>
+                    <!-- User Defined Qty for Checkbox Bundle Option -->
+                    <product_type>KAbel_BundlePlus_Model_Product_Type</product_type>
+                </rewrite>
+            </bundle>
+        </models>
+    </global>
+    
+    <frontend>
+        <layout>
+            <updates>
+                <kabel_bundleplus module="KAbel_BundlePlus">
+                    <file>kabel_bundleplus.xml</file>
+                </kabel_bundleplus>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <kabel_bundleplus>
+                    <file>kabel_bundleplus.xml</file>
+                </kabel_bundleplus>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

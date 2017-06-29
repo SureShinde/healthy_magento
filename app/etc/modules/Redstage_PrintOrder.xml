@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Redstage_PrintOrder>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Redstage_PrintOrder>
+    </modules>
+</config>

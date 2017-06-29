@@ -1,0 +1,49 @@
+<?php	
+	$importProductsTotal = Mage::getSingleton('core/session')->getimportProductsTotal();
+	$importedProductsTotal = Mage::getSingleton('core/session')->getimportedProductsTotal();	
+	$error_msg = Mage::getSingleton('core/session')->getErrorMSG(); 
+	
+?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><h1><strong>osCommerce Products/Categories/Customers/Orders Import </strong></h1></td>
+  </tr>
+  <tr>
+    <td><strong>Step 5. Import Products</strong></td>
+  </tr>
+  <tr>
+    <td><br /><br />
+</td>
+  </tr>    
+	<?php if ($error_msg != ''){?>
+  <tr>
+    <td class="error"><hr /><h1><strong>ERROR</strong></h1><?php echo $error_msg; ?> <hr /></td>
+  </tr>    
+  <?php } ?>  
+  
+  <tr>
+    <td><br />
+    <?php if ($importProductsTotal != $importedProductsTotal) { ?>
+    Click the link below to import the products, every time that you click teh script will go to import <?php echo Mage::getStoreConfig('oscommerceimportconf/mageconfiguration/conf_totalperimport',Mage::app()->getStore()); ?> products<br /><br />
+      <a href="<?php echo $this->getUrl('oscommerceimport/index/step51/')?>">Please click to import</a>
+    <?php }else{?>  
+      Congratulation the products have been imported <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);  ?>Ezmage/OscommerceImport/check-ok.jpg" />
+    <?php }?>      
+      <br />
+      <br /> 
+      <br />
+      <strong>Total products to import:</strong> <?php echo $importProductsTotal; ?><br />
+      <strong>Total products imported:</strong> <?php echo $importedProductsTotal; ?></td>
+  </tr>
+  <tr>
+    <td><br />
+    <br />
+    <br />    <div align="center"><a href="<?php echo $this->getUrl('oscommerceimport')?>">Main Menu</a></div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center">Powered by <a href="http://www.ezmage.com/" target="_blank">ezMage</a> - We provide Magento Support 702-485-3332</div></td>
+  </tr>
+</table>

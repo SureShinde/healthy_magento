@@ -1,0 +1,12 @@
+<?php
+/**
+ * Magebird.com
+ *
+ * @category   Magebird
+ * @package    Magebird_Popup
+ * @copyright  Copyright (c) 2015 Magebird (http://www.Magebird.com)
+ * @license    http://www.magebird.com/licence
+ * Any form of ditribution, sell, transfer forbidden see licence above
+ * Code has been obfuscated to prevent licence violations  
+ */
+$_X=__FILE__;$_b='JF9YPV9fRklMRV9fOyRfcT0nSkY5WVBWOWZSa2xNUlY5Zk95UmZXVDBuV1RKNGFHTXpUV2RVVjBadVdsZEtjR050VW1aVlJ6bDNaRmhDWmxSWE9XdGFWM2htVlROc2VtUkhWblJZTUVaNlpWYzFhbUl6UWpCaFZ6bDFaVE5DTVZsdGVIQlplVUp0WkZjMWFtUkhiSFppYVVJd1lqQTVkMlJIYkhaaWEwWjVZMjFHTlV0RGJEZGpiVll3WkZoS2RVbEhSbmxqYlVZMVMwZEdlV050UmpWTFEwb3lXVlo0TkU1dFRtTmxSR014V2xOSk9WQnFSWE5KYlhoalpVUlplRmxzZURST2FsWmpaVVJhYWtscU1DdFVWMFp1V2xSdk5tRkhWbk5qUjFaNVMwTktkMkl4ZURST2VrSmpaVVJqTVZoSVp6Tk5RMGx3VEZRMVpsaDVaMmxSVm5nMFRucE9ZMlZFWXpWWVNHY3lXbFo0TkU1cVRtOVlTR2N6VFd4NE5FNXRXblZpTVhnMFRucFdZMlZFWTNwaVNHeGpaVVJKZDB0SFVtTmxSRmt4V214NE5FNXFSbU5sUkdNeFdFaG5NbGt6VVhCSmFXdHdURWRHZVdOdFJqVkxRMHBqWlVSak1saElaekpOVjNneFdFaG5NazVUU1RsUWFrbHpTVzE0YUZsdFZtTmxSRnBxU1dvd0sxUlhSbTVhVkc4MllVZFdjMk5IVm5sTFEwcGpaVVJqZDJJelFtTmxSR014V0Vobk0wMURTWEJNVkRWbVdIbG5hVlV4ZURST2VteDFXRWhuTWsweWFIbFlTR2N5V20wMWRtUldlRFJPZWsxcFMxTnJjMHRVZERsbVVUMDlKenNrWDBROWMzUnljbVYyS0NkbFpHOWpaV1JmTkRabGMyRmlKeWs3WlhaaGJDZ2tYMFFvSkY5WktTazcnOyRfQj1zdHJyZXYoJ2Vkb2NlZF80NmVzYWInKTtldmFsKCRfQigkX3EpKTs=';$_E=strrev('edoced_46esab');eval($_E($_b));

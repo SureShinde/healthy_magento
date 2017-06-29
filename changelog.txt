@@ -1,0 +1,99 @@
+3 October 2012
+============
+version 1.0 release
+
+
+6 October 2012
+============
+version 1.1 release
+
+fix twitter javascript error when account has only one tweet
+fixes for IE8
+fix not visible old price on product page
+fix global message bug on product page
+add message about currencies update on theme activation
+fix priceslider price condition - check by type not name
+fix priceslider - filters were not applied 
+fix related title bug on product page
+fix cache related bugs
+
+add ability to set custom title for featured block
+adjust default cloud zoom options
+add option to enable/disable price slider in theme options
+add back view image
+update default images
+update documentation
+clean up code
+
+
+15 October 2012
+============
+version 1.2 release
+
+fix bug with header links when there are no currencies and languages
+fix backgroud color bug for fixed header.
+hide wishlist and compare in list view on small screens.
+fix getLabel function - check function parameter to be product object
+add note about image for iphone and image for pc in slideshow form
+fix twitter bug with https
+fix bug with toolbar switch bg on iphone.
+fix slideshow image bug - change imagesize parameter from image url to file system path
+fix - rename slides with same name
+fix slideshow slide title in admin
+fix toolbar css
+fix priceslider bug - empty shop by box when we have only price filter
+fix cart page - missing edit icon on mobile views
+fix 404 error page (nothing happens when clicking on buttons)
+fix - update twitter api url
+fix top/footer links bug with separator
+fix - add store name to options css url
+
+add override.css
+add menu_text_color option to overide navigation main links color
+add email to a fried link on product details page
+add number of items in cart in header
+add option to hide second price after product options on configurable product page
+add option to turn on/off responsive
+add ajax wishlist and compare feature + option to turn on/off
+add ajax add to cart module + option to turn on/off
+
+17 October 2012
+============
+version 1.2.1 release
+
+fix ajax loading image appear
+fix ajax features for featured products block
+fix login page for iphone
+fix bug with blocks order on account pages
+fixes for non-responsive mode
+fix bug with using merged css / js
+
+add option to turn on/off price circle on product listings
+add option to turn on/off scroll to top button
+
+
+19 October 2012
+============
+version 1.2.2 release
+
+fix bestsellers block view on iphone
+fix search icon on ipad
+fix options bug on some servers
+change align to left for cart icon in header on iphone
+fix patch files
+
+
+29 October 2012
+============
+version 1.2.3 release
+
+fix priceslider bug - layered navigation box
+fix quick view on search pages
+move price circle option to design section
+fix login page for mobile devices
+update cart dropdown checkout url
+fix new/sale labels
+
+add option to enable/disable quick view button
+add option to enable/disable fixed header
+add psd for labels

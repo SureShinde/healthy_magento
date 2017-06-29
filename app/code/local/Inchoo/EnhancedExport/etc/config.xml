@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Inchoo_EnhancedExport>
+            <version>1.0.0.0</version>
+        </Inchoo_EnhancedExport>
+    </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+<!--                    <sales_order_grid>Inchoo_EnhancedExport_Block_Mage_Adminhtml_Sales_Order_Grid</sales_order_grid>-->
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Inchoo_EnhancedExport before="Mage_Adminhtml">Inchoo_EnhancedExport_Mage_Adminhtml</Inchoo_EnhancedExport>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

@@ -1,0 +1,91 @@
+<h2>Submit a Recipe</h2>
+<p>Share your recipes with others! After processing (which may take a few days), uploaded recipes will be available in our recipe list.</p>
+<form enctype="multipart/form-data" action="<?php echo Mage::getBaseUrl('web') ?>recipe/index/usersubmit" id="recipe-form" method="post">
+	<div class="recipe-form-header">Your Information</div>
+		<ul class="form-list">
+	        <li>
+	            <label class="required" for="first"><em>*</em>First Name</label>
+	            <div class="input-box">
+	                <input type="text" title="First Name" class="input-text required-entry" id="first" value="" name="fname">
+	            </div>
+	        </li>
+	        <li>
+	            <label class="required" for="last"><em>*</em>Last Name</label>
+	            <div class="input-box">
+	                <input type="text" title="Last Name" id="last" class="input-text required-entry" name="lname">
+	            </div>
+	        </li>
+	        <li>
+	            <label class="required" for="email"><em>*</em>Email</label>
+	            <div class="input-box">
+	                <input type="email" title="Email" id="email" class="input-text required-entry validate-email" name="email">
+	            </div>
+	        </li>
+        </ul>
+	<div class="recipe-form-header">Recipe</div>
+		<ul class="form-list">
+	        <li>
+	            <label class="required" for="title"><em>*</em>Title</label>
+	            <div class="input-box">
+	                <input type="text" title="Title" class="input-text required-entry" id="title" value="" name="title">
+	            </div>
+	        </li>
+	        
+	       	<li>
+	            <label class="required" for="desc"><em>*</em>Description or Comments</label>
+	            <div class="input-box">
+	            	<textarea title="Title" class="input-text required-entry" id="desc" name="desc"></textarea>
+	            </div>
+	        </li>
+			
+			<li>
+	            <label class="required" for="ingredients"><em>*</em>Ingredients</label>
+	            <div class="input-box">
+	            	<textarea title="Ingredients" class="input-text required-entry" id="ingredients" name="ingredients"></textarea>
+	            </div>
+	        </li>
+	        
+	        <li>
+	            <label class="required" for="directions"><em>*</em>Directions</label>
+	            <div class="input-box">
+	            	<textarea title="Directions" class="input-text required-entry" id="directions" name="directions"></textarea>
+	            </div>
+	        </li>
+	        
+	        <li>
+	            <label for="title">Dish Type (ie. Entree, Dessert, etc.)</label>
+	            <div class="input-box">
+	                <input type="text" title="Type" class="input-text" id="type" value="" name="type">
+	            </div>
+	        </li>
+	        <li>
+	            <label class="required" for="servings"><em>*</em>Servings</label>
+	            <div class="input-box">
+	                <input type="text" title="Servings" class="input-text required-entry" id="servings" value="" name="servings">
+	            </div>
+	        </li>
+	        <li>
+	            <label class="required" for="prep_time"><em>*</em>Time to Prepare</label>
+	            <div class="input-box">
+	                <input type="text" title="Time to Prepare" class="input-text required-entry" id="prep_time" value="" name="prep_time">
+	            </div>
+	        </li>
+	        
+	        <li>
+	            <label class="required" for="image"><em>*</em>Image</label>
+	            <div class="input-box">
+	                <input type="file" title="Image" class="input-text required-entry" id="image" value="" name="image">
+	            </div>
+	        </li>
+		</ul>
+		<button id="submit" name="submit" title="Submit" class="button" type="submit"><span><span>Submit Recipe</span></span></button>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('recipe-form', true);
+//]]>
+</script>
+<style>
+.recipe-form-header {padding: 5px; background-color: #ECECEC; margin-bottom: 5px; margin-top: 20px; font-weight: bold;}
+.form-list textarea {width: 400px;}
+</style>

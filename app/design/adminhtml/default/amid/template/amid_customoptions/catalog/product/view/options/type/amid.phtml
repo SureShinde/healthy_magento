@@ -1,0 +1,54 @@
+<?php
+/**
+ * Amid Custom Options Catalog Product View Options Type Amid Template file
+ *
+ * @category  design
+ * @package   perficient_amid
+ * @copyright Copyright (c) 2015 Perficient, Inc. (http://commerce.perficient.com/)
+ * @author    Andrew Versalle <andrew.versalle@perficient.com>
+ */
+?>
+<?php
+/** @var Amid_CustomOptions_Block_Catalog_Product_View_Options_Type_Amid $this Amid Custom Options Module Catalog Product View Options Type Amid Block */
+?>
+<?php
+$_option = $this->getOption();
+$hiddenFiledPlaced = false;
+$groupTitle = $this->escapeHtml($_option->getTitle());
+$lineLocation = strtolower(preg_replace('/\s/', '__', $groupTitle));
+?>
+<dd class="engraving-list" >
+    <dl id="engraving_<?php echo $lineLocation; ?>_list" data-option-id="<?php echo $_option->getId() ?>">
+        <?php foreach ($this->getEngravingData() as $key => $value): ?>
+            <dt class="<?php echo $lineLocation; ?>_group_title"><label><?php echo $groupTitle; ?></label></dt>
+            <dd class="<?php echo $lineLocation; ?>_group_options">
+                <dl class="inner_group_options engraving-field-group">
+                    <?php $line = 1; ?>
+                    <?php foreach ($value as $maxlength): ?>
+                        <dt><label for="options_<?php echo $_option->getId(); ?>_<?php echo $key; ?>_<?php echo $line; ?>"><?php echo $line; ?></label></dt>
+                        <dd>
+                            <div class="input-box">
+                                <?php if (!$hiddenFiledPlaced): ?>
+                                    <input type="text" data-engraving-location="<?php echo strtolower(preg_replace('/\s/', '_', $groupTitle)); ?>" id="options_<?php echo $_option->getId() ?>_text" class="input-text no-display engraving-data" name="options[<?php echo $_option->getId() ?>]" value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>" />
+                                    <?php $hiddenFiledPlaced = true; endif; ?>
+                                <input
+                                    data-plate-size="<?php echo $key; ?>"
+                                    data-line-index="<?php echo $line - 1; ?>"
+                                    data-line-location="<?php echo $lineLocation; ?>"
+                                    type="text"
+                                    class="input-text validate-length maximum-length-<?php echo $maxlength; ?> product-custom-option engraving-field engraving-text engraving-text-one"
+                                    data-option-id="<?php echo $_option->getId(); ?>"
+                                    id="options_<?php echo $_option->getId(); ?>_<?php echo $key; ?>_<?php echo $line; ?>"
+                                    maxlength="<?php echo $maxlength; ?>"
+                                    value="<?php echo $this->escapeHtml($this->getDefaultValue()); ?>"
+                                    name="engraving_text_fields[<?php echo $lineLocation; ?>][<?php echo $line; ?>]"
+                                    />
+                                <p class="note"><?php echo $_maxCharacters ?></p>
+                            </div>
+                        </dd>
+                        <?php $line++; endforeach; ?>
+                </dl>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+</dd>

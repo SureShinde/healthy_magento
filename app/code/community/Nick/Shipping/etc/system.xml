@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+      <config>
+         <sections>
+          <carriers>
+              <groups>
+                  <parcelforce translate="label" module="shipping">
+                      <label>Custom Tracking</label>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>13</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                         <fields>
+                             <gateway_url translate="label">
+                                  <label>Gateway URL</label>
+                                  <frontend_type>text</frontend_type>
+                                  <sort_order>2</sort_order>
+                                  <show_in_default>1</show_in_default>
+                                  <show_in_website>1</show_in_website>
+                                  <show_in_store>1</show_in_store>
+                              </gateway_url>
+							  <title translate="label">
+                                  <label>Shipping Title</label>
+                                  <frontend_type>text</frontend_type>
+                                  <sort_order>2</sort_order>
+                                  <show_in_default>1</show_in_default>
+                                  <show_in_website>1</show_in_website>
+                                  <show_in_store>1</show_in_store>
+                              </title>    
+                          </fields>
+
+                      </parcelforce>
+                  </groups>
+              </carriers>
+          </sections>
+      </config>

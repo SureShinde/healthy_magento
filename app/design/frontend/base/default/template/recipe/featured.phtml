@@ -1,0 +1,19 @@
+<div class="box best-selling">
+<h3>Featured Recipes</h3>
+<table cellspacing="0" border="0" style="width:100%;">
+	<tbody>
+		<tr class="odd">
+			<?php foreach($this->getFeaturedRecipes() as $featured): ?>
+			<td>
+				<a href="<?php echo Mage::getBaseUrl('web') ?>recipe/index/index/id/<?php echo $featured->getId() ?>"><img style="float:none;" border="0" alt="" src="<?php echo Mage::getBaseUrl('media') ?>recipe/tn/<?php echo $featured->getLrgPath() ?>" class="product-img"></a><br />
+				
+				
+				<div class="product-description" style="margin-left:0px;">
+					<p><a href="<?php echo Mage::getBaseUrl('web') ?>recipe/index/index/id/<?php echo $featured->getId() ?>"><?php echo $featured->getTitle() ?></a></p>
+				</div>
+			</td>
+			<?php endforeach ?>
+		</tr>
+	</tbody>
+</table>
+</div>

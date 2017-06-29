@@ -1,0 +1,24 @@
+<script type="text/javascript">
+function addStep() {
+	  var ni = document.getElementById('step_fields');
+	  var newdiv = document.createElement('div');
+	  var divIdName = 'newStep';
+	  newdiv.setAttribute('id',divIdName);
+	  newdiv.innerHTML = "<label>Order</label> <input name='steps[order][]' type='text' size='5' /> <label>Step</label> <input name='steps[step][]' type='text' size='50' /><input type='hidden' name='steps[step_id][]' value='' /><br />";
+	  ni.appendChild(newdiv);
+}
+</script> 
+
+<div style="float:right;"><input type="button" id="addNewIngredient" onclick="addStep();" value="Add Step" /></div>
+
+<div id="step_fields">
+<?php $fields = $this->getSteps() ?>
+<?php foreach($fields as $field): ?>
+	<label>Order</label> <input name="steps[order][]" type="text" size="5" value="<?= $field->getOrder() ?>" />
+	<label>Step</label> <input name="steps[step][]" type="text" size="50" value="<?= $field->getStep() ?>" />
+	<input type="hidden" name="steps[step_id][]" value="<?= $field->getStepId() ?>" />
+	<br />
+<?php endforeach ?>
+	<br/>
+	<span style="font-size: 10px; color: #666666;">* Leave the order and the step blank and save to delete a step.</span>
+</div>

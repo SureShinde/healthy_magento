@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <NeXtIT_Admin>
+            <version>0.1.0</version>
+        </NeXtIT_Admin>
+    </modules>
+    <global>
+        <models>
+            <nextit_admin>
+                <class>NeXtIT_Admin_Model</class>
+            </nextit_admin>
+            <sales>
+                <rewrite>
+                    <order_invoice>NeXtIT_Admin_Model_Sales_Order_Invoice</order_invoice>
+                </rewrite>
+            </sales>
+        </models>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view>NeXtIT_Admin_Block_Adminhtml_Sales_Order_View</sales_order_view>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>

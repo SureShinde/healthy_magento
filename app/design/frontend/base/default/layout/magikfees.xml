@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>    
+	<reference name="head">
+            <action method="addCss"><stylesheet>css/magikfees.css</stylesheet></action>
+        </reference>
+    </default>
+    <checkout_onepage_index>
+    	<reference name="checkout.onepage.shipping_method">
+    		<action method="setTemplate"><template>magikfees/checkout--onepage--shipping_method.phtml</template></action>
+    		<block type="magikfees/magikfees" name="checkout.onepage.shipping_magikfees" as="shipping_magikfees" template="magikfees/magikfees.phtml"/>
+    	</reference>	
+      
+    </checkout_onepage_index>
+
+ <checkout_multishipping_shipping>
+    <reference name="checkout_shipping">
+      <action method="setTemplate">
+        <template>magikfees/checkout--multishipping--shipping.phtml</template>
+      </action>
+	 <block type="magikfees/magikfees" name="shipping_magikfees_multi" as="shipping_magikfees_multi" template="magikfees/magikfees_multishipping.phtml"/>
+    </reference>
+  </checkout_multishipping_shipping>
+
+  <checkout_cart_index>
+	  <reference name="checkout.cart">
+		<block type="magikfees/magikfees" name="checkout.cart.extra_magikfees" as="extra_magikfees" template="magikfees/extrafees.phtml"/>
+	</reference>
+  </checkout_cart_index>
+  <!-- for frontend view order under My Account -->
+  <sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_item_renderer_default</block>
+                <template>magikfees/sales/order/items/renderer/default.phtml</template>
+            </action>
+        </reference>
+  </sales_order_view>
+  <sales_order_view>
+        <reference name="order_items">
+            <action method="addItemRender">
+                <type>bundle</type>
+                 <block>bundle/sales_order_items_renderer</block>
+                <template>magikfees/bundle/sales/order/items/renderer.phtml</template>
+            </action>
+        </reference>
+  </sales_order_view>
+  <!-- for frontend view order under My Account -->
+  
+  <!-- for frontend new order Email -->
+  <sales_email_order_items>
+        <reference name="items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>magikfees/email/order/items/order/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/sales_order_items_renderer</block>
+                <template>magikfees/bundle/email/order/items/order/default.phtml</template>
+            </action>	 
+        </reference>
+  </sales_email_order_items>
+  <!-- for frontend new order Email -->  
+
+  <!-- for frontend invoice Email -->
+  <sales_email_order_invoice_items>
+        <reference name="items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_default</block>
+                <template>magikfees/email/order/items/invoice/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+		<type>bundle</type>
+		<block>bundle/sales_order_items_renderer</block>
+		<template>magikfees/bundle/email/order/items/invoice/default.phtml</template>
+	    </action>
+        </reference>
+  </sales_email_order_invoice_items>
+  <!-- for frontend invoice Email -->  
+
+  <sales_email_order_shipment_items>
+	<reference name="items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_default</block>
+                <template>magikfees/email/order/items/shipment/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+		<type>bundle</type>
+		<block>bundle/sales_order_items_renderer</block>
+		<template>magikfees/bundle/email/order/items/shipment/default.phtml</template>
+	    </action>
+        </reference>          
+  </sales_email_order_shipment_items>
+
+  <sales_email_order_creditmemo_items>
+	<reference name="items">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_default</block>
+                <template>magikfees/email/order/items/creditmemo/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+		<type>bundle</type>
+		<block>bundle/sales_order_items_renderer</block>
+		<template>magikfees/bundle/email/order/items/creditmemo/default.phtml</template>
+	    </action>
+        </reference>        
+   </sales_email_order_creditmemo_items>   
+
+   <checkout_cart_index>
+	<reference name="checkout.cart">
+            <action method="addItemRender">
+                <type>simple</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/cart/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_cart_index>
+   <checkout_cart_index>
+	<reference name="checkout.cart">
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>magikfees/checkout/cart/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_cart_index>
+   <checkout_cart_index>
+	<reference name="checkout.cart">
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>magikfees/checkout/cart/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_cart_index>	
+   <checkout_cart_index>
+	<reference name="checkout.cart">
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/checkout_cart_item_renderer</block>
+                <template>magikfees/checkout/cart/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_cart_index>
+   <checkout_cart_index>
+	<reference name="checkout.cart">
+            <action method="addItemRender">
+                <type>virtual</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/cart/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_cart_index>
+   <checkout_cart_index>
+        <reference name="checkout.cart">
+            <action method="addItemRender">
+              <type>downloadable</type>
+              <block>downloadable/checkout_cart_item_renderer</block>
+              <template>magikfees/downloadable/checkout/cart/item/default.phtml</template></action>
+        </reference>
+   </checkout_cart_index>
+   
+   <checkout_onepage_review>
+	<reference name="root">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/onepage/review/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_onepage_review>
+   <checkout_onepage_review>
+	<reference name="root">
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>magikfees/checkout/onepage/review/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_onepage_review>
+   <checkout_onepage_review>
+	<reference name="root">
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>magikfees/checkout/onepage/review/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_onepage_review>	
+   <checkout_onepage_review>
+	<reference name="root">
+            <action method="addItemRender">
+                <type>bundle</type>
+                <block>bundle/checkout_cart_item_renderer</block>
+                <template>magikfees/checkout/onepage/review/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_onepage_review>
+    <checkout_onepage_review>
+	<reference name="root">
+            <action method="addItemRender">
+                <type>virtual</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/onepage/review/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_onepage_review>
+   
+   <checkout_multishipping_addresses>
+   	<reference name="checkout_addresses">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_multishipping_addresses>
+ 
+   <checkout_multishipping_shipping>
+   	<reference name="checkout_shipping">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+        </reference>   
+   </checkout_multishipping_shipping>
+   
+   <checkout_multishipping_overview>
+   	<reference name="checkout_overview">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>checkout/cart_item_renderer</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>checkout/cart_item_renderer_grouped</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>configurable</type>
+                <block>checkout/cart_item_renderer_configurable</block>
+                <template>magikfees/checkout/multishipping/item/default.phtml</template>
+            </action>
+            <action method="addRowItemRender">
+            	<type>grouped</type>
+            	<block>checkout/cart_item_renderer_grouped</block>
+            	<template>magikfees/checkout/multishipping/overview/item.phtml</template>
+            </action>
+            <action method="addRowItemRender">
+            	<type>configurable</type>
+            	<block>checkout/cart_item_renderer_configurable</block>
+            	<template>magikfees/checkout/multishipping/overview/item.phtml</template>
+            </action>
+        </reference>   
+   </checkout_multishipping_overview>
+</layout> 

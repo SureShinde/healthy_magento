@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Capitaln_Hacklehealthmanagement>
+            <active>true</active>
+            <codePool>local</codePool>
+			<depends>
+				<ParadoxLabs_AuthorizeNetCim/>
+			</depends>
+        </Capitaln_Hacklehealthmanagement>
+    </modules>
+</config>
