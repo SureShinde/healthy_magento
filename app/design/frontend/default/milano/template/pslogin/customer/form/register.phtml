@@ -92,7 +92,7 @@
     <?php if($this->getShowAddressFields()): ?>
         <div class="fieldset">
             <input type="hidden" name="create_address" value="1" />
-            <h2 class="legend"><?php echo $this->__('Address Information') ?></h2>
+            <h2 class="legend"><?php echo $this->__('Address Information'); ?></h2>
             <ul class="form-list">
                 <li class="fields">
                     <div class="field">
@@ -111,8 +111,8 @@
             <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
                 <li class="wide">
                     <label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
-                    <div class="input-box">
-                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
+                    <div class="input-box clear-box">
+                        <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getFormData()->getStreet(1)); ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
                     </div>
                 </li>
             <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
@@ -160,8 +160,8 @@
                     </div>
                 </li>
             </ul>
-            <input type="hidden" name="default_billing" value="1" />
-            <input type="hidden" name="default_shipping" value="1" />
+            <input type="hidden" id="default_billing" name="default_billing" value="1" />
+            <input type="hidden" id="default_shipping" name="default_shipping" value="1" />
         </div>
     <?php endif; ?>
         <div class="fieldset">
