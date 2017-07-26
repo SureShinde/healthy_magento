@@ -1,1 +1,1 @@
-# Hackley Health Management - Magento Store
+# Magento Store
